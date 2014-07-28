@@ -192,7 +192,9 @@ module.exports = function(router) {
 
 
     router.get('/verifyemail/user/:token', function(req, res) {
+			
         var token = req.params.token;
+			
         db.artists.findAndModify({
             query: {
                 user_token: token
