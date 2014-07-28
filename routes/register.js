@@ -213,8 +213,8 @@ module.exports = function(router) {
                 // passwordEmail()
             }
         });
-        var string = encodeURIComponent('You account is now verified. Expect an email shortly');
-        res.send(string);
+
+        res.send('You account is now verified. Expect an email shortly <a href="/">Back to Conception</a>');
     });
 
     return router;
