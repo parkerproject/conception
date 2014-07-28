@@ -1,0 +1,316 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conception - emerging artists</title>
+  <link rel="stylesheet" href="/themify-icons.css">
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="css/app.css" />
+  <script src="/vendor/modernizr/modernizr.js"></script>
+</head>
+
+<body>
+<div class="top-header-bar">
+    <div class="row">
+      <a href="/" class="large-7 columns logo">conception events</a>
+      <a href="/artist/login" class="large-1 columns login">Login</a>
+      <div class="large-4 columns">
+        <a href="/register">
+            <button class="small-12"><span class="ti-plus"></span>
+          <span class="text">join the experience<i>submit today!</i></span>
+        </button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row">
+    <div class="large-12 columns clearfix">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <!-- <h1><a href="#">My Site</a></h1> -->
+          </li>
+          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+          <!-- Left Nav Section -->
+          <ul class="left">
+            <li><a href="/events">events</a></li>
+            <li><a href="/about">about us</a></li>
+            <li><a href="/press">press</a></li>
+            <li><a href="/gallery">gallery</a></li>
+            <li><a href="/campus">campus</a></li>
+            <li><a href="/what-new">what's new</a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+          <div id="mySubmission">
+    <div class="inner-modal">
+            <h3>Artist Registration</h3>
+    <form id="artistForm" method="post" action="/process_register" enctype="multipart/form-data">
+        <div class="date_picker">
+            <p><input type="text" name="name" class="text" placeholder="Full Name" required/>
+                <input type="text" name="email" class="email" placeholder="Email Address" required/></p>
+    <span class="date-label">Date of birth</span>
+     <div>
+        <select class="birth-month" name="birthMonth">
+            <option value="">Month:</option>
+            <option value="Jan">Jan</option>
+            <option value="Feb">Feb</option>
+            <option value="Mar">Mar</option>
+            <option value="Apr">Apr</option>
+            <option value="May">May</option>
+            <option value="Jun">Jun</option>
+            <option value="Jul">Jul</option>
+            <option value="Aug">Aug</option>
+            <option value="Sep">Sep</option>
+            <option value="Oct">Oct</option>
+            <option value="Nov">Nov</option>
+            <option value="Dec">Dec</option>
+        </select>
+        <select class="birth-day" name="birthDay">
+            <option value="">Day:</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+        </select>
+        <select class="birth-year" name="birthYear" id="birth-year">
+            <option value="">Year:</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+            <option value="2010">2010</option>
+            <option value="2009">2009</option>
+            <option value="2008">2008</option>
+            <option value="2007">2007</option>
+            <option value="2006">2006</option>
+            <option value="2005">2005</option>
+            <option value="2004">2004</option>
+            <option value="2003">2003</option>
+            <option value="2002">2002</option>
+            <option value="2001">2001</option>
+            <option value="2000">2000</option>
+            <option value="1999">1999</option>
+            <option value="1998">1998</option>
+            <option value="1997">1997</option>
+            <option value="1996">1996</option>
+            <option value="1995">1995</option>
+            <option value="1994">1994</option>
+            <option value="1993">1993</option>
+            <option value="1992">1992</option>
+            <option value="1991">1991</option>
+            <option value="1990">1990</option>
+            <option value="1989">1989</option>
+            <option value="1988">1988</option>
+            <option value="1987">1987</option>
+            <option value="1986">1986</option>
+            <option value="1985">1985</option>
+            <option value="1984">1984</option>
+            <option value="1983">1983</option>
+            <option value="1982">1982</option>
+            <option value="1981">1981</option>
+            <option value="1980">1980</option>
+            <option value="1979">1979</option>
+            <option value="1978">1978</option>
+            <option value="1977">1977</option>
+            <option value="1976">1976</option>
+            <option value="1975">1975</option>
+            <option value="1974">1974</option>
+            <option value="1973">1973</option>
+            <option value="1972">1972</option>
+            <option value="1971">1971</option>
+            <option value="1970">1970</option>
+            <option value="1969">1969</option>
+            <option value="1968">1968</option>
+            <option value="1967">1967</option>
+            <option value="1966">1966</option>
+            <option value="1965">1965</option>
+            <option value="1964">1964</option>
+            <option value="1963">1963</option>
+            <option value="1962">1962</option>
+            <option value="1961">1961</option>
+            <option value="1960">1960</option>
+            <option value="1959">1959</option>
+            <option value="1958">1958</option>
+            <option value="1957">1957</option>
+            <option value="1956">1956</option>
+            <option value="1955">1955</option>
+            <option value="1954">1954</option>
+            <option value="1953">1953</option>
+            <option value="1952">1952</option>
+            <option value="1951">1951</option>
+            <option value="1950">1950</option>
+            <option value="1949">1949</option>
+            <option value="1948">1948</option>
+            <option value="1947">1947</option>
+            <option value="1946">1946</option>
+            <option value="1945">1945</option>
+            <option value="1944">1944</option>
+            <option value="1943">1943</option>
+            <option value="1942">1942</option>
+            <option value="1941">1941</option>
+            <option value="1940">1940</option>
+            <option value="1939">1939</option>
+            <option value="1938">1938</option>
+            <option value="1937">1937</option>
+            <option value="1936">1936</option>
+
+        </select>
+
+         </div>
+
+         <div class="row">
+            <div class="large-12 columns">
+             <select name="genre" class="genre" required>
+                <option value="">Select genre of art</option>
+                <option value="artist">Artist</option>
+                <option value="photography">Photography</option>
+                <option value="design">Design</option>
+                <option value="performaning art">Performing Art</option>
+                <option value="dance">Dance</option>
+                <option value="music">Music</option>
+                <option value="other">Other</option>
+             </select>
+            <select name="city" class="city" required>
+                 <option value="">Select event to attend</option>
+                 <option value="Conception New York City">Conception New York City</option>
+							<option value="Conception Philadelphia">Conception Philadelphia</option>
+							<option value="Conception Liverpool">Conception Liverpool</option>
+             </select>
+            </div>
+         </div>
+
+         <div class="row">
+             <div class="large-12 columns">
+                 <input type="text" name="url" class="text" placeholder="URL of your art work" required/>
+             </div>
+         </div>
+
+       <fieldset id="el##">
+        <legend>Upload your art work (3 max)</legend>
+            <div class="row">
+                 <div class="large-12 columns register-upload">
+                <label for="artwork_1"><i>Artwork 1</i></label>
+                <input type="file" name="artwork_1" class="artwork file" id="artwork_1" />
+                 </div>
+             </div>
+
+            <div class="row">
+                 <div class="large-12 columns register-upload">
+                <label for="artwork_2"><i>Artwork 2</i></label>
+                <input type="file" name="artwork_2" class="artwork file" id="artwork_2" />
+                 </div>
+             </div>
+
+              <div class="row">
+                 <div class="large-12 columns register-upload">
+                <label for="artwork_3"><i>Artwork 3</i></label>
+                <input type="file" name="artwork_3" class="artwork file" id="artwork_3" />
+                 </div>
+             </div>
+        </fieldset>
+
+        <div class="row">
+             <div class="large-12 columns register-upload">
+                <label for="photo"><i>Upload your photo</i></label>
+                 <input type="file" name="photo" class="file" id="photo" />
+             </div>
+         </div>
+
+         <div class="row">
+             <div class="large-12 columns">
+                 <button type="submit" class="expand register-submit">Submit</button>
+             </div>
+         </div>
+
+        </div>
+    </form>
+    </div>
+
+</div>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="large-12 columns">
+      <span class="scrollup"><i class="icon-angle-double-up"></i>Scroll up</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 colums">
+      <ul class="inline-list footer-social">
+        <li>
+          <a href="https://www.facebook.com/ConceptionEvents" class="icon-facebook-circled"></a>
+        </li>
+        <li>
+          <a href="https://twitter.com/ConceptionNYC" class="icon-twitter-circled"></a>
+        </li>
+        <!--               <li><a href="#" class="icon-social-pinterest"></a></li>
+              <li><a href="#" class="icon-gplus-circled"></a></li> -->
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <large-12 class="cloumns copyright">
+      <p class="text-center">Copyright &copy; 2014 Conception</p>
+    </large-12>
+  </div>
+
+
+
+  <script src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/vendor/foundation/js/foundation.min.js"></script>
+    <script src="/vendor/slick-carousel/slick/slick.js"></script>
+   <script src="/js/jquery.validate.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
