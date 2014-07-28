@@ -214,7 +214,7 @@ module.exports = function(router) {
             }
         });
         var string = encodeURIComponent('You account is now verified. Expect an email shortly');
-        res.redirect('/thank_you?data=' + string);
+        res.send(string);
     });
 
     return router;
