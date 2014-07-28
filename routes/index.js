@@ -26,7 +26,6 @@ var ebClient = new Eventbrite({
     'user_key': process.env.EVENTBRITE_USER_API
 });
 
-var mongojs = require('mongojs');
 var connection_string = '127.0.0.1:27017/conception';
 var helper = require('../helper');
 
@@ -36,8 +35,9 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 }
 
 
-var db = mongojs(connection_string, ['admin_users']);
-var admin_users = db.collection('admin_users');
+var databaseUrl = connection_string;
+var collections = ['admin_users', 'events'];
+var db = require("mongojs").connect(databaseUrl, collections);
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -97,14 +97,20 @@ passport.use(new LocalStrategy(function(username, password, done) {
 
 
 router.get('/', function(req, res) {
-    getEvents(function(data) {
-			console.log(data);
-        res.render('index', {
-            title: 'conception events',
-            data: data
-        });
+
+    db.events.find({}, function(err, events) {
+        if (err || !events) {
+            console.log(err);
+        } else {
+            res.render('index', {
+                title: 'conception events',
+                data: JSON.stringify(events)
+            });
+        }
     });
 });
+
+
 
 router.get('/about', function(req, res) {
     res.render('about', {

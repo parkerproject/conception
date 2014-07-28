@@ -107,7 +107,7 @@ var CONCEPTION = {
             '</div>',
             '<div class="large-8 columns event-meta left">',
             ' <span class="letter-space event-type">artist</span>',
-            ' <span class="letter-space event-title"><a href="/event/' + data.id + '">' + data.title + '</a></span>',
+            ' <span class="letter-space event-title"><a href="/event/' + data.event_id + '">' + data.title + '</a></span>',
             '<span class="event-location">' + data.venue.address + '</span> ',
             ' //<span class="event-time">' + start_time + ' - ' + end_time + '</span>,',
             ' //<span class="event-venue">' + data.venue.name + '</span>',
@@ -146,12 +146,12 @@ var CONCEPTION = {
             '<span>',
             '<i class="month">' + month + '</i><i class="day">' + day + '</i>',
             ' </span>',
-            '<a href="event/' + data.id + '" class="buy-tickets">buy tickets<i class="icon-angle-double-right"></i></a>',
+            '<a href="event/' + data.event_id + '" class="buy-tickets">buy tickets<i class="icon-angle-double-right"></i></a>',
             '</span>',
             ' </div>',
             '<div class="large-8 columns event-meta">',
             ' <span class="letter-space event-type">artists</span>',
-            '<span class="letter-space event-title"><a href="event/' + data.id + '">' + data.title + '</a></span>',
+            '<span class="letter-space event-title"><a href="event/' + data.event_id + '">' + data.title + '</a></span>',
             '<span class="event-location">' + data.venue.address + '</span><span class="event-time">' + start_time + ' - ' + end_time + '</span>,<span class="event-venue">' + data.venue.name + '</span>',
             ' </div>',
             '</div>'
@@ -163,20 +163,20 @@ var CONCEPTION = {
 
     eventListHomepage: function() {
         if (window.hasOwnProperty('eventList') && !eventList.hasOwnProperty('error_type')) {
-            var events = eventList.events,
+            var events = eventList,
                 upcomingContent = [],
                 pastContent = [],
                 allContent = [];
             var upcomingEvents = events.filter(function(list) {
-                return list.event.start_date > moment().format("YYYY-MM-DD HH:mm:ss");
+                return list.start_date > moment().format("YYYY-MM-DD HH:mm:ss");
             });
 
             var pastEvents = events.filter(function(list) {
-                return list.event.start_date < moment().format("YYYY-MM-DD HH:mm:ss");
+                return list.start_date < moment().format("YYYY-MM-DD HH:mm:ss");
             });
 
             for (var i = 0; i < upcomingEvents.length; i++) {
-                upcomingContent.push(this.upcomingEventTemplate(upcomingEvents[i].event));
+                upcomingContent.push(this.upcomingEventTemplate(upcomingEvents[i]));
             };
 
             document.querySelector('.upcoming-event').innerHTML = upcomingContent.join('');
@@ -187,29 +187,29 @@ var CONCEPTION = {
     eventSinglePage: function() {
         if (window.hasOwnProperty('fullEvent') && !fullEvent.hasOwnProperty('error_type')) {
 
-            var day = moment(fullEvent.event.start_date).format("MMM-DD").split('-')[1];
-            var month = moment(fullEvent.event.start_date).format("MMM-DD").split('-')[0];
-            var start_time = moment(fullEvent.event.start_date).format("h:mmA");
-            var end_time = moment(fullEvent.event.end_date).format("h:mmA");
+            var day = moment(fullEvent.start_date).format("MMM-DD").split('-')[1];
+            var month = moment(fullEvent.start_date).format("MMM-DD").split('-')[0];
+            var start_time = moment(fullEvent.start_date).format("h:mmA");
+            var end_time = moment(fullEvent.end_date).format("h:mmA");
 
             var images = ['philly_big.png', 'liverpool_big.png', 'new_york_big.png'],
                 img;
 
-            if (fullEvent.event.venue.city === 'New York') {
+            if (fullEvent.venue.city === 'New York') {
                 img = images[2];
-            } else if (fullEvent.event.venue.city === 'Liverpool') {
+            } else if (fullEvent.venue.city === 'Liverpool') {
                 img = images[1];
-            } else if (fullEvent.event.venue.city === 'Philadelphia') {
+            } else if (fullEvent.venue.city === 'Philadelphia') {
                 img = images[0];
             } else {}
 
-            var address = (fullEvent.event.venue.address != "") ? fullEvent.event.venue.address : 'TBD';
+            var address = (fullEvent.venue.address != "") ? fullEvent.venue.address : 'TBD';
 
             var when_where = ['<span>' + address + ' // ' + start_time + ' - ' + end_time + '</span>',
-                '<span class="event-location">' + fullEvent.event.venue.name + '</span>'
+                '<span class="event-location">' + fullEvent.venue.name + '</span>'
             ].join('');
 
-            document.querySelector('.event-title').textContent = fullEvent.event.title;
+            document.querySelector('.event-title').textContent = fullEvent.title;
             document.querySelector('.when-where').innerHTML = when_where;
             $('.event-img').attr('src', '/images/' + img);
 
@@ -218,11 +218,11 @@ var CONCEPTION = {
 
     eventsPage: function() {
         if (window.hasOwnProperty('eventsData') && !eventsData.hasOwnProperty('error_type')) {
-            var events = eventsData.events;
+            var events = eventsData;
             var contents = [];
 
             for (var i = 0; i < events.length; i++) {
-                contents.push(this.eventsTemplate(events[i].event));
+                contents.push(this.eventsTemplate(events[i]));
             };
 
             document.querySelector('.event-listing').innerHTML = contents.join('');

@@ -3,8 +3,7 @@
 require('dotenv').load();
 var bcrypt = require('bcrypt');
 var randtoken = require('rand-token');
-//var cloudinary = require('cloudinary');
-var mongojs = require('mongojs');
+var cloudinary = require('cloudinary');
 var Mailgun = require('mailgun').Mailgun;
 var mg = new Mailgun(process.env.MAIL_GUN_API);
 
@@ -16,15 +15,16 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 }
 
 
-var db = mongojs(connection_string, ['artists']);
-var artists = db.collection('artists');
+var databaseUrl = connection_string;
+var collections = ['artists'];
+var db = require("mongojs").connect(databaseUrl, collections);
 
 
-// cloudinary.config({
-//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-//   api_key: process.env.CLOUDINARY_API_KEY,
-//   api_secret: process.env.CLOUDINARY_API_SECRET
-// });
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 
 // function uploadFile(file, name, callback) {
@@ -58,6 +58,26 @@ function sendEmail(toEmail, name, link) {
 
 }
 
+
+function passwordEmail(toEmail, name, password) {
+
+    var emailHtml = 'From: noreply@conceptionevents.com' +
+        '\nTo: ' + toEmail +
+        '\nContent-Type: text/html; charset=utf-8' +
+        '\nSubject: Conception Events: Activate your account' +
+        '\n\nHi ' + name +
+        '\nWelcome to Conception Events!' +
+        '\nYour password is ' + password +
+        '\n\nHave a great day' +
+        '\nConception Team';
+
+
+    mg.sendRaw('noreply@conceptionevents.com', toEmail, emailHtml, function(err) {
+        if (err) console.log(err);
+        if (!err) console.log('email sent');
+    });
+
+}
 
 
 function sendAdminEmail() {
@@ -151,7 +171,7 @@ module.exports = function(router) {
                                 if (err) console.log('second error ' + err);
                                 if (result) console.log('Added!');
 
-                                var link = 'http://conception-mypinly.rhcloud.com/verifyemail?user=' + userInfo.user_token;
+                                var link = 'http://conception-mypinly.rhcloud.com/verifyemail/user/' + userInfo.user_token;
 
                                 sendEmail(userInfo.email, userInfo.full_name, link);
                                 sendAdminEmail();
@@ -169,5 +189,33 @@ module.exports = function(router) {
             }
         });
     });
+
+
+    router.get('/verifyemail/user/:token', function(req, res) {
+        var token = req.params.token;
+        db.artists.findAndModify({
+            query: {
+                user_token: token
+            },
+            update: {
+                $set: {
+                    emailVerified: true
+                }
+            },
+            new: true
+        }, {
+
+        }, function(err, doc, lastErrObj) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(doc);
+                // passwordEmail()
+            }
+        });
+        var string = encodeURIComponent('You account is now verified. Expect an email shortly');
+        res.redirect('/thank_you?data=' + string);
+    });
+
     return router;
 };
