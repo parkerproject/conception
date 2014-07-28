@@ -57,7 +57,7 @@ function sendEmail(toEmail, name, link) {
 
   transporter.sendMail({
     from: 'noreply@conceptionevents.com',
-    to: toEmailo,
+    to: toEmail,
     subject: 'Conception Events: Activate your account',
     html: emailHtml
   }, function(err, status) {
