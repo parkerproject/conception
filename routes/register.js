@@ -44,11 +44,11 @@ function sendEmail(toEmail, name, link) {
         '\nTo: ' + toEmail +
         '\nContent-Type: text/html; charset=utf-8' +
         '\nSubject: Conception Events: Activate your account' +
-        '\n\nHi ' + name +
+        '<html>\n\nHi ' + name +
         '\nWelcome to Conception Events!' +
         '\nHey,thanks for submitting your artwork! Please verify your email by clicking this ' + link +
         '\n\nHave a great day' +
-        '\nConception Team';
+        '\nConception Team</html>';
 
 
     mg.sendRaw('noreply@conceptionevents.com', toEmail, emailHtml, function(err) {
