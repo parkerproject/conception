@@ -187,7 +187,7 @@ module.exports = function(router) {
                                     event_id: event_id
                                 },
                                 update: {
-                                    $$addToSet: {
+                                    $addToSet: {
                                         artists: userInfo.email
                                     }
                                 },
