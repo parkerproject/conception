@@ -36,7 +36,7 @@ passport.use(new LocalStrategy(function(email, password, done) {
             }
             if (!user) {
                 return done(null, false, {
-                    message: 'Unknown user email ' + username
+                    message: 'Unknown user email ' + email
                 });
             }
             if (user.password !== password) {
