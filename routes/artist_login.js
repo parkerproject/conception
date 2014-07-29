@@ -67,6 +67,7 @@ module.exports = function(router) {
         failureRedirect: '/artist/login',
         failureFlash: true
     }), function(req, res) {
+        console.log(req.body);
         res.redirect('/edit-profile/' + req.body.user_token);
     });
 
