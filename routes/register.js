@@ -263,7 +263,7 @@ module.exports = function(router) {
                 console.log(err);
             } else {
                 var userDetails = JSON.stringify(doc);
-                console.log(userDetails);
+                console.log(userDetails.artwork_1);
                 var email = userDetails.email;
                 var fileOne = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_1;
                 var fileTwo = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_2;
