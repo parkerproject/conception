@@ -128,7 +128,7 @@ module.exports = function(router) {
             artwork_2_name = (req.files.hasOwnProperty('artwork_2')) ? req.files.artwork_2.name : '',
             artwork_3_name = (req.files.hasOwnProperty('artwork_3')) ? req.files.artwork_3.name : '',
             photo = (req.files.hasOwnProperty('photo')) ? req.files.photo.name : '',
-            event_id = parseInt(req.params.city);
+            event_id = parseInt(req.body.city);
 
 
         var userInfo = {
