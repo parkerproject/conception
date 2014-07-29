@@ -84,7 +84,6 @@ module.exports = function(router) {
 
   router.post('/artist_update', function(req, res) {
 		
-		console.log(req.body);
 
     if (req.url == '/artist_update') {
       db.artists.findAndModify({
