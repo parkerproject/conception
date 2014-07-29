@@ -12,8 +12,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'mailgun',
     auth: {
-        user: 'postmaster@sandbox702c0336f2234dccb79c12b301fb8e03.mailgun.org',
-        pass: process.env.MAIL_GUN_PASS
+        user: 'postmaster@mg.conceptionevents.com',
+        pass: '015b33698e4ad798d89b9034cb20b935'
     }
 });
 
@@ -49,11 +49,11 @@ cloudinary.config({
 
 function sendEmail(toEmail, name, link) {
 
-    var emailHtml = '\n\nHi ' + name +
-        '\nWelcome to Conception Events!' +
-        '\nHey,thanks for submitting your artwork! Please verify your email by clicking this ' + link +
-        '\n\nHave a great day' +
-        '\nConception Team';
+    var emailHtml = 'Hi <b>' + name + '</b><br /><br />' +
+        '<i>Welcome to Conception Events</i>!<br />' +
+        '<br />Hey,thanks for submitting your artwork! Please verify your email by clicking this ' + link +
+        '<br /><br />Have a great day' +
+        '<br />Conception Team';
 
     transporter.sendMail({
         from: 'noreply@conceptionevents.com',
@@ -85,14 +85,14 @@ function passwordEmail(toEmail, name, password) {
 
 function sendAdminEmail() {
 
-    var body = '\nHey buddy!, A new artist has just joined Conception Events.' +
-        '<a href="http://conception-mypinly.rhcloud.com/conception">Login to approve</a>' +
-        '\n\nHave a great day<br />' +
-        '\nConception Robot';
+    var body = 'Hey buddy!<br /><br /> A new artist has just joined Conception Events.' +
+        '<a href="http://conception-mypinly.rhcloud.com/conception"> Login to approve</a>' +
+        '<br /><br />Have a great day' +
+        '<br />Conception Robot';
 
     transporter.sendMail({
         from: 'noreply@conceptionevents.com',
-        to: process.env.CONCEPTION_ADMIN_EMAIL,
+        to: 'conceptionevents00@gmail.com',
         subject: 'Conception Events: New Artist',
         html: body
     }, function(err, status) {
