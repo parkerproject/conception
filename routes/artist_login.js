@@ -112,7 +112,7 @@ module.exports = function(router) {
       });
 
     } else {
-      res.redirect('/');
+      res.redirect('/artist/login');
     }
 
    
@@ -135,7 +135,7 @@ module.exports = function(router) {
 
   router.get('/artist/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/artist/login');
   });
 
   return router;
