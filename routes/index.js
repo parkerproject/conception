@@ -79,7 +79,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
                 }
                 if (!user) {
                     return done(null, false, {
-                        message: 'Unknown user ' + username
+                        message: 'Unknown user1 ' + username
                     });
                 }
                 if (user.password !== password) {
