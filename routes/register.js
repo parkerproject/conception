@@ -199,7 +199,6 @@ module.exports = function(router) {
                                     console.log(err);
                                 } else {
                                     console.log('artist added to event: ' + doc);
-                                    // passwordEmail()
                                 }
                             });
 
@@ -236,7 +235,7 @@ module.exports = function(router) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(doc);
+                console.log(JSON.stringify(doc));
                 // passwordEmail()
             }
         });
