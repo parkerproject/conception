@@ -82,7 +82,7 @@ module.exports = function(router) {
   });
 
 
-  router.post('/artist/update', function(req, res) {
+  router.post('/artist_update', function(req, res) {
 		
 		console.log(req.body);
 
