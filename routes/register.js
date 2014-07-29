@@ -262,7 +262,7 @@ module.exports = function(router) {
             if (err) {
                 console.log(err);
             } else {
-                var userDetails = JSON.stringify(doc);
+                var userDetails = doc;
                 console.log(userDetails.artwork_1);
                 var email = userDetails.email;
                 var fileOne = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_1;
