@@ -11,7 +11,6 @@ var databaseUrl = connection_string;
 var collections = ['artists', 'events'];
 var db = require("mongojs").connect(databaseUrl, collections);
 
-
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
