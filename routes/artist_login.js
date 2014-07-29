@@ -67,11 +67,14 @@ module.exports = function(router) {
         failureRedirect: '/artist/login',
         failureFlash: true
     }), function(req, res) {
-        console.log(req.body);
-        res.redirect('/edit-profile/' + req.body.user_token);
+        var email = req.body.username;
+        res.render('edit_profile', {
+            title: '',
+            data: ''
+        });
     });
 
-    router.get('/edit-profile/:artist', ensureAuthenticated, function(req, res) {
+    router.get('/edit-profile', ensureAuthenticated, function(req, res) {
         res.render('edit_profile', {
             title: '',
             data: ''
