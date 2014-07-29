@@ -13,7 +13,7 @@ var transporter = nodemailer.createTransport({
     service: 'mailgun',
     auth: {
         user: 'postmaster@mg.conceptionevents.com',
-        pass: '015b33698e4ad798d89b9034cb20b935'
+        pass: process.env.MAIL_GUN_PASS
     }
 });
 
