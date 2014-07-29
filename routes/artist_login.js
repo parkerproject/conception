@@ -25,18 +25,18 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
     done(null, user);
 });
-passport.use(new LocalStrategy(function(email, password, done) {
+passport.use(new LocalStrategy(function(username, password, done) {
     // asynchronous verification, for effect...
     process.nextTick(function() {
         db.artists.findOne({
-            'email': email
+            'email': username
         }, function(err, user) {
             if (err) {
                 return done(err);
             }
             if (!user) {
                 return done(null, false, {
-                    message: 'Unknown user email ' + email
+                    message: 'Unknown username ' + username
                 });
             }
             if (user.password !== password) {
@@ -60,7 +60,7 @@ module.exports = function(router) {
 
 
     router.post('/artist_login', passport.authenticate('local', {
-        //failureRedirect: '/artist/login',
+        failureRedirect: '/artist/login',
         failureFlash: true
     }), function(req, res) {
         res.redirect('/edit-profile/' + req.body.user_token);
