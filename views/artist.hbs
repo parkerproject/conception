@@ -60,31 +60,46 @@
       <div class="large-4 columns">
           <img src="images/artist.jpg" alt="" class="artist-pic">
           <div class="artist-details">
-              <span class="name">thomas muller</span>
-              <span class="category">music</span>
+              <span class="name">{{data.full_name}}</span>
+              <span class="category">{{data.genre}}</span>
+						
+						{{#if data.story}}
               <h4>my story</h4>
-              <p>Sirloin pork belly chicken jowl, consequat reprehenderit flank. Flank non prosciutto est in et. Ham hock fatback landjaeger shank, sausage turkey tail chuck salami pig mollit filet mignon adipisicing. Est corned beef short loin incididunt veniam jowl tri-tip capicola nisi rump
-              </p>
+              <p>{{data.story}}</p>
+						{{/if}}
+						
               <ul class="inline-list artist-social">
-                  <li><a href="" class="icon-facebook"><!--facebook--></a></li>
-                  <li><a href="" class="icon-twitter"><!-- twitter --></a></li>
-                  <li><a href="" class="icon-instagram"><!-- instagram --></a></li>
-                  <li><a href="" class="icon-gplus"><!-- googleplus --></a></li>
+								{{#if data.facebook_url}}
+                  <li><a href="{{data.facebook_url}}" class="icon-facebook"><!--facebook--></a></li>
+								{{/if}}
+								{{#if data.twitter_url}}
+                  <li><a href="{{data.twitter_url}}" class="icon-twitter"><!-- twitter --></a></li>
+								{{/if}
+								{{#if data.instagram}}
+                  <li><a href="{{data.instagram}}" class="icon-instagram"><!-- instagram --></a></li>
+								{{/if}}
+<!--                   <li><a href="" class="icon-gplus">googleplus</a></li> -->
               </ul>
-
-              <a href="" class="artist-url"><i class="icon-link-streamline"></i>thomasmuller.me</a>
+              {{#if data.url}}
+              <a href="http://{{data.url}}" class="artist-url"><i class="icon-link-streamline"></i>{{data.url}}</a>
+						  {{/if}}
               <button><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
           </div>
 
       </div>
       <div class="large-8 columns">
-        <ul class="mygallery clearing-thumbs" data-clearing>
-            <li><a href="images/art-work/1.jpg"><img src="images/art-work/1.jpg"></a></li>
-            <li><a href="images/art-work/2.jpg"><img src="images/art-work/2.jpg"></a></li>
-            <li><a href="images/art-work/3.jpg"><img src="images/art-work/3.jpg"></a></li>
-            <li><a href="images/art-work/4.jpg"><img src="images/art-work/4.jpg"></a></li>
-            <li><a href="images/art-work/5.jpg"><img src="images/art-work/5.jpg"></a></li>
-        </ul>
+  
+				<ul class="mygallery clearing-thumbs small-block-grid-4" data-clearing>
+					{{#if data.artwork_1}}
+					<li><a href="{{data.artwork_1}}"><img src="{{data.artwork_1}}"></a></li>
+					{{/if}}
+					{{#if data.artwork_2}}
+					<li><a href="{{data.artwork_2}}"><img src="{{data.artwork_2}}"></a></li>
+					{{/if}}
+					{{#if data.artwork_3}}
+					<li><a href="{{data.artwork_3}}"><img src="{{data.artwork_3}}"></a></li>
+					{{/if}}
+				</ul>
       </div>
   </div>
 

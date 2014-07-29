@@ -57,11 +57,11 @@
     </div>
   </div>
 
-<form id="artist-edit-form">
+<form id="artist-edit-form" action="/artist/update" method="post" >
   <div class="row artist-profile edit-artist-profile">
       <div class="artist-details large-6 small-12 columns">
           <img src="{{data.photo}}" alt="" class="artist-pic" />
-          <a class="edit-photo">Edit Photo</a>
+<!--           <a class="edit-photo">Edit Photo</a> -->
           <h4>My Story</h4>
           <p>
               <textarea name="my_story">{{data.story}} </textarea>
@@ -103,7 +103,7 @@
           <span class="prefix artist-social-prefix">http://</span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your URL..." value="{{data.url}}">
+          <input type="text" name="artist_url" placeholder="Enter your URL..." value="{{data.url}}">
         </div>
       </div>
 
@@ -112,7 +112,7 @@
           <span class="prefix artist-social-prefix"><i class="icon-facebook"></i></span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your Facebook URL..." value="{{data.facebook_url}}">
+          <input type="text" name="artist_facebook_url" placeholder="Enter your Facebook URL..." value="{{data.facebook_url}}">
         </div>
       </div>
 
@@ -121,7 +121,7 @@
           <span class="prefix artist-social-prefix"><i class="icon-twitter"></i></span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your Twiiter URL..." value="{{data.twitter_url}}">
+          <input type="text" name="artist_twitter_url" placeholder="Enter your Twiiter URL..." value="{{data.twitter_url}}">
         </div>
       </div>
 
@@ -130,17 +130,19 @@
           <span class="prefix artist-social-prefix"><i class="icon-instagram"></i></span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your Instagram URL..." value="{{data.instagram}}">
+          <input type="text" name="artist_instagram" placeholder="Enter your Instagram URL..." value="{{data.instagram}}">
         </div>
       </div>
 
       <div class="row">
-          <div class="large-12 columns art-thumb tiny">
-              <img src="{{data.artwork_1}}" alt="" height="40" />
-              <img src="{{data.artwork_2}}" alt="" height="40" />
-              <img src="{{data.artwork_3}}" alt="" height="40" />
+          <div class="large-12 columns art-thumb">
+						<ul class="clearing-thumbs" data-clearing>
+              <li><a href="{{data.artwork_1}}"><img src="{{data.artwork_1}}" alt="" height="40" /></a></li>
+              <li><a href="{{data.artwork_2}}"><img src="{{data.artwork_2}}" alt="" height="40" /></a></li>
+              <li><a href="{{data.artwork_3}}"><img src="{{data.artwork_3}}" alt="" height="40" /></a></li>
+							</ul>
 						
-						<select name="art_work" id="art_work">
+<!-- 						<select name="art_work" id="art_work">
 							<option value="">Update artwork</option>
 						   <option value="1">Art work 1</option>
 							 <option value="2">Art work 2</option>
@@ -148,7 +150,7 @@
 						</select>
             <span class="file right">
               <input type="file" name="file" />
-            </span>
+            </span> -->
           </div>
       </div>
 
@@ -158,7 +160,7 @@
 
 <div class="row">
 <button class="large-11 columns" type="submit">Submit</button>
-<button class="large-1 columns cancel" type="submit"><i class="icon-x-circle"></i></button>
+<!-- <button class="large-1 columns cancel" type="submit"><i class="icon-x-circle"></i></button> -->
 </div>
 
 </form>

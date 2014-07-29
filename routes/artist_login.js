@@ -81,17 +81,49 @@ module.exports = function(router) {
 
   });
 
+
+  router.post('/artist/update', passport.authenticate('local', {
+    failureRedirect: '/artist/login',
+    failureFlash: true
+  }), function(req, res) {
+
+    db.artists.findAndModify({
+
+      query: {
+        email: req.body.artist_email
+      },
+      update: {
+        $set: {
+          story: req.body.my_story,
+					facebook_url: req.body.artist_facebook_url,
+					twitter_url: req.body.artist_twitter_url,
+					url: req.body.artist_url
+        }
+      }
+
+    }, function(err, user) {
+      if (err || !user) console.log("No user found");
+      else {
+        res.render('artist', {
+          title: '',
+          data: user
+        });
+      }
+    });
+
+  });
+
   router.get('/edit-profile', ensureAuthenticated, function(req, res) {
     res.render('edit_profile', {
       title: '',
       data: ''
     });
   });
-	
-	router.get('/artist/logout', function(req, res) {
+
+  router.get('/artist/logout', function(req, res) {
     req.logout();
     res.redirect('/');
-});
+  });
 
   return router;
 };
