@@ -528,6 +528,7 @@
 .artist-profile{
     .artist-pic{
         border-bottom: 2px solid $secondary-color;
+			  width: 302px;
     }
     .artist-details{
         background: #222222;
@@ -659,6 +660,8 @@
     margin: 20px 0 30px 0;
     img{
         margin: 0 5px 0 0;
+			  width: 40px;
+			  height: 40px;
     }
     .file{
         background: url('../images/upload.jpg') no-repeat;
