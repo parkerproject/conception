@@ -60,7 +60,7 @@ module.exports = function(router) {
 
 
     router.post('/artist_login', passport.authenticate('local', {
-        failureRedirect: '/artist/login',
+        //failureRedirect: '/artist/login',
         failureFlash: true
     }), function(req, res) {
         res.redirect('/edit-profile/' + req.body.user_token);
