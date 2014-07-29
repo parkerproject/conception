@@ -4,9 +4,8 @@ require('dotenv').load();
 var bcrypt = require('bcrypt');
 var randtoken = require('rand-token');
 var cloudinary = require('cloudinary');
-// var Mailgun = require('mailgun').Mailgun;
-// var mg = new Mailgun(process.env.MAIL_GUN_API);
 var nodemailer = require('nodemailer');
+var fs = require('fs');
 
 // create reusable transporter object using SMTP transport
 var transporter = nodemailer.createTransport({
@@ -38,13 +37,48 @@ cloudinary.config({
 });
 
 
-// function uploadFile(file, name, callback) {
-//   cloudinary.uploader.upload(file, function(json) {
-//     callback(json);
-//   }, {
-//     public_id: name
-//   });
-// }
+function uploadFile(token, file, name, version) {
+    cloudinary.uploader.upload(file, function(json) {
+
+        var set;
+
+        if (version === 1) set = {
+            artwork_1: json.url
+        };
+        if (version === 2) set = {
+            artwork_2: json.url
+        };
+        if (version === 3) set = {
+            artwork_3: json.url
+        };
+        if (version === 4) set = {
+            photo: json.url
+        };
+
+        db.artists.findAndModify({
+            query: {
+                user_token: token
+            },
+            update: {
+                $set: set
+            }
+        }, function(err, doc, lastErrObj) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('image path updated');
+                fs.unlink(file, function(err) {
+                    if (err) console.log(err);
+                    console.log('successfully deleted: ' + file);
+                });
+            }
+        });
+
+
+    }, {
+        public_id: name
+    });
+}
 
 
 function sendEmail(toEmail, name, link) {
@@ -68,17 +102,24 @@ function sendEmail(toEmail, name, link) {
 }
 
 
-function passwordEmail(toEmail, name, password) {
+function sendPasswordEmail(toEmail, name, password) {
 
-    var emailHtml = 'From: noreply@conceptionevents.com' +
-        '\nTo: ' + toEmail +
-        '\nContent-Type: text/html; charset=utf-8' +
-        '\nSubject: Conception Events: Activate your account' +
-        '\n\nHi ' + name +
-        '\nWelcome to Conception Events!' +
-        '\nYour password is ' + password +
-        '\n\nHave a great day' +
-        '\nConception Team';
+    var emailHtml = 'Hi <b>' + name + '</b>' +
+        '<br /><br /><em>Your login details below</em>' +
+        '<br />Your username is ' + toEmail +
+        '<br />Your password is ' + password +
+        '<br /><br />Have a great day' +
+        '<br />Conception Team';
+
+    transporter.sendMail({
+        from: 'noreply@conceptionevents.com',
+        to: toEmail,
+        subject: 'Conception Events: Login details',
+        html: emailHtml
+    }, function(err, status) {
+        if (err) console.log(err);
+        if (status) console.log('login email sent');
+    });
 
 }
 
@@ -133,7 +174,7 @@ module.exports = function(router) {
 
         var userInfo = {
             full_name: req.body.name,
-            password: '',
+            password: password,
             email: req.body.email,
             user_token: randtoken.generate(10),
             emailVerified: false,
@@ -156,8 +197,6 @@ module.exports = function(router) {
             googleplus: ''
         };
 
-
-
         db.artists.findOne({
             email: req.body.email
         }, function(err, result) {
@@ -165,51 +204,41 @@ module.exports = function(router) {
             if (err) console.log('first error ' + err);
             if (result == null) {
 
-                bcrypt.genSalt(10, function(err, salt) {
-                    bcrypt.hash(password, salt, function(err, hash) {
+                userInfo.password = hash;
 
-                        userInfo.password = hash;
+                setTimeout(function() {
+                    db.artists.save(userInfo, function(err, result) {
+                        if (err) console.log('second error ' + err);
+                        if (result) console.log('Added!');
 
-                        setTimeout(function() {
-                            db.artists.save(userInfo, function(err, result) {
-                                if (err) console.log('second error ' + err);
-                                if (result) console.log('Added!');
+                        var link = 'http://conception-mypinly.rhcloud.com/verifyemail/user/' + userInfo.user_token;
 
-                                var link = 'http://conception-mypinly.rhcloud.com/verifyemail/user/' + userInfo.user_token;
-
-                                sendEmail(userInfo.email, userInfo.full_name, link);
-                                sendAdminEmail();
-
-                            });
-
-                            console.log(event_id, userInfo.email);
-
-                            db.events.findAndModify({
-                                query: {
-                                    event_id: event_id
-                                },
-                                update: {
-                                    $addToSet: {
-                                        artists: userInfo.email
-                                    }
-                                },
-                                new: true
-                            }, function(err, doc, lastErrObj) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log('artist added to event: ' + doc);
-                                }
-                            });
-
-
-                            var string = encodeURIComponent('Thank you for submitting. We would get back to you soon.');
-                            res.redirect('/thank_you?data=' + string);
-                        }, 0);
+                        sendEmail(userInfo.email, userInfo.full_name, link);
+                        sendAdminEmail();
 
                     });
 
-                });
+                    db.events.findAndModify({
+                        query: {
+                            event_id: event_id
+                        },
+                        update: {
+                            $addToSet: {
+                                artists: userInfo.email
+                            }
+                        },
+                        new: true
+                    }, function(err, doc, lastErrObj) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log('artist added to event: ' + doc);
+                        }
+                    });
+
+                    var string = encodeURIComponent('Thank you for submitting. We would get back to you soon.');
+                    res.redirect('/thank_you?data=' + string);
+                }, 0);
             } else {
                 res.send('User already exist <a href="/">Back to Conception</a>');
             }
@@ -235,8 +264,18 @@ module.exports = function(router) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(JSON.stringify(doc));
-                // passwordEmail()
+                var userDetails = JSON.stringify(doc);
+                var email = userDetails.email;
+                var fileOne = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.artwork_1;
+                var fileTwo = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.artwork_2;
+                var fileThree = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.artwork_3;
+                var filePhoto = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.photo;
+                uploadFile(token, fileOne, userDetails.artwork_1, 1);
+                uploadFile(token, fileTwo, userDetails.artwork_2, 2);
+                uploadFile(token, fileThree, userDetails.artwork_3, 3);
+                uploadFile(token, filePhoto, userDetails.photo, 4);
+
+                sendPasswordEmail(email, userDetails.full_name, userDetails.password);
             }
         });
 
