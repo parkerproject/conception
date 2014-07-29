@@ -8,7 +8,7 @@ require('./uploadManager')(router);
 require('./register')(router);
 require('./events')(router);
 require('./event')(router);
-require('./artist')(router);
+//require('./artist')(router);
 require('./press')(router);
 require('./whats_new')(router);
 require('./artist_login')(router);
