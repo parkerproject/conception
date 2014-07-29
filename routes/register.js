@@ -184,7 +184,7 @@ module.exports = function(router) {
 
                             console.log(event_id, userInfo.email);
 
-                            db.events.update({
+                            db.events.findAndModify({
                                 query: {
                                     event_id: event_id
                                 },
