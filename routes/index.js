@@ -1,8 +1,7 @@
 /**
  * Module dependencies
  */
-require('dotenv')
-    .load();
+require('dotenv').load();
 var express = require('express');
 var router = new express.Router();
 require('./uploadManager')(router);
@@ -12,11 +11,11 @@ require('./event')(router);
 require('./artist')(router);
 require('./press')(router);
 require('./whats_new')(router);
+require('./artist_login')(router);
 
 var passport = require('passport');
-var LocalStrategy = require('passport-local')
-    .Strategy;
-//var flash = require('connect-flash');
+var LocalStrategy = require('passport-local').Strategy;
+
 var getEvents = require('../models/get_events');
 var Eventbrite = require('eventbrite');
 var randtoken = require('rand-token');
@@ -27,8 +26,6 @@ var ebClient = new Eventbrite({
 });
 
 var connection_string = '127.0.0.1:27017/conception';
-var helper = require('../helper');
-
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
