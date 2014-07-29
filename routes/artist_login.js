@@ -29,14 +29,14 @@ passport.use(new LocalStrategy(function(username, password, done) {
     // asynchronous verification, for effect...
     process.nextTick(function() {
         db.artists.findOne({
-            'email': username
+            email: username
         }, function(err, user) {
             if (err) {
                 return done(err);
             }
             if (!user) {
                 return done(null, false, {
-                    message: 'Unknown username ' + user.password
+                    message: 'Unknown username ' + username
                 });
             }
             if (user.password !== password) {
