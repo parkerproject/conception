@@ -61,36 +61,36 @@ function findByUsername(username, fn) {
     }
     return fn(null, null);
 }
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-});
-passport.use(new LocalStrategy(function(username, password, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function() {
-        db.admin_users
-            .findOne({
-                'username': username
-            }, function(err, user) {
-                if (err) {
-                    return done(err);
-                }
-                if (!user) {
-                    return done(null, false, {
-                        message: 'Unknown user1 ' + username
-                    });
-                }
-                if (user.password !== password) {
-                    return done(null, false, {
-                        message: 'Invalid password'
-                    });
-                }
-                return done(null, user);
-            });
-    });
-}));
+// passport.serializeUser(function(user, done) {
+//     done(null, user);
+// });
+// passport.deserializeUser(function(user, done) {
+//     done(null, user);
+// });
+// passport.use(new LocalStrategy(function(username, password, done) {
+//     // asynchronous verification, for effect...
+//     process.nextTick(function() {
+//         db.admin_users
+//             .findOne({
+//                 'username': username
+//             }, function(err, user) {
+//                 if (err) {
+//                     return done(err);
+//                 }
+//                 if (!user) {
+//                     return done(null, false, {
+//                         message: 'Unknown user ' + username
+//                     });
+//                 }
+//                 if (user.password !== password) {
+//                     return done(null, false, {
+//                         message: 'Invalid password'
+//                     });
+//                 }
+//                 return done(null, user);
+//             });
+//     });
+// }));
 
 
 router.get('/', function(req, res) {
