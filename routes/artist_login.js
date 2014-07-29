@@ -72,7 +72,6 @@ module.exports = function(router) {
     }, function(err, user) {
       if (err || !user) console.log("No user found");
       else {
-				console.log(user);
         res.render('edit_profile', {
           title: '',
           data: user
@@ -88,6 +87,11 @@ module.exports = function(router) {
       data: ''
     });
   });
+	
+	router.get('/artist/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
   return router;
 };

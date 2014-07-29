@@ -16,14 +16,14 @@
 <div class="top-header-bar">
     <div class="row">
       <a href="/" class="large-7 columns logo">conception events</a>
-      <a href="/artist/login" class="large-1 columns login">Login</a>
-      <div class="large-4 columns">
+      <a href="/artist/logout" class="large-1 columns login">Logout</a>
+<!--       <div class="large-4 columns">
         <a href="/register">
             <button class="small-12"><span class="ti-plus"></span>
           <span class="text">join the experience<i>submit today!</i></span>
         </button>
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -60,27 +60,27 @@
 <form id="artist-edit-form">
   <div class="row artist-profile edit-artist-profile">
       <div class="artist-details large-6 small-12 columns">
-          <img src="/images/artist.jpg" alt="" class="artist-pic" />
+          <img src="{{data.photo}}" alt="" class="artist-pic" />
           <a class="edit-photo">Edit Photo</a>
           <h4>My Story</h4>
           <p>
-              <textarea name="my_story">Bacon ipsum dolor sit amet tri-tip bresaola ribeye, meatball spare ribs chicken shoulder short ribs meatloaf. Beef ribs spare ribs shank, corned beef kielbasa prosciutto ham leberkas pork chop ball tip t-bone ham hock. Hamburger pastrami salami flank </textarea>
+              <textarea name="my_story">{{data.story}} </textarea>
 
           </p>
 
       </div>
 <div class="artist-details large-6 small-12 columns">
     <div class="row">
-    <input name="artist_name" type="text" placeholder="Name" class="text large-6 columns" />
+    <input name="artist_name" type="text" placeholder="Name" class="text large-6 columns" value="{{data.full_name}}"/>
     </div>
 
     <div class="row">
-    <input name="artist_email" type="text" placeholder="Email" class="text large-6 columns" />
+    <input name="artist_email" type="text" placeholder="Email" class="text large-6 columns" value="{{data.email}}" disabled/>
     </div>
 
-    <div class="row">
+<!--     <div class="row">
     <input name="artist_phone" type="text" placeholder="Phone" class="text large-6 columns" />
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="large-6 small-12">
@@ -103,7 +103,7 @@
           <span class="prefix artist-social-prefix">http://</span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your URL...">
+          <input type="text" placeholder="Enter your URL..." value="{{data.url}}">
         </div>
       </div>
 
@@ -112,7 +112,7 @@
           <span class="prefix artist-social-prefix"><i class="icon-facebook"></i></span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your Facebook URL...">
+          <input type="text" placeholder="Enter your Facebook URL..." value="{{data.facebook_url}}">
         </div>
       </div>
 
@@ -121,7 +121,7 @@
           <span class="prefix artist-social-prefix"><i class="icon-twitter"></i></span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your Twiiter URL...">
+          <input type="text" placeholder="Enter your Twiiter URL..." value="{{data.twitter_url}}">
         </div>
       </div>
 
@@ -130,15 +130,15 @@
           <span class="prefix artist-social-prefix"><i class="icon-instagram"></i></span>
         </div>
         <div class="small-9 large-10 columns">
-          <input type="text" placeholder="Enter your Instagram URL...">
+          <input type="text" placeholder="Enter your Instagram URL..." value="{{data.instagram}}">
         </div>
       </div>
 
       <div class="row">
           <div class="large-12 columns art-thumb">
-              <img src="/images/profile-thumb.jpg" alt="" />
-              <img src="/images/profile-thumb.jpg" alt="" />
-              <img src="/images/profile-thumb.jpg" alt=""/ >
+              <img src="{{data.artwork_1}}" alt="" height="40" />
+              <img src="{{data.artwork_2}}" alt="" height="40" />
+              <img src="{{data.artwork_3}}" alt="" height="40" />
             <span class="file right">
               <input type="file" name="file" />
             </span>
