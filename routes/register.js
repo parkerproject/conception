@@ -27,7 +27,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 
 var databaseUrl = connection_string;
-var collections = ['artists'];
+var collections = ['artists', 'events'];
 var db = require("mongojs").connect(databaseUrl, collections);
 
 
@@ -127,7 +127,8 @@ module.exports = function(router) {
             artwork_1_name = (req.files.hasOwnProperty('artwork_1')) ? req.files.artwork_1.name : '',
             artwork_2_name = (req.files.hasOwnProperty('artwork_2')) ? req.files.artwork_2.name : '',
             artwork_3_name = (req.files.hasOwnProperty('artwork_3')) ? req.files.artwork_3.name : '',
-            photo = (req.files.hasOwnProperty('photo')) ? req.files.photo.name : '';
+            photo = (req.files.hasOwnProperty('photo')) ? req.files.photo.name : '',
+            event_id = parseInt(req.params.city);
 
 
         var userInfo = {
@@ -180,6 +181,27 @@ module.exports = function(router) {
                                 sendAdminEmail();
 
                             });
+
+                            db.events.findAndModify({
+                                query: {
+                                    event_id: event_id
+                                },
+                                update: {
+                                    $$addToSet: {
+                                        artists: userInfo.email
+                                    }
+                                },
+                                new: true
+                            }, function(err, doc, lastErrObj) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log('artist added to event: ' + doc);
+                                    // passwordEmail()
+                                }
+                            });
+
+
                             var string = encodeURIComponent('Thank you for submitting. We would get back to you soon.');
                             res.redirect('/thank_you?data=' + string);
                         }, 0);
@@ -208,8 +230,6 @@ module.exports = function(router) {
                 }
             },
             new: true
-        }, {
-
         }, function(err, doc, lastErrObj) {
             if (err) {
                 console.log(err);
