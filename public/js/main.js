@@ -37,12 +37,7 @@ var CONCEPTION = {
 
         });
 
-        $('#loginForm').validate({
-            submitHandler: function(form) {
-                // form.submit();
-                console.log('send this');
-            }
-        });
+        $('#loginForm').validate();
     },
 
     validateUpload: function() {
