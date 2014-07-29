@@ -263,11 +263,12 @@ module.exports = function(router) {
                 console.log(err);
             } else {
                 var userDetails = JSON.stringify(doc);
+                console.log(userDetails);
                 var email = userDetails.email;
-                var fileOne = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.artwork_1;
-                var fileTwo = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.artwork_2;
-                var fileThree = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.artwork_3;
-                var filePhoto = process.env.OPENSHIFT_DATA_DIR + '/artists/' + userDetails.photo;
+                var fileOne = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_1;
+                var fileTwo = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_2;
+                var fileThree = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_3;
+                var filePhoto = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.photo;
                 uploadFile(token, fileOne, userDetails.artwork_1, 1);
                 uploadFile(token, fileTwo, userDetails.artwork_2, 2);
                 uploadFile(token, fileThree, userDetails.artwork_3, 3);
