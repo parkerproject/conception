@@ -53,7 +53,8 @@ module.exports = function(router) {
 
     router.get('/artist/login', function(req, res) {
         res.render('artist_login', {
-            title: 'artist'
+            title: 'artist',
+            message: req.flash('error')
         });
     });
 
