@@ -103,10 +103,7 @@ module.exports = function(router) {
       }, function(err, user) {
         if (err || !user) console.log("No user found");
         else {
-          res.render('artist', {
-            title: '',
-            data: user
-          });
+          res.redirect('/');
         }
       });
 
