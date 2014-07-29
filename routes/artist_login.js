@@ -82,10 +82,9 @@ module.exports = function(router) {
   });
 
 
-  router.post('/artist/update', passport.authenticate('local', {
-    failureRedirect: '/artist/login',
-    failureFlash: true
-  }), function(req, res) {
+  router.post('/artist/update', function(req, res) {
+		
+		console.log(req.url);
 
     db.artists.findAndModify({
 
@@ -112,6 +111,7 @@ module.exports = function(router) {
     });
 
   });
+	
 
   router.get('/edit-profile', ensureAuthenticated, function(req, res) {
     res.render('edit_profile', {
