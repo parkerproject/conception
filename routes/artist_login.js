@@ -16,7 +16,7 @@ function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/login');
+    res.redirect('/artist/login');
 }
 
 passport.serializeUser(function(user, done) {
@@ -49,17 +49,28 @@ passport.use(new LocalStrategy(function(email, password, done) {
     });
 }));
 
+module.exports = function(router) {
 
-router.post('/artist_login', passport.authenticate('local', {
-    failureRedirect: '/artist/login',
-    failureFlash: true
-}), function(req, res) {
-    res.redirect('/edit-profile/' + req.body.user_token);
-});
-
-router.get('/edit-profile/:artist', ensureAuthenticated, function(req, res) {
-    res.render('edit_profile', {
-        title: '',
-        data: ''
+    router.get('/artist/login', function(req, res) {
+        res.render('artist_login', {
+            title: 'artist'
+        });
     });
-});
+
+
+    router.post('/artist_login', passport.authenticate('local', {
+        failureRedirect: '/artist/login',
+        failureFlash: true
+    }), function(req, res) {
+        res.redirect('/edit-profile/' + req.body.user_token);
+    });
+
+    router.get('/edit-profile/:artist', ensureAuthenticated, function(req, res) {
+        res.render('edit_profile', {
+            title: '',
+            data: ''
+        });
+    });
+
+    return router;
+};

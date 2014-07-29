@@ -127,12 +127,6 @@ router.get('/campus', function(req, res) {
     });
 });
 
-router.get('/artist/login', function(req, res) {
-    res.render('artist_login', {
-        title: 'artist'
-    });
-});
-
 
 /*************** admin routes ******************/
 router.get('/login', function(req, res) {
