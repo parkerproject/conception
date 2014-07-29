@@ -90,7 +90,7 @@ module.exports = function(router) {
       db.artists.findAndModify({
 
         query: {
-          email: req.body.artist_email
+          email: req.body.artist_email_hidden
         },
         update: {
           $set: {
@@ -119,19 +119,19 @@ module.exports = function(router) {
   });
 
 
-  router.get('/edit-profile', ensureAuthenticated, function(req, res) {
+//   router.get('/edit-profile', ensureAuthenticated, function(req, res) {
 
-    if (req.url == '/artist_update') {
+//     if (req.url == '/artist_update') {
 
-      res.render('edit_profile', {
-        title: '',
-        data: ''
-      });
-    } else {
-      res.redirect('/');
-    }
+//       res.render('edit_profile', {
+//         title: '',
+//         data: ''
+//       });
+//     } else {
+//       res.redirect('/');
+//     }
 
-  });
+//   });
 
   router.get('/artist/logout', function(req, res) {
     req.logout();
