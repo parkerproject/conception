@@ -38,8 +38,8 @@ module.exports = function(router) {
                     getArtist(event.artists[i], function(artist) {
                         artists.push(artist);
                     });
-                };
-                console.log(artists);
+                }
+                console.log('theses are the artists '+artists);
                 res.render('event', {
                     title: 'conception events',
                     data: JSON.stringify(event),
