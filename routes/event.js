@@ -6,9 +6,20 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
 }
 
+console.log(connection_string);
+
 var databaseUrl = connection_string;
-var collections = ['events'];
+var collections = ['artists, events'];
 var db = require("mongojs").connect(databaseUrl, collections);
+
+function getArtist(email, fn) {
+    db.artists.findOne({
+        email: email
+    }, function(err, user) {
+        if (err || !user) console.log("No user found");
+        else fn(user);
+    });
+}
 
 module.exports = function(router) {
 
@@ -21,34 +32,21 @@ module.exports = function(router) {
             if (err || !event) {
                 console.log(err);
             } else {
+
+                var artists = [];
+                for (var i = 0; i < event.artists.length; i++) {
+                    getArtist(event.artists[i], function(artist) {
+                        artists.push(artist);
+                    });
+                };
+                console.log(artists);
                 res.render('event', {
                     title: 'conception events',
-                    data: JSON.stringify(event)
+                    data: JSON.stringify(event),
+                    artists: artists
                 });
             }
         });
-
-        // var only_display = 'id,title,description,status,start_date,end_date,tickets,venue'
-        // ebClient.event_get({
-        //     only_display: only_display,
-        //     id: req.params.id
-        // }, function(err, data) {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         var eventData = JSON.stringify(data);
-        //         res.render('event', {
-        //             data: eventData
-        //         });
-        //     }
-
-        // });
-
-
-
-
-
-
 
     });
 
