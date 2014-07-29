@@ -85,17 +85,16 @@
     <div class="row">
         <div class="large-6 small-12">
             <h5>Genres:</h5>
-            <ul class="artist_genres">
-                <li><input type="radio" name="genres" value="Artists" /> Artists</li>
-                <li><input type="radio" name="genres" value="Photographers" /> Photographers</li>
-                <li><input type="radio" name="genres" value="Sculptors" /> Sculptors</li>
-                <li><input type="radio" name="genres" value="Designers" /> Designers</li>
-                <li><input type="radio" name="genres" value="Fashion" /> Fashion</li>
-                <li><input type="radio" name="genres" value="Dance" /> Dance</li>
-            <li><input type="radio" name="genres" value="Performance Art" /> Performance Art</li>
-            <li><input type="radio" name="genres" value="Filmakers" /> Filmakers</li>
-            <li><input type="radio" name="genres" value="Music" /> Music</li>
-            </ul>
+             <select name="genre" class="genre" required>
+                <option value="">Select genre of art</option>
+                <option value="artist">Artist</option>
+                <option value="photography">Photography</option>
+                <option value="design">Design</option>
+                <option value="performaning art">Performing Art</option>
+                <option value="dance">Dance</option>
+                <option value="music">Music</option>
+                <option value="other">Other</option>
+             </select>
       </div>
     </div>
 
