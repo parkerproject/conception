@@ -86,38 +86,51 @@ module.exports = function(router) {
 		
 		console.log(req.body);
 
-    db.artists.findAndModify({
+    if (req.url == '/artist_update') {
+      db.artists.findAndModify({
 
-      query: {
-        email: req.body.artist_email
-      },
-      update: {
-        $set: {
-          story: req.body.my_story,
-					facebook_url: req.body.artist_facebook_url,
-					twitter_url: req.body.artist_twitter_url,
-					url: req.body.artist_url
+        query: {
+          email: req.body.artist_email
+        },
+        update: {
+          $set: {
+            story: req.body.my_story,
+            facebook_url: req.body.artist_facebook_url,
+            twitter_url: req.body.artist_twitter_url,
+            url: req.body.artist_url
+          }
         }
-      }
 
-    }, function(err, user) {
-      if (err || !user) console.log("No user found");
-      else {
-        res.render('artist', {
-          title: '',
-          data: user
-        });
-      }
-    });
+      }, function(err, user) {
+        if (err || !user) console.log("No user found");
+        else {
+          res.render('artist', {
+            title: '',
+            data: user
+          });
+        }
+      });
 
+    } else {
+      res.redirect('/');
+    }
+
+   
   });
-	
+
 
   router.get('/edit-profile', ensureAuthenticated, function(req, res) {
-    res.render('edit_profile', {
-      title: '',
-      data: ''
-    });
+
+    if (req.url == '/artist_update') {
+
+      res.render('edit_profile', {
+        title: '',
+        data: ''
+      });
+    } else {
+      res.redirect('/');
+    }
+
   });
 
   router.get('/artist/logout', function(req, res) {
