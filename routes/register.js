@@ -204,8 +204,6 @@ module.exports = function(router) {
             if (err) console.log('first error ' + err);
             if (result == null) {
 
-                userInfo.password = hash;
-
                 setTimeout(function() {
                     db.artists.save(userInfo, function(err, result) {
                         if (err) console.log('second error ' + err);
