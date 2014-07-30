@@ -234,7 +234,7 @@ module.exports = function(router) {
                         }
                     });
 
-                    var string = encodeURIComponent('Thank you for submitting. We would get back to you soon.');
+                    var string = encodeURIComponent('Thank you for submitting. We have emailed you the verification email.');
                     res.redirect('/thank_you?data=' + string);
                 }, 0);
             } else {
