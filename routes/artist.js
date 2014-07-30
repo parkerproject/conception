@@ -23,7 +23,6 @@ module.exports = function(router) {
                 console.log(err);
                 res.redirect('/');
             } else {
-                console.log(user);
                 res.render('artist', {
                     title: 'conception events',
                     data: user
