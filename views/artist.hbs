@@ -62,12 +62,12 @@
           <div class="artist-details">
               <span class="name">{{data.full_name}}</span>
               <span class="category">{{data.genre}}</span>
-						
+
 						{{#if data.story}}
               <h4>my story</h4>
               <p>{{data.story}}</p>
 						{{/if}}
-						
+
               <ul class="inline-list artist-social">
 								{{#if data.facebook_url}}
                   <li><a href="{{data.facebook_url}}" class="icon-facebook"><!--facebook--></a></li>
@@ -88,7 +88,7 @@
 
       </div>
       <div class="large-8 columns">
-  
+
 				<ul class="mygallery clearing-thumbs small-block-grid-4" data-clearing>
 					{{#if data.artwork_1}}
 					<li><a href="{{data.artwork_1}}"><img src="{{data.artwork_1}}"></a></li>
@@ -140,7 +140,9 @@
 
   <script src="js/main.js"></script>
 
-
+     <script>
+    $(document).foundation();
+  </script>
 
 </body>
 

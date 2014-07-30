@@ -38,13 +38,14 @@ module.exports = function(router) {
                         artists.push(details);
                     });
                 });
+                setTimeout(function() {
+                    res.render('event', {
+                        title: 'conception events',
+                        data: JSON.stringify(event),
+                        artists: artists
+                    });
+                }, 0);
 
-                console.log('theses are the artists ' + artists);
-                res.render('event', {
-                    title: 'conception events',
-                    data: JSON.stringify(event),
-                    artists: artists
-                });
             }
         });
 
