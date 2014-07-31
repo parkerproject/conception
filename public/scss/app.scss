@@ -994,3 +994,10 @@ legend{
   }
 	
 }
+
+.about_us_text{
+	margin-top: 20px;
+	p{
+		color: lighten($black-color, 40%);
+	}
+}
