@@ -83,7 +83,7 @@ module.exports = function(router) {
 
 
   router.post('/artist_update', function(req, res) {
-		
+
 
     if (req.url == '/artist_update') {
       db.artists.findAndModify({
@@ -103,7 +103,7 @@ module.exports = function(router) {
       }, function(err, user) {
         if (err || !user) console.log("No user found");
         else {
-          res.redirect('/');
+          res.redirect('/artist/' + req.body.artist_token);
         }
       });
 
@@ -111,23 +111,23 @@ module.exports = function(router) {
       res.redirect('/artist/login');
     }
 
-   
+
   });
 
 
-//   router.get('/edit-profile', ensureAuthenticated, function(req, res) {
+  //   router.get('/edit-profile', ensureAuthenticated, function(req, res) {
 
-//     if (req.url == '/artist_update') {
+  //     if (req.url == '/artist_update') {
 
-//       res.render('edit_profile', {
-//         title: '',
-//         data: ''
-//       });
-//     } else {
-//       res.redirect('/');
-//     }
+  //       res.render('edit_profile', {
+  //         title: '',
+  //         data: ''
+  //       });
+  //     } else {
+  //       res.redirect('/');
+  //     }
 
-//   });
+  //   });
 
   router.get('/artist/logout', function(req, res) {
     req.logout();
