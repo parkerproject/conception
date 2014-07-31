@@ -164,10 +164,9 @@
   <script src="/js/main.js"></script>
 	
   <script>
-		
-		var conception_event = {{data.event_id}}
-	  $.cookie('conception_event', conception_event);
   var fullEvent = {{{data}}}
+	var conception_event = {{fullEvent.event_id}}
+	$.cookie('conception_event', conception_event);
   </script>
 </body>
 
