@@ -1,7 +1,5 @@
 require('dotenv').load();
 
-require('dotenv').load();
-
 var connection_string = '127.0.0.1:27017/conception';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
@@ -26,7 +24,6 @@ module.exports = function(router) {
                 res.render('artist', {
                     title: 'conception events',
                     data: user
-									  event_ii
                 });
             }
         });
