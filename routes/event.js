@@ -44,7 +44,7 @@ module.exports = function(router) {
             title: 'conception events',
             data: JSON.stringify(event),
             artists: artists,
-						event_id: id
+						artistsData: JSON.stringify(artists)
           });
         }, 0);
 
