@@ -89,7 +89,7 @@
 </div>
 </div>
 
-{{!--   <div class="row body-content">
+<!--   <div class="row body-content">
     <div class="large-12 columns organizer-row">
     <h3>organizers</h3>
     <div class="row">
@@ -110,7 +110,7 @@
         </div>
     </div>
     </div>
-  </div> --}}
+  </div> -->
 
   <!-- featured artist section -->
     <div class="row body-content">
@@ -119,7 +119,7 @@
     <div class="row">
         {{#each artists}}
         <div class="large-4 columns featured_artists">
-            <img src="/artists_images/{{photo}}" alt="" />
+            <a href="/artist/{{user_token}}"><img src="/artists_images/{{photo}}" alt="{{full_name}}" /></a>
             <span class="name"><a href="/artist/{{user_token}}">{{full_name}}<i class="icon-angle-double-right"></i></a></span>
             <span class="title">{{genre}}</span>
         </div>

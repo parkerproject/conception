@@ -985,9 +985,14 @@ legend{
     font-family: 'GothamMedium';
 }
 
-.featured_artists img{
+.featured_artists{
+	margin-bottom: 50px;
+	
+	img{
     width: 258px;
     height: 196px;
     overflow: hidden;
-    padding: 10px 0;
+  
+  }
+	
 }
