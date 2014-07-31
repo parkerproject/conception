@@ -3,9 +3,8 @@
 require('dotenv').load();
 var bcrypt = require('bcrypt');
 var randtoken = require('rand-token');
-var cloudinary = require('cloudinary');
 var nodemailer = require('nodemailer');
-var fs = require('fs');
+
 
 // create reusable transporter object using SMTP transport
 var transporter = nodemailer.createTransport({
@@ -28,57 +27,6 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 var databaseUrl = connection_string;
 var collections = ['artists', 'events'];
 var db = require("mongojs").connect(databaseUrl, collections);
-
-
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
-
-
-function uploadFile(token, file, name, version) {
-    cloudinary.uploader.upload(file, function(json) {
-
-        var set;
-
-        if (version === 1) set = {
-            artwork_1: json.url
-        };
-        if (version === 2) set = {
-            artwork_2: json.url
-        };
-        if (version === 3) set = {
-            artwork_3: json.url
-        };
-        if (version === 4) set = {
-            photo: json.url
-        };
-
-        db.artists.findAndModify({
-            query: {
-                user_token: token
-            },
-            update: {
-                $set: set
-            }
-        }, function(err, doc, lastErrObj) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('image path updated');
-                fs.unlink(file, function(err) {
-                    if (err) console.log(err);
-                    console.log('successfully deleted: ' + file);
-                });
-            }
-        });
-
-
-    }, {
-        public_id: name
-    });
-}
 
 
 function sendEmail(toEmail, name, link) {
@@ -262,17 +210,7 @@ module.exports = function(router) {
             if (err) {
                 console.log(err);
             } else {
-                var userDetails = doc;
-                console.log(userDetails.artwork_1);
                 var email = userDetails.email;
-                var fileOne = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_1;
-                var fileTwo = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_2;
-                var fileThree = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.artwork_3;
-                var filePhoto = process.env.OPENSHIFT_DATA_DIR + 'artists/' + userDetails.photo;
-                uploadFile(token, fileOne, userDetails.artwork_1, 1);
-                uploadFile(token, fileTwo, userDetails.artwork_2, 2);
-                uploadFile(token, fileThree, userDetails.artwork_3, 3);
-                uploadFile(token, filePhoto, userDetails.photo, 4);
 
                 sendPasswordEmail(email, userDetails.full_name, userDetails.password);
             }

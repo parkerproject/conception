@@ -60,7 +60,7 @@
 <form id="artist-edit-form" action="/artist_update" method="post" >
   <div class="row artist-profile edit-artist-profile">
       <div class="artist-details large-6 small-12 columns">
-          <img src="{{data.photo}}" alt="" class="artist-pic" />
+          <img src="/artists_image/{{data.photo}}" alt="" class="artist-pic" />
 <!--           <a class="edit-photo">Edit Photo</a> -->
           <h4>My Story</h4>
           <p>
@@ -142,7 +142,7 @@
               <li><a href="{{data.artwork_2}}"><img src="{{data.artwork_2}}" alt="" height="40" /></a></li>
               <li><a href="{{data.artwork_3}}"><img src="{{data.artwork_3}}" alt="" height="40" /></a></li>
 							</ul>
-						
+
 <!-- 						<select name="art_work" id="art_work">
 							<option value="">Update artwork</option>
 						   <option value="1">Art work 1</option>
@@ -203,7 +203,7 @@
 	<script src="/vendor/foundation/js/foundation/foundation.clearing.js"></script>
   <script src="/vendor/slick-carousel/slick/slick.js"></script>
   <script src="/js/app.js"></script>
-	
+
 	 <script>
     $(document).foundation();
   </script>

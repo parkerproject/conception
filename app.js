@@ -64,7 +64,7 @@ app
     .use(methodOverride())
     .use(express.static(path.join(__dirname, 'public')))
     .use(multer({
-    dest: process.env.OPENSHIFT_DATA_DIR + '/artists'
+        dest: 'public/artists_images'
     }))
     .use(session({
         secret: 'keyboard cat',
