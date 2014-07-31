@@ -21,14 +21,14 @@ var Eventbrite = require('eventbrite');
 var randtoken = require('rand-token');
 var token = randtoken.generate(6);
 var ebClient = new Eventbrite({
-    'app_key': process.env.EVENTBRITE_APP_API,
-    'user_key': process.env.EVENTBRITE_USER_API
+  'app_key': process.env.EVENTBRITE_APP_API,
+  'user_key': process.env.EVENTBRITE_USER_API
 });
 
 var connection_string = '127.0.0.1:27017/conception';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
+  connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
 }
 
 
@@ -37,29 +37,29 @@ var collections = ['admin_users', 'events'];
 var db = require("mongojs").connect(databaseUrl, collections);
 
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
 }
 
 function findById(id, fn) {
-    var idx = id - 1;
-    if (users[idx]) {
-        fn(null, users[idx]);
-    } else {
-        fn(new Error('User ' + id + ' does not exist'));
-    }
+  var idx = id - 1;
+  if (users[idx]) {
+    fn(null, users[idx]);
+  } else {
+    fn(new Error('User ' + id + ' does not exist'));
+  }
 }
 
 function findByUsername(username, fn) {
-    for (var i = 0, len = users.length; i < len; i++) {
-        var user = users[i];
-        if (user.username === username) {
-            return fn(null, user);
-        }
+  for (var i = 0, len = users.length; i < len; i++) {
+    var user = users[i];
+    if (user.username === username) {
+      return fn(null, user);
     }
-    return fn(null, null);
+  }
+  return fn(null, null);
 }
 // passport.serializeUser(function(user, done) {
 //     done(null, user);
@@ -95,76 +95,87 @@ function findByUsername(username, fn) {
 
 router.get('/', function(req, res) {
 
-    db.events.find({}, function(err, events) {
-        if (err || !events) {
-            console.log(err);
-        } else {
-            res.render('index', {
-                title: 'conception events',
-                data: JSON.stringify(events)
-            });
-        }
-    });
+  db.events.find({}, function(err, events) {
+    if (err || !events) {
+      console.log(err);
+    } else {
+      res.render('index', {
+        title: 'conception events',
+        data: JSON.stringify(events)
+      });
+    }
+  });
 });
 
 
 
 router.get('/about', function(req, res) {
-    res.render('about', {
-        title: 'team'
-    });
+  res.render('about', {
+    title: 'team'
+  });
 });
 
 router.get('/gallery', function(req, res) {
-    res.render('gallery', {
-        title: 'gallery'
-    });
+  res.render('gallery', {
+    title: 'gallery'
+  });
 });
 
 router.get('/campus', function(req, res) {
-    res.render('campus', {
-        title: 'campus'
-    });
+  res.render('campus', {
+    title: 'campus'
+  });
+});
+
+
+router.get('/payment/:eid/:oid', function(req, res) {
+  var event_id = req.params.eid;
+  var order_id = req.params.oid;
+  var user = req.cookies.conception_artist;
+
+  res.send(event_id, order_id, user);
+
+
 });
 
 
 /*************** admin routes ******************/
 router.get('/login', function(req, res) {
-    res.render('admin/login', {
-        title: 'conception events login',
-        message: req.flash('error')
-    });
+  res.render('admin/login', {
+    title: 'conception events login',
+    message: req.flash('error')
+  });
 });
 
 router.get('/conception/:name', ensureAuthenticated, function(req, res) {
-    getEvents(function(data) {
-        res.render('admin/home', {
-            title: 'Conception',
-            data: data
-        });
+  getEvents(function(data) {
+    res.render('admin/home', {
+      title: 'Conception',
+      data: data
     });
+  });
 });
 
 router.get('/conception', ensureAuthenticated, function(req, res) {
 
-    getEvents(function(data) {
-        res.render('admin/home', {
-            title: 'Conception',
-            data: data
-        });
+  getEvents(function(data) {
+    res.render('admin/home', {
+      title: 'Conception',
+      data: data
     });
+  });
 });
 
 router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login',
-    failureFlash: true
+  failureRedirect: '/login',
+  failureFlash: true
 }), function(req, res) {
-    res.redirect('/conception');
+  res.redirect('/conception');
 });
 
 router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/login');
+  req.logout();
+  res.redirect('/login');
 });
 
 
