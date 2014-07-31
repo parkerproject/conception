@@ -997,7 +997,8 @@ legend{
 
 .about_us_text{
 	margin-top: 20px;
+	color: lighten($black-color, 60%);
 	p{
-		color: lighten($black-color, 40%);
+		//color: lighten($black-color, 60%);
 	}
 }
