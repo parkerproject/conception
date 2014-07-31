@@ -12,7 +12,8 @@ var db = require("mongojs").connect(databaseUrl, collections);
 
 function getArtist(email, fn) {
     db.artists.findOne({
-        email: email
+        email: email,
+        emailVerified: true
     }, function(err, user) {
         if (err || !user) console.log("No user found");
         else fn(user);
