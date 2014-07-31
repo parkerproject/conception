@@ -14,7 +14,7 @@ var db = require("mongojs").connect(databaseUrl, collections);
 
 module.exports = function(router) {
 
-    router.get('/artist/:user_token', function(req, res) {
+	router.get('/artist/:user_token/:event_id', function(req, res) {
 
         db.artists.findOne({
             "user_token": req.params.user_token
@@ -26,6 +26,7 @@ module.exports = function(router) {
                 res.render('artist', {
                     title: 'conception events',
                     data: user
+									  event_ii
                 });
             }
         });

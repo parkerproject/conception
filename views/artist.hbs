@@ -83,7 +83,7 @@
               {{#if data.url}}
               <a href="http://{{data.url}}" class="artist-url"><i class="icon-link-streamline"></i>{{data.url}}</a>
 						  {{/if}}
-              <button><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
+              <button data-artist="{{data.user_token}}" data-event_id="{{event_id}}"><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
           </div>
 
       </div>
@@ -137,8 +137,11 @@
   <script src="/vendor/slick-carousel/slick/slick.js"></script>
    <script src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
 
   <script src="/js/main.js"></script>
+	
+	<script src="/js/tracking_sales.js"></script>
 
      <script>
     $(document).foundation();
