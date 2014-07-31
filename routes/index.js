@@ -133,6 +133,7 @@ router.get('/payment/:eid/:oid', function(req, res) {
   var order_id = req.params.oid;
   var user = req.cookies.conception_artist;
 
+	console.log(req.params, req.cookies);
   res.send(event_id, order_id, user);
 
 
