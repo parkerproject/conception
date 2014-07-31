@@ -541,8 +541,6 @@
             color: darken($white-color, 45%);
             position: relative;
             i{
-                position: absolute;
-                left: 60px;
                 @include font-size(10);
             }
         }
