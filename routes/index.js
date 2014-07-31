@@ -33,7 +33,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 
 var databaseUrl = connection_string;
-var collections = ['admin_users', 'events'];
+var collections = ['admin_users', 'events', 'sales'];
 var db = require("mongojs").connect(databaseUrl, collections);
 
 function ensureAuthenticated(req, res, next) {
@@ -129,13 +129,23 @@ router.get('/campus', function(req, res) {
 
 
 router.get('/payment/:eid/:oid', function(req, res) {
-  var event_id = req.params.eid;
-  var order_id = req.params.oid;
-  var user = req.cookies.conception_artist;
 
-	console.log(req.params, req.cookies);
-  res.send(event_id, order_id, user);
+  var sales = {
+    order_id: req.params.oid,
+    event_id: req.params.eid,
+    artist: req.cookies.conception_artist,
+    local_event: req.cookies.conception_event
+  };
 
+  db.sales.save(sales, function(err, saved) {
+    if (err || !saved) {
+      console.log("payment not saved");
+    } else {
+      console.log("payment saved");
+      var string = encodeURIComponent('Thank you for purchasing a ticket to Conception New York City. We look forward to seeing you at the show!');
+      res.redirect('/thank_you?data=' + string);
+    }
+  });
 
 });
 
