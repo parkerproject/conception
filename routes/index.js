@@ -142,7 +142,7 @@ router.get('/payment/:eid/:oid', function(req, res) {
       console.log("payment not saved");
     } else {
       console.log("payment saved");
-      var string = encodeURIComponent('Thank you for purchasing a ticket to Conception New York City. We look forward to seeing you at the show!');
+      var string = encodeURIComponent('Thank you for purchasing a ticket to Conception Event. We look forward to seeing you at the show!');
       res.redirect('/thank_you?data=' + string);
     }
   });
