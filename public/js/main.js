@@ -233,6 +233,7 @@ var CONCEPTION = {
       dots: true,
       fade: true,
       autoplay: true,
+			autoplaySpeed: 5000,
       onAfterChange: function(e) {
         var idx = e.currentSlide;
         document.querySelector('.caption').style.display = 'none';
