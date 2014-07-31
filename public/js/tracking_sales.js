@@ -9,6 +9,12 @@
 
 
 (function($){
-	var conception_event = location.pathname.split('/')[2];
-	$.cookie('conception_event', conception_event);
+	
+   var sendTo = "http://www.eventbrite.com/event/4653432542?ref=ebtn";
+	
+	$('.artist-profile').on('click', 'button', function(e){
+		e.preventDefault();
+		var user = $(this).attr('data-artist');
+		console.log(user, $.cookie('conception_event'));
+	});
 })(jQuery);

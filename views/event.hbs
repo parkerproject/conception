@@ -162,8 +162,11 @@
    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 		<script src="/js/jquery.cookie.js"></script>
   <script src="/js/main.js"></script>
-		<script src="/js/tracking_sales.js"></script>
+	
   <script>
+		
+		var conception_event = location.pathname.split('/')[2];
+	  $.cookie('conception_event', conception_event);
   var fullEvent = {{{data}}}
   </script>
 </body>
