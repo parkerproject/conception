@@ -172,21 +172,11 @@ var CONCEPTION = {
 
       for (var i = 0; i < upcomingEvents.length; i++) {
         upcomingContent.push(this.upcomingEventTemplate(upcomingEvents[i]));
-      }
+      };
 
       document.querySelector('.upcoming-event').innerHTML = upcomingContent.join('');
       $('.all-event').prepend(upcomingContent.join(''));
     }
-  },
-
-  artistTemplate: function(artist) {
-    var html = ['<div class="large-4 columns featured_artists">',
-      '<a href="/artist/' + artist.user_token + '"><img src="/artists_images/' + artist.photo + '" alt="' + artist.full_name + '" /></a>',
-      '<span class="name"><a href="/artist/' + artist.user_token + '">' + artist.full_name + '<i class="icon-angle-double-right"></i></a></span>',
-      ' <span class="title">' + artist.genre + '</span></div>'
-    ].join('');
-
-    return html;
   },
 
   eventSinglePage: function() {
@@ -217,25 +207,13 @@ var CONCEPTION = {
       document.querySelector('.event-title').textContent = fullEvent.title;
       document.querySelector('.when-where').innerHTML = when_where;
       document.querySelector('.event-blurb').querySelector('p').innerHTML = fullEvent.description;
-      $('.event-img').attr('src', '/images / ' + img);
+      $('.event-img').attr('src', '/images/' + img);
 
     }
-
-    if (window.hasOwnProperty('artists')) {
-      var artistsHTML = [];
-      artists.map(function(artist) {
-        artistsHTML.push(this.artistTemplate(artist));
-      });
-
-      console.log(artistsHTML);
-      document.querySelector('.artists-holder').innerHTML = artistsHTML.join('');
-
-    }
-
   },
 
   eventsPage: function() {
-    if (window.hasOwnProperty('eventsData ') && !eventsData.hasOwnProperty('error_type')) {
+    if (window.hasOwnProperty('eventsData') && !eventsData.hasOwnProperty('error_type')) {
       var events = eventsData;
       var contents = [];
 
@@ -243,23 +221,23 @@ var CONCEPTION = {
         contents.push(this.eventsTemplate(events[i]));
       }
 
-      document.querySelector('.event - listing ').innerHTML = contents.join('');
+      document.querySelector('.event-listing').innerHTML = contents.join('');
 
     }
   },
 
   slider: function() {
 
-    $('.home - slider ').slick({
+    $('.home-slider').slick({
 
       dots: true,
       fade: true,
       autoplay: true,
-      autoplaySpeed: 9000,
+			autoplaySpeed: 9000,
       onAfterChange: function(e) {
         var idx = e.currentSlide;
-        document.querySelector('.caption ').style.display = 'none ';
-        document.querySelector('.home - slider ').querySelector('.index - ' + idx).style.display = 'block';
+        document.querySelector('.caption').style.display = 'none';
+        document.querySelector('.home-slider').querySelector('.index-' + idx).style.display = 'block';
       }
 
     });

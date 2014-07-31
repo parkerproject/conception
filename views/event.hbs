@@ -114,14 +114,14 @@
     <div class="row body-content">
     <div class="large-12 columns organizer-row">
     <h3>featured artists</h3>
-    <div class="row artists-holder">
-<!--         {{#each artists}}
+    <div class="row">
+        {{#each artists}}
         <div class="large-4 columns featured_artists">
             <a href="/artist/{{user_token}}"><img src="/artists_images/{{photo}}" alt="{{full_name}}" /></a>
             <span class="name"><a href="/artist/{{user_token}}">{{full_name}}<i class="icon-angle-double-right"></i></a></span>
             <span class="title">{{genre}}</span>
         </div>
-        {{/each}} -->
+        {{/each}}
 
     </div>
     </div>
@@ -163,7 +163,6 @@
   <script src="/js/main.js"></script>
   <script>
   var fullEvent = {{{data}}}
-	var artists = {{{artistsData}}}
   </script>
 </body>
 
