@@ -5,7 +5,6 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
 }
 
-
 var databaseUrl = connection_string;
 var collections = ['events'];
 var db = require("mongojs").connect(databaseUrl, collections);
