@@ -36,7 +36,8 @@ module.exports = function(router) {
 
         event.artists.map(function(artist) {
           getArtist(artist, function(details) {
-            artists.push(details);
+						var e =JSON.stringify(details);
+            artists.push(e);
           });
         });
         setTimeout(function() {
@@ -44,7 +45,7 @@ module.exports = function(router) {
             title: 'conception events',
             data: JSON.stringify(event),
             artists: artists,
-						artistsData: JSON.stringify(artists)
+						artistsData: artists
           });
         }, 0);
 
