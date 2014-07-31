@@ -54,7 +54,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 
 module.exports = function(router) {
 
-  router.get('/artist/login', function(req, res) {
+  router.get('/login', function(req, res) {
     res.render('artist_login', {
       title: 'artist',
       message: req.flash('error')

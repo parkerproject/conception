@@ -15,6 +15,7 @@
   $('.artist-profile').on('click', 'button', function(e) {
     e.preventDefault();
     var user = $(this).attr('data-artist');
+		$.cookie('conception_artist', user, {path: '/'});
     var event_id = $.cookie('conception_event');
     window.location.href = 'http://www.eventbrite.com/event/' + event_id + '?ref=' + user;
   });
