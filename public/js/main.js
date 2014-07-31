@@ -135,7 +135,7 @@ var CONCEPTION = {
       '<div class="row event-row">',
       '<div class="large-4 columns event-image">',
       '<a class="th" href="#">',
-      '<img src="/images/' + img + '" />',
+      '<a href="event/' + data.event_id + '"><img src="/images/' + img + '" /></a>',
       '</a>',
       '<span class="event-date">',
       '<span>',
