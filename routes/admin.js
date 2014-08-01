@@ -30,6 +30,7 @@ module.exports = function(router, passport, db) {
       username: req.body.username,
       password: req.body.password
     }, function(err, user) {
+			console.log(err);
       if (err || !user) res.redirect('/admin');
       else {
 				req.session.user = user;
