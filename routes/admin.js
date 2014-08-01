@@ -6,6 +6,14 @@
  * To change this template use Tools | Templates.
  */
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
+
 module.exports = function(router) {
 
   /*************** admin routes ******************/

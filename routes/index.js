@@ -14,6 +14,7 @@ require('./event')(router);
 require('./artist')(router,passport, db);
 require('./press')(router);
 require('./whats_new')(router);
+require('./admin')(router);
 
 
 
@@ -22,17 +23,12 @@ var randtoken = require('rand-token');
 var token = randtoken.generate(6);
 
 
-
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect('/login');
 }
-
-
-
 
 
 router.get('/', function(req, res) {
