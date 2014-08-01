@@ -34,7 +34,8 @@ module.exports = function(router, passport, db) {
   }), function(req, res) {
 
     db.artists.findOne({
-      email: req.body.username
+      email: req.body.username,
+			isAdmin: false
     }, function(err, user) {
       if (err || !user) console.log("No user found");
       else {

@@ -10,19 +10,37 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect('/admin');
 }
 
 
-module.exports = function(router, passport) {
+module.exports = function(router, passport, db) {
 
   /*************** admin routes ******************/
-  router.get('/login', function(req, res) {
+  router.get('/admin', function(req, res) {
     res.render('admin/login', {
       title: 'conception events login',
       message: req.flash('error')
     });
   });
+
+  router.post('/admin/login', passport.authenticate('local', {
+    failureRedirect: '/admin/login',
+    failureFlash: true
+  }), function(req, res) {
+
+    db.admin_users.findOne({
+      username: req.body.username,
+      password: req.body.password
+    }, function(err, user) {
+      if (err || !user) console.log("No user found");
+      else {
+        res.redirect('/conception');
+      }
+    });
+
+  });
+
 
   router.get('/conception/:name', ensureAuthenticated, function(req, res) {
     getEvents(function(data) {
@@ -43,12 +61,7 @@ module.exports = function(router, passport) {
     });
   });
 
-  router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/login',
-    failureFlash: true
-  }), function(req, res) {
-    res.redirect('/conception');
-  });
+
 
   router.get('/logout', function(req, res) {
     req.logout();

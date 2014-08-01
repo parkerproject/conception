@@ -14,7 +14,7 @@ require('./event')(router);
 require('./artist')(router,passport, db);
 require('./press')(router);
 require('./whats_new')(router);
-require('./admin')(router,passport);
+require('./admin')(router,passport,db);
 
 
 
