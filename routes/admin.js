@@ -25,6 +25,8 @@ module.exports = function(router, passport, db) {
   });
 
   router.post('/admin/login', function(req, res) {
+		
+		console.log(req.body.username, req.body.password);
 
     db.admin_users.findOne({
       username: req.body.username,
