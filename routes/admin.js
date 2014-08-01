@@ -24,17 +24,15 @@ module.exports = function(router, passport, db) {
     });
   });
 
-  router.post('/admin/login', passport.authenticate('local', {
-    failureRedirect: '/admin/login',
-    failureFlash: true
-  }), function(req, res) {
+  router.post('/admin/login', function(req, res) {
 
     db.admin_users.findOne({
       username: req.body.username,
       password: req.body.password
     }, function(err, user) {
-      if (err || !user) console.log("No user found");
+      if (err || !user) res.redirect('/admin');
       else {
+				req.session.user = user;
         res.redirect('/conception');
       }
     });
