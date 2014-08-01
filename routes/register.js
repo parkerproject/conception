@@ -125,8 +125,8 @@ module.exports = function(router, db) {
             if (err) {
                 console.log(err);
             } else {
-
-                email.sendPasswordEmail(userDetails.email, userDetails.full_name, userDetails.password);
+                 
+                email.sendPasswordEmail(doc.email, doc.full_name, doc.password);
             }
         });
 
