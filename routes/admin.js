@@ -25,14 +25,12 @@ module.exports = function(router, passport, db) {
   });
 
   router.post('/admin/login', function(req, res) {
-		
-		console.log(req.body.username, req.body.password);
 
     db.admin_users.findOne({
       username: req.body.username,
       password: req.body.password
     }, function(err, user) {
-			console.log(err);
+		
       if (err || !user) res.redirect('/admin');
       else {
 				req.session.user = user;
@@ -43,7 +41,7 @@ module.exports = function(router, passport, db) {
   });
 
 
-  router.get('/conception/:name', ensureAuthenticated, function(req, res) {
+  router.get('/conception/:name', function(req, res) {
     getEvents(function(data) {
       res.render('admin/home', {
         title: 'Conception',
@@ -52,8 +50,8 @@ module.exports = function(router, passport, db) {
     });
   });
 
-  router.get('/conception', ensureAuthenticated, function(req, res) {
-
+  router.get('/conception', function(req, res) {
+console.log(req.session.user);
     getEvents(function(data) {
       res.render('admin/home', {
         title: 'Conception',
