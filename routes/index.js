@@ -6,7 +6,7 @@ var express = require('express');
 var router = new express.Router();
 var db = require('../config/database.js');
 var passport = require('passport');
-require('../config/passport')(passport);
+require('../config/passport')(passport,db);
 require('./uploadManager')(router);
 require('./register')(router,db);
 require('./events')(router,db);
