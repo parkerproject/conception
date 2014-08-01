@@ -6,6 +6,7 @@
  * To change this template use Tools | Templates.
  */
 var getEvents = require('../models/get_events');
+var getArtist = require('../models/get_artists');
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
@@ -33,32 +34,45 @@ module.exports = function(router, passport, db) {
     }, function(err, user) {
 
       if (err || !user) res.redirect('/admin');
-        req.session.authenticated = true;
-        res.redirect('/conception');
-      
+      req.session.authenticated = true;
+      res.redirect('/conception');
+
     });
 
   });
 
 
   router.get('/conception/:name', ensureAuthenticated, function(req, res) {
+
+    if (req.params.name == 'events') {
+      getEvents(function(data) {
+        res.render('admin/home', {
+          title: 'Conception' + req.params.name,
+          data: data
+        });
+      });
+    }
+
+    if (req.params.name == 'artists') {
+      getArtist(function(data) {
+        res.render('admin/home', {
+          title: 'Conception' + req.params.name,
+          data: data
+        });
+      });
+    }
+
+  });
+
+  router.get('/conception', ensureAuthenticated, function(req, res) {
+
     getEvents(function(data) {
       res.render('admin/home', {
         title: 'Conception',
         data: data
       });
     });
-  });
 
-  router.get('/conception', ensureAuthenticated, function(req, res) {
-
-      getEvents(function(data) {
-        res.render('admin/home', {
-          title: 'Conception',
-          data: data
-        });
-      });
-   
   });
 
 

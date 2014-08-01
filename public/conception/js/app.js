@@ -52,8 +52,8 @@ var CONCEPTION = (function() {
 
     page('/conception/:events', function() {
 
-      if (window.events_list.hasOwnProperty('events')) {
-        var events = events_list.events,
+      if (window.Conceptionlist.hasOwnProperty('events')) {
+        var events = Conceptionlist.events,
           html = [],
           rows;
         for (var i = 0; i < events.length; i++) {
