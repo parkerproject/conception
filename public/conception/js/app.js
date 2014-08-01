@@ -39,7 +39,7 @@ var CONCEPTION = (function() {
             '<th>Start date</th>',
             '<th>End date</th>',
             '<th>Status</th>',
-            '<th>Ticket sales</th>',
+            '<th>Artists</th>',
             '</tr>' + row + '</tbody></table>',
             '</div>',
             '</div>'
