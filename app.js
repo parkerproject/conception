@@ -21,7 +21,6 @@ var express = require('express'),
     multer = require('multer'),
     routes = require('./routes');
 
-require('./config/passport')(passport);
 
 var app = express();
 
