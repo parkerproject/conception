@@ -57,7 +57,7 @@ module.exports = function(router, passport, db) {
       getArtist(function(data) {
         res.render('admin/home', {
           title: 'Conception' + req.params.name,
-          data: data
+          data: JSON.stringify(data)
         });
       });
     }
