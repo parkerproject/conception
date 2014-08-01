@@ -14,7 +14,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-module.exports = function(router) {
+module.exports = function(router, passport) {
 
   /*************** admin routes ******************/
   router.get('/login', function(req, res) {
