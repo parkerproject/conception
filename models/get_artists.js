@@ -6,7 +6,10 @@ module.exports = exports = function(fn) {
     if (err || !events) console.log("No artist users found");
 
     else events.forEach(function(event) {
-      artists.push(event.event_id, event.artists);
+      artists.push({
+        id: event.event_id,
+        artists: event.artists
+      });
     });
 
     fn(artists);
