@@ -1,35 +1,85 @@
-require('dotenv').load();
+module.exports = function(router, passport, db) {
 
-var connection_string = '127.0.0.1:27017/conception';
+	// view user profile ==============================
+  router.get('/artist/:user_token', function(req, res) {
 
-if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
-}
-
-var databaseUrl = connection_string;
-var collections = ['artists', 'events'];
-var db = require("mongojs").connect(databaseUrl, collections);
-
-module.exports = function(router) {
-
-	router.get('/artist/:user_token', function(req, res) {
-
-        db.artists.findOne({
-            "user_token": req.params.user_token
-        }, function(err, user) {
-            if (err || !user) {
-                console.log(err);
-                res.redirect('/');
-            } else {
-                res.render('artist', {
-                    title: 'conception events',
-                    data: user
-                });
-            }
+    db.artists.findOne({
+      "user_token": req.params.user_token
+    }, function(err, user) {
+      if (err || !user) {
+        console.log(err);
+        res.redirect('/');
+      } else {
+        res.render('artist', {
+          title: 'conception events',
+          data: user
         });
-
+      }
     });
 
-    return router;
+  });
+	
+	// processes the login for users=====================
+  router.get('/login', function(req, res) {
+    res.render('artist_login', {
+      title: 'artist',
+      message: req.flash('error')
+    });
+  });
+
+
+  router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true
+  }), function(req, res) {
+
+    db.artists.findOne({
+      email: req.body.username
+    }, function(err, user) {
+      if (err || !user) console.log("No user found");
+      else {
+        res.render('edit_profile', {
+          title: '',
+          data: user
+        });
+      }
+    });
+
+  });
+
+// handles editing of artist profile =======================
+  router.post('/artist_update', function(req, res) {
+
+    if (req.url == '/artist_update') {
+      db.artists.findAndModify({
+
+        query: {
+          email: req.body.artist_email_hidden
+        },
+        update: {
+          $set: {
+            story: req.body.my_story,
+            facebook_url: req.body.artist_facebook_url,
+            twitter_url: req.body.artist_twitter_url,
+            url: req.body.artist_url
+          }
+        }
+
+      }, function(err, user) {
+        if (err || !user) console.log("No user found");
+        else {
+          res.redirect('/artist/' + req.body.artist_token);
+        }
+      });
+
+    } else {
+      res.redirect('/login');
+    }
+
+
+  });
+
+
+  return router;
 
 };

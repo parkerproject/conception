@@ -3,97 +3,12 @@
 require('dotenv').load();
 var bcrypt = require('bcrypt');
 var randtoken = require('rand-token');
-var nodemailer = require('nodemailer');
+var email = require('../email');
 
 
-// create reusable transporter object using SMTP transport
-var transporter = nodemailer.createTransport({
-    service: 'mailgun',
-    auth: {
-        user: 'postmaster@mg.conceptionevents.com',
-        pass: process.env.MAIL_GUN_PASS
-    }
-});
 
-
-// default to a 'localhost' configuration:
-var connection_string = '127.0.0.1:27017/conception';
-
-if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
-}
-
-
-var databaseUrl = connection_string;
-var collections = ['artists', 'events'];
-var db = require("mongojs").connect(databaseUrl, collections);
-
-
-function sendEmail(toEmail, name, link) {
-
-    var emailHtml = 'Hi <b>' + name + '</b><br /><br />' +
-        '<i>Welcome to Conception Events</i>!<br />' +
-        '<br />Hey,thanks for submitting your artwork! Please verify your email by clicking this ' + link +
-        '<br /><br />Have a great day' +
-        '<br />Conception Team';
-
-    transporter.sendMail({
-        from: 'noreply@conceptionevents.com',
-        to: toEmail,
-        subject: 'Conception Events: Activate your account',
-        html: emailHtml
-    }, function(err, status) {
-        if (err) console.log(err);
-        if (status) console.log('email sent');
-    });
-
-}
-
-
-function sendPasswordEmail(toEmail, name, password) {
-
-    var emailHtml = 'Hi <b>' + name + '</b>' +
-        '<br /><br /><em>Your login details below</em>' +
-        '<br />Your username is ' + toEmail +
-        '<br />Your password is ' + password +
-        '<br /><br />Have a great day' +
-        '<br />Conception Team';
-
-    transporter.sendMail({
-        from: 'noreply@conceptionevents.com',
-        to: toEmail,
-        subject: 'Conception Events: Login details',
-        html: emailHtml
-    }, function(err, status) {
-        if (err) console.log(err);
-        if (status) console.log('login email sent');
-    });
-
-}
-
-
-function sendAdminEmail() {
-
-    var body = 'Hey buddy!<br /><br /> A new artist has just joined Conception Events.' +
-        '<a href="http://conception-mypinly.rhcloud.com/conception"> Login to approve</a>' +
-        '<br /><br />Have a great day' +
-        '<br />Conception Robot';
-
-    transporter.sendMail({
-        from: 'noreply@conceptionevents.com',
-        to: 'conceptionevents00@gmail.com',
-        subject: 'Conception Events: New Artist',
-        html: body
-    }, function(err, status) {
-        if (err) console.log(err);
-        if (status) console.log('email sent');
-    });
-
-
-}
-
-
-module.exports = function(router) {
+module.exports = function(router, db) {
+	
     router.get('/register', function(req, res) {
         res.render('register', {
             data: 'parker'
@@ -110,7 +25,7 @@ module.exports = function(router) {
 
 
 
-    router.post('/process_register', function(req, res) {
+    router.post('/register', function(req, res) {
 
         var password = randtoken.generate(5),
             artwork_1_name = (req.files.hasOwnProperty('artwork_1')) ? req.files.artwork_1.name : '',
@@ -159,8 +74,8 @@ module.exports = function(router) {
 
                         var link = 'http://conception-mypinly.rhcloud.com/verifyemail/user/' + userInfo.user_token;
 
-                        sendEmail(userInfo.email, userInfo.full_name, link);
-                        sendAdminEmail();
+                        email.sendEmail(userInfo.email, userInfo.full_name, link);
+                        email.sendAdminEmail();
 
                     });
 
@@ -210,9 +125,8 @@ module.exports = function(router) {
             if (err) {
                 console.log(err);
             } else {
-                var email = userDetails.email;
 
-                sendPasswordEmail(email, userDetails.full_name, userDetails.password);
+                email.sendPasswordEmail(userDetails.email, userDetails.full_name, userDetails.password);
             }
         });
 
