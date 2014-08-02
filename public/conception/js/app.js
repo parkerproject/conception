@@ -50,9 +50,9 @@ var CONCEPTION = (function() {
 
   function routes() {
 
-    page('/conception/:events', function() {
+    page('/conception/:events', function(ctx) {
 			
-			console.lgo(ctx.params.events);
+			console.log(ctx.params.events);
 
       if (window.Conceptionlist.hasOwnProperty('events')) {
         var events = Conceptionlist.events,
