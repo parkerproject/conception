@@ -244,7 +244,7 @@ var CONCEPTION = {
   },
 
   scroll: function() {
-    $(".scroll").click(function() {
+    $(".scrollup").click(function() {
       $('html, body').animate({
         scrollTop: $(".top-bar-section").offset().top
       }, 2000);
