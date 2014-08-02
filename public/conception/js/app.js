@@ -54,6 +54,7 @@ var CONCEPTION = (function() {
 
       var name = ctx.params.name;
       $.getJSON('/conception/' + name, function(data) {
+				console.log(data);
         var events = data,
           html = [],
           rows;
