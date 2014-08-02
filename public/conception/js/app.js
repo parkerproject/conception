@@ -51,6 +51,8 @@ var CONCEPTION = (function() {
   function routes() {
 
     page('/conception/:events', function() {
+			
+			console.lgo(ctx.params.events);
 
       if (window.Conceptionlist.hasOwnProperty('events')) {
         var events = Conceptionlist.events,
