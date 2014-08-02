@@ -14,6 +14,7 @@ var CONCEPTION = {
     this.eventSinglePage();
     this.eventsPage();
     this.slider();
+		this.scroll();
   },
 
   validate: function() {
