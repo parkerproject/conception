@@ -89,7 +89,6 @@ var CONCEPTION = (function() {
 
   function conceptionInit() {
     routes();
-    rowTpl();
   }
 
 
