@@ -5,7 +5,8 @@ var db = require('../config/database');
 function getArtist(email, fn) {
   db.artists.findOne({
     email: email,
-    emailVerified: true
+    emailVerified: true,
+		approved: true
   }, function(err, user) {
     if (err || !user) console.log("No user found");
     else fn(user);

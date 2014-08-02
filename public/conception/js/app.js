@@ -48,13 +48,9 @@ var CONCEPTION = (function() {
   }
 
 
-  function routes() {
-		
-		console.log('yes');
-
     page('/conception/events', function(ctx) {
 			
-			console.log('inside');
+			console.log(ctx);
 
       if (window.Conceptionlist.hasOwnProperty('events')) {
         var events = Conceptionlist.events,
@@ -84,13 +80,11 @@ var CONCEPTION = (function() {
         .innerHTML = 'Dashboard';
 
     });
-  }
-
-
+  
 
 
   function conceptionInit() {
-    routes();
+
   }
 
 
