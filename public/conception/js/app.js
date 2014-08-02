@@ -53,19 +53,21 @@ var CONCEPTION = (function() {
     page('/conception/:name', function(ctx) {
 
       var name = ctx.params.name;
-      $.getJSON('/conception/' + name, function(data) {
-				console.log(data);
-        var events = data,
-          html = [],
-          rows;
-        for (var i = 0; i < events.length; i++) {
-          html.push(rowTpl(events[i].event));
-        }
+      if (name == 'events') {
+        $.getJSON('/conception/' + name, function(data) {
+          var events = data.events,
+            html = [],
+            rows;
+          for (var i = 0; i < events.length; i++) {
+            html.push(rowTpl(events[i].event));
+          }
 
-        rows = template(html.join(""));
-        document.querySelector('.event_json').innerHTML = rows;
-        document.querySelector('.content-header').querySelector('h1').innerHTML = 'Events';
-      });
+          rows = template(html.join(""));
+          document.querySelector('.event_json').innerHTML = rows;
+          document.querySelector('.content-header').querySelector('h1').innerHTML = 'Events';
+        });
+      }
+
 
     });
 
