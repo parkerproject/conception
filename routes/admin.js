@@ -6,7 +6,7 @@
  * To change this template use Tools | Templates.
  */
 var getEvents = require('../models/get_events');
-var getArtist = require('../models/get_artists');
+var getArtist = require('../models/artists_list');
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
