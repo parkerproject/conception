@@ -83,7 +83,7 @@ var CONCEPTION = (function() {
 
     });
 
-    pages();
+    page();
   }
 
 
