@@ -233,13 +233,21 @@ var CONCEPTION = {
       dots: true,
       fade: true,
       autoplay: true,
-			autoplaySpeed: 9000,
+      autoplaySpeed: 9000,
       onAfterChange: function(e) {
         var idx = e.currentSlide;
         document.querySelector('.caption').style.display = 'none';
         document.querySelector('.home-slider').querySelector('.index-' + idx).style.display = 'block';
       }
 
+    });
+  },
+
+  scroll: function() {
+    $(".scroll").click(function() {
+      $('html, body').animate({
+        scrollTop: $(".top-bar-section").offset().top
+      }, 2000);
     });
   }
 
