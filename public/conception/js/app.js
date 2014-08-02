@@ -49,10 +49,12 @@ var CONCEPTION = (function() {
 
 
   function routes() {
+		
+		console.log('yes');
 
-    page('/conception/:events', function(ctx) {
+    page('/conception/events', function(ctx) {
 			
-			console.log(ctx.params.events);
+			console.log('inside');
 
       if (window.Conceptionlist.hasOwnProperty('events')) {
         var events = Conceptionlist.events,
