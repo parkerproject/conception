@@ -46,19 +46,13 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'events') {
       getEvents(function(data) {
-        res.render('admin/home', {
-          title: 'Conception' + req.params.name,
-          data: data
-        });
+        res.send(data);
       });
     }
 
     if (req.params.name == 'artists') {
       getArtist(function(data) {
-        res.render('admin/artists', {
-          title: 'Conception' + req.params.name,
-          data: JSON.stringify(data)
-        });
+        res.send(JSON.stringify(data));
       });
     }
 
@@ -66,12 +60,11 @@ module.exports = function(router, passport, db) {
 
   router.get('/conception', ensureAuthenticated, function(req, res) {
 
-    getEvents(function(data) {
       res.render('admin/home', {
-        title: 'Conception',
-        data: data
+        title: 'Conception'
+    
       });
-    });
+   
 
   });
 
