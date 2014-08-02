@@ -55,7 +55,7 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
       getArtist(function(data) {
-        res.render('admin/home', {
+        res.render('admin/artists', {
           title: 'Conception' + req.params.name,
           data: JSON.stringify(data)
         });

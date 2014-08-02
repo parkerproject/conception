@@ -52,7 +52,7 @@ var CONCEPTION = (function() {
 
     page('/conception/events', function(ctx) {
 
-      console.log('yes =' + ctx);
+      console.log('yes =' + JSON.stringify(ctx));
 
       if (window.Conceptionlist.hasOwnProperty('events')) {
         var events = Conceptionlist.events,
