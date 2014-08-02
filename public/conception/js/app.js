@@ -48,41 +48,6 @@ var CONCEPTION = (function() {
   }
 
 
-    page('/conception/events', function(ctx) {
-			
-			console.log(ctx);
-
-      if (window.Conceptionlist.hasOwnProperty('events')) {
-        var events = Conceptionlist.events,
-          html = [],
-          rows;
-        for (var i = 0; i < events.length; i++) {
-          html.push(rowTpl(events[i].event));
-        }
-
-        rows = template(html.join(""));
-        document.querySelector('.event_json').innerHTML = rows;
-        document.querySelector('.content-header')
-          .querySelector('h1')
-          .innerHTML = 'Events';
-      } else {
-        document.querySelector('.event_json').innerHTML = '<h3><p>Bummer! You need to create an event on Eventbrite.</p></h3>';
-      }
-
-
-    });
-
-
-    page('/conception', function() {
-      document.querySelector('.event_json').innerHTML = '';
-      document.querySelector('.content-header')
-        .querySelector('h1')
-        .innerHTML = 'Dashboard';
-
-    });
-  
-
-
   function conceptionInit() {
 
   }
@@ -97,4 +62,40 @@ var CONCEPTION = (function() {
 
 $(function() {
   CONCEPTION.conceptionInit();
+
+
+  page('/conception/events', function(ctx) {
+
+    console.log(ctx);
+
+    if (window.Conceptionlist.hasOwnProperty('events')) {
+      var events = Conceptionlist.events,
+        html = [],
+        rows;
+      for (var i = 0; i < events.length; i++) {
+        html.push(rowTpl(events[i].event));
+      }
+
+      rows = template(html.join(""));
+      document.querySelector('.event_json').innerHTML = rows;
+      document.querySelector('.content-header')
+        .querySelector('h1')
+        .innerHTML = 'Events';
+    } else {
+      document.querySelector('.event_json').innerHTML = '<h3><p>Bummer! You need to create an event on Eventbrite.</p></h3>';
+    }
+
+
+  });
+
+
+  page('/conception', function() {
+    document.querySelector('.event_json').innerHTML = '';
+    document.querySelector('.content-header')
+      .querySelector('h1')
+      .innerHTML = 'Dashboard';
+
+  });
+	
+	
 });
