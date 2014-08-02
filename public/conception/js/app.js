@@ -53,6 +53,7 @@ var CONCEPTION = (function() {
 		page('/conception/:name', function(ctx) {
 
       console.log('yes =' + JSON.stringify(ctx));
+			location.reload();
 
 //       if (window.Conceptionlist.hasOwnProperty('events')) {
 //         var events = Conceptionlist.events,
