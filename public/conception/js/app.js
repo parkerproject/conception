@@ -50,7 +50,7 @@ var CONCEPTION = (function() {
 
   function routes() {
 
-    page('/conception/events', function(ctx) {
+		page('/conception/:name', function(ctx) {
 
       console.log('yes =' + JSON.stringify(ctx));
 
