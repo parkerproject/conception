@@ -25,7 +25,7 @@ function artistTemplate(artist) {
 module.exports = function(router) {
 
 
-  router.get('/event/:id ', function(req, res) {
+  router.get('/event/:id', function(req, res) {
     var id = parseInt(req.params.id);
     db.events.findOne({
       "event_id": id
