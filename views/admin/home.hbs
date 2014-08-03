@@ -112,6 +112,23 @@
         <!-- AdminLTE App -->
 			 <script src="/conception/js/templates.js" type="text/javascript"></script>
         <script src="/conception/js/app.js" type="text/javascript"></script>
+			
+			<script>
+				 $('.box-body').on('click', '.approve', function(){
+			
+						console.log('yes');
+
+						var email = $(this).data('email');
+						var approved = ($(this).is(":checked")) ? true : false;
+
+						$.post('/approve_artist', {
+							email: email,
+							approved: approved
+						}, function(data) {
+							console.log(data);
+						});
+					});
+			</script>
 
 
     </body>
