@@ -65,7 +65,8 @@ module.exports = function(router, passport, db) {
           email: d.email,
           full_name: d.full_name,
           photo: d.photo,
-          url: d.url
+          url: d.url,
+					approved: d.approved
         });
 					
 				});
