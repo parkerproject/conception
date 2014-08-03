@@ -98,7 +98,7 @@ var CONCEPTION = (function() {
     return html;
 
   }
-
+	
 
   function routes() {
 
@@ -142,10 +142,11 @@ var CONCEPTION = (function() {
 
 
     page('/conception', function() {
-//       document.querySelector('.event_json').innerHTML = '';
-//       document.querySelector('.content-header')
-//         .querySelector('h1')
-//         .innerHTML = 'Dashboard';
+			var dashboardTpl = Templates.dashboard();
+      document.querySelector('.event_json').innerHTML = dashboardTpl;
+      document.querySelector('.content-header')
+        .querySelector('h1')
+        .innerHTML = 'Dashboard';
 
     });
 
