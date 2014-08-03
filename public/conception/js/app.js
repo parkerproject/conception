@@ -157,10 +157,6 @@ var CONCEPTION = (function() {
   }
 
 
-  function conceptionInit() {
-    routes();
-  }
-
   function approveUsers() {
     $('.box-body').on('click', '.approve', function() {
 
@@ -176,6 +172,11 @@ var CONCEPTION = (function() {
 
 
     });
+  }
+
+  function conceptionInit() {
+    routes();
+    approveUsers();
   }
 
 
