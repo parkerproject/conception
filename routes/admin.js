@@ -52,10 +52,21 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
       getArtist(function(data) {
-				delete data.password;
-				delete data.user_token;
-				
-        res.send(JSON.stringify(data));
+
+        data = JSON.stringify(data);
+
+        var newObj = {
+          artwork_1: data.artwork_1,
+          artwork_2: data.artwork_2,
+          artwork_3: data.artwork_3,
+          dateBirth: data.dateBirth,
+          email: data.email,
+          full_name: data.full_name,
+          photo: data.photo,
+          url: data.url
+        };
+
+        res.send(newObj);
       });
     }
 
@@ -63,11 +74,11 @@ module.exports = function(router, passport, db) {
 
   router.get('/conception', ensureAuthenticated, function(req, res) {
 
-      res.render('admin/home', {
-        title: 'Conception'
-    
-      });
-   
+    res.render('admin/home', {
+      title: 'Conception'
+
+    });
+
 
   });
 
