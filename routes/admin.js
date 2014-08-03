@@ -52,6 +52,9 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
       getArtist(function(data) {
+				delete data.password;
+				delete data.user_token;
+				
         res.send(JSON.stringify(data));
       });
     }
