@@ -142,10 +142,10 @@ var CONCEPTION = (function() {
 
 
     page('/conception', function() {
-      document.querySelector('.event_json').innerHTML = '';
-      document.querySelector('.content-header')
-        .querySelector('h1')
-        .innerHTML = 'Dashboard';
+//       document.querySelector('.event_json').innerHTML = '';
+//       document.querySelector('.content-header')
+//         .querySelector('h1')
+//         .innerHTML = 'Dashboard';
 
     });
 
