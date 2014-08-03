@@ -53,22 +53,25 @@ module.exports = function(router, passport, db) {
     if (req.params.name == 'artists') {
       getArtist(function(data) {
 				
-				console.log(data);
+				
+				var newObj = [];
+			
+				data.map(function(d){
+				newObj.push({
+          artwork_1: d.artwork_1,
+          artwork_2: d.artwork_2,
+          artwork_3: d.artwork_3,
+          dateBirth: d.dateBirth,
+          email: d.email,
+          full_name: d.full_name,
+          photo: d.photo,
+          url: d.url
+        });
+					
+				});
+				
+				res.send(newObj);
 
-        data = JSON.stringify(data);
-
-        var newObj = {
-          artwork_1: data.artwork_1,
-          artwork_2: data.artwork_2,
-          artwork_3: data.artwork_3,
-          dateBirth: data.dateBirth,
-          email: data.email,
-          full_name: data.full_name,
-          photo: data.photo,
-          url: data.url
-        };
-
-        res.send(newObj);
       });
     }
 
