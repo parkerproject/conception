@@ -999,6 +999,7 @@ legend{
 	margin-top: 20px;
 	color: lighten($black-color, 70%);
 	h3,h4{
-		color: lighten($black-color, 70%);
+		color: $primary-color;
+		margin-bottom: 20px;
 	}
 }
