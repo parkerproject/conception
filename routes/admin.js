@@ -52,26 +52,26 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
       getArtist(function(data) {
-				
-				
-				var newObj = [];
-			
-				data.map(function(d){
-				newObj.push({
-          artwork_1: d.artwork_1,
-          artwork_2: d.artwork_2,
-          artwork_3: d.artwork_3,
-          dateBirth: d.dateBirth,
-          email: d.email,
-          full_name: d.full_name,
-          photo: d.photo,
-          url: d.url,
-					approved: d.approved
+
+
+        var newObj = [];
+
+        data.map(function(d) {
+          newObj.push({
+            artwork_1: d.artwork_1,
+            artwork_2: d.artwork_2,
+            artwork_3: d.artwork_3,
+            dateBirth: d.dateBirth,
+            email: d.email,
+            full_name: d.full_name,
+            photo: d.photo,
+            url: d.url,
+            approved: d.approved
+          });
+
         });
-					
-				});
-				
-				res.send(newObj);
+
+        res.send(newObj);
 
       });
     }
@@ -85,7 +85,6 @@ module.exports = function(router, passport, db) {
 
     });
 
-
   });
 
 
@@ -95,6 +94,30 @@ module.exports = function(router, passport, db) {
     res.redirect('/login');
   });
 
+
+  router.post('/approve_artist', function(req, res) {
+
+    if (req.session.authenticated) {
+      db.artists.findAndModify({
+        query: {
+          user_token: req.body.email
+        },
+        update: {
+          $set: {
+            approved: true
+          }
+        },
+        new: true
+      }, function(err, doc, lastErrObj) {
+        if (err) {
+          console.log(err);
+        } else {}
+      });
+    }
+
+
+
+  });
 
 
 

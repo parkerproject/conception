@@ -81,11 +81,11 @@ var CONCEPTION = (function() {
     var artwork_1 = (artist.artwork_1 !== '') ? '<a href="/artists_images/' + artist.artwork_1 + '" target="_blank">Artwork 1</a>, ' : '';
     var artwork_2 = (artist.artwork_2 !== '') ? '<a href="/artists_images/' + artist.artwork_2 + '" target="_blank">Artwork 2</a>, ' : '';
     var artwork_3 = (artist.artwork_3 !== '') ? '<a href="/artists_images/' + artist.artwork_3 + '" target="_blank">Artwork 3</a>' : '';
- 
-    
 
-		
-		var status = (artist.approved) ? '<input type="checkbox" id="approve" checked/>' : '<input type="checkbox" id="approve"/>';
+
+
+
+    var status = (artist.approved) ? '<input type="checkbox" class="approve" name="approve" data-email="' + artist.email + '" checked/>' : '<input type="checkbox" name="approve" class="approve" data-email="' + artist.email + '"/>';
 
     html = ['<tr>',
       '<td>' + artist.full_name + '</td>',
@@ -101,7 +101,7 @@ var CONCEPTION = (function() {
     return html;
 
   }
-	
+
 
   function routes() {
 
@@ -145,7 +145,7 @@ var CONCEPTION = (function() {
 
 
     page('/conception', function() {
-			var dashboardTpl = Templates.dashboard();
+      var dashboardTpl = Templates.dashboard();
       document.querySelector('.event_json').innerHTML = dashboardTpl;
       document.querySelector('.content-header')
         .querySelector('h1')
@@ -159,6 +159,23 @@ var CONCEPTION = (function() {
 
   function conceptionInit() {
     routes();
+  }
+
+  function approveUsers() {
+    $('.box-body').on('click', '.approve', function() {
+
+      var email = $(this).data('email');
+      var approved = ($(this).is(":checked")) ? true : false;
+
+      $.post('/approve_artist', {
+        email: email,
+        approved: approved
+      }, function(data) {
+        console.log('user updated');
+      });
+
+
+    });
   }
 
 
