@@ -158,7 +158,7 @@ var CONCEPTION = (function() {
 
 
   function approveUsers() {
-    $('.approve').click(function() {
+    $("input[type=checkbox]").change(function() {
 
       console.log('yes');
 
@@ -172,11 +172,12 @@ var CONCEPTION = (function() {
         console.log(data);
       });
     });
+
   }
 
   function conceptionInit() {
     routes();
-		approveUsers();
+    approveUsers();
   }
 
 
