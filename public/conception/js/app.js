@@ -157,9 +157,28 @@ var CONCEPTION = (function() {
   }
 
 
+  function approveUsers() {
+    $('.approve').click(function() {
+
+      console.log('yes');
+
+      var email = $(this).data('email');
+      var approved = ($(this).is(":checked")) ? true : false;
+
+      $.post('/approve_artist', {
+        email: email,
+        approved: approved
+      }, function(data) {
+        console.log(data);
+      });
+    });
+  }
+
   function conceptionInit() {
     routes();
+		approveUsers();
   }
+
 
 
 
@@ -171,6 +190,6 @@ var CONCEPTION = (function() {
 
 $(function() {
   CONCEPTION.conceptionInit();
-	
+
 
 });
