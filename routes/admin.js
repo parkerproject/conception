@@ -80,7 +80,7 @@ module.exports = function(router, passport, db) {
 
   router.get('/conception', ensureAuthenticated, function(req, res) {
 
-    res.render('admin/home', {
+    res.render('admin/dashboard', {
       title: 'Conception'
 
     });
