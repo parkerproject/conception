@@ -52,6 +52,8 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
       getArtist(function(data) {
+				
+				console.log(data);
 
         data = JSON.stringify(data);
 
