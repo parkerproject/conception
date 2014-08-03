@@ -78,21 +78,21 @@ var CONCEPTION = (function() {
     var dob = new Date(month + '/' + day + '/' + year);
     var age = today.getFullYear() - dob.getFullYear();
 
-    var artwork_1 = (artist.artwork_1 !== '') ? '<a href="/images/' + artist.artwork_1 + '"></a>, ' : '';
-    var artwork_2 = (artist.artwork_2 !== '') ? '<a href="/images/' + artist.artwork_2 + '"></a>, ' : '';
-    var artwork_3 = (artist.artwork_3 !== '') ? '<a href="/images/' + artist.artwork_3 + '"></a>' : '';
+    var artwork_1 = (artist.artwork_1 !== '') ? '<a href="/artists_images/' + artist.artwork_1 + '" target="_blank">Artwork 1</a>, ' : '';
+    var artwork_2 = (artist.artwork_2 !== '') ? '<a href="/artists_images/' + artist.artwork_2 + '" target="_blank">Artwork 2</a>, ' : '';
+    var artwork_3 = (artist.artwork_3 !== '') ? '<a href="/artists_images/' + artist.artwork_3 + '" target="_blank">Artwork 3</a>' : '';
  
     
 
 		
-		var status = (artist.approved) ? '<div class="checkbox"><label><input type="checkbox" checked/></label></div>' : '<div class="checkbox"><label><input type="checkbox"/></label></div>';
+		var status = (artist.approved) ? '<input type="checkbox" id="approve" checked/>' : '<input type="checkbox" id="approve"/>';
 
     html = ['<tr>',
       '<td>' + artist.full_name + '</td>',
       '<td>' + artist.email + '</td>',
       '<td>' + age + '</td>',
       '<td>' + artwork_1 + artwork_2 + artwork_3 + '</td>',
-      '<td>' + artist.photo + '</td>',
+      '<td><a href="/artists_images/' + artist.photo + '" target="_blank">Photo</a></td>',
       '<td>' + artist.url + '</td>',
       '<td width="10%">' + status + '</td>',
       '</tr>'
