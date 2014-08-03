@@ -111,7 +111,9 @@ module.exports = function(router, passport, db) {
       }, function(err, doc, lastErrObj) {
         if (err) {
           console.log(err);
-        } else {}
+        } else {
+					res.send('update successfully');
+				}
       });
     }
 

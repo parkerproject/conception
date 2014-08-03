@@ -169,7 +169,7 @@ var CONCEPTION = (function() {
         email: email,
         approved: approved
       }, function(data) {
-        console.log('user updated');
+        console.log(data);
       });
 
 
@@ -178,13 +178,13 @@ var CONCEPTION = (function() {
 
   function conceptionInit() {
     routes();
-    approveUsers();
   }
 
 
 
   return {
-    conceptionInit: conceptionInit
+    conceptionInit: conceptionInit,
+		approveUsers: approveUsers
   };
 
 }());
