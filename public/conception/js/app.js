@@ -191,5 +191,6 @@ var CONCEPTION = (function() {
 
 $(function() {
   CONCEPTION.conceptionInit();
+	CONCEPTION.approveUsers();
 
 });
