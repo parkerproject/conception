@@ -54,8 +54,9 @@ var CONCEPTION = (function() {
       '<tbody><tr>',
       '<th style="width: 10px">Name</th>',
       '<th>Email</th>',
-      '<th>Date of Birth</th>',
+      '<th>Age</th>',
       '<th>Artwork</th>',
+      '<th>Photo</th>',
       '<th>Url</th>',
       '<th>Approved</th>',
       '</tr>' + row + '</tbody></table>',
@@ -68,13 +69,29 @@ var CONCEPTION = (function() {
   function artistTemplate(artist) {
 
     var colorLabel, html, ticketSold = 0;
+
+    var today = new Date();
+    var month = artist.date_birth.month;
+    var day = artist.date_birth.day;
+    var year = artist.date_birth.year;
+
+    var dob = new Date(month + '/' + day + '/' + year);
+    var age = today.getFullYear() - dob.getFullYear();
+
+    var artwork_1 = (artist.artwork_1 !== '') ? '<a href="/images/' + artist.artwork_1 + '"></a>, ' : '';
+    var artwork_2 = (artist.artwork_2 !== '') ? '<a href="/images/' + artist.artwork_2 + '"></a>, ' : '';
+    var artwork_3 = (artist.artwork_3 !== '') ? '<a href="/images/' + artist.artwork_3 + '"></a>' : '';
+
+    var status = (artist.approved) ? '<span class="badge bg-green">' + artist.approved + '</span>' : '<span class="badge bg-red">' + artist.approved + '</span>';
+
     html = ['<tr>',
       '<td>' + artist.full_name + '</td>',
       '<td>' + artist.email + '</td>',
-      '<td>' + artist.date_birth + '</td>',
-      '<td>' + artist.artwork + '</td>',
+      '<td>' + age + '</td>',
+      '<td>' + artist.artwork_1 + artist.artwork_2 + artist.artwork_3 + '</td>',
+      '<td>' + artist.photo + '</td>',
       '<td>' + artist.url + '</td>',
-      '<td width="10%"><span class="badge ' + colorLabel + '">' + ticketSold + '</span></td>',
+      '<td width="10%">' + status + '</td>',
       '</tr>'
     ].join("");
 
@@ -88,7 +105,7 @@ var CONCEPTION = (function() {
     page('/conception/:name', function(ctx) {
 
       var name = ctx.params.name;
-			
+
       if (name == 'events') {
         $.getJSON('/conception/' + name, function(data) {
           var events = data.events,
@@ -106,17 +123,17 @@ var CONCEPTION = (function() {
 
       if (name == 'artists') {
         $.getJSON('/conception/' + name, function(data) {
-					window.artists = data;
-//           var events = data.events,
-//             html = [],
-//             rows;
-//           for (var i = 0; i < events.length; i++) {
-//             html.push(rowTpl(events[i].event));
-//           }
 
-//           rows = template(html.join(""));
-//           document.querySelector('.event_json').innerHTML = rows;
-//           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Events';
+          var rows = [],
+            content;
+
+          data.map(function(artist) {
+            rows.push(artistTemplate(artist));
+          });
+
+          content = artistTplHeader(rows.join(""));
+          document.querySelector('.event_json').innerHTML = content;
+          document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
         });
       }
 

@@ -66,11 +66,10 @@ var CONCEPTION = {
       day = (day !== '') ? day : '01';
       year = (year !== '') ? year : new Date().getFullYear();
 
-      console.log(month, day, year);
 
       var dob = new Date(month + '/' + day + '/' + year);
       var age = today.getFullYear() - dob.getFullYear();
-      console.log(age);
+     
       if (age < 21) {
         alert('You must be at least 21yrs to register');
       }
