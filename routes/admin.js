@@ -98,9 +98,10 @@ module.exports = function(router, passport, db) {
   router.post('/approve_artist', function(req, res) {
 
     if (req.session.authenticated) {
+			console.log(req.params, req.body);
       db.artists.findAndModify({
         query: {
-          user_token: req.body.email
+          user_token: req.params.email
         },
         update: {
           $set: {
