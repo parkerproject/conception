@@ -81,14 +81,17 @@ var CONCEPTION = (function() {
     var artwork_1 = (artist.artwork_1 !== '') ? '<a href="/images/' + artist.artwork_1 + '"></a>, ' : '';
     var artwork_2 = (artist.artwork_2 !== '') ? '<a href="/images/' + artist.artwork_2 + '"></a>, ' : '';
     var artwork_3 = (artist.artwork_3 !== '') ? '<a href="/images/' + artist.artwork_3 + '"></a>' : '';
+ 
+    
 
-    var status = (artist.approved) ? '<span class="badge bg-green">' + artist.approved + '</span>' : '<span class="badge bg-red">' + artist.approved + '</span>';
+		
+		var status = (artist.approved) ? '<div class="checkbox"><label><input type="checkbox" checked/></label></div>' : '<div class="checkbox"><label><input type="checkbox"/></label></div>';
 
     html = ['<tr>',
       '<td>' + artist.full_name + '</td>',
       '<td>' + artist.email + '</td>',
       '<td>' + age + '</td>',
-      '<td>' + artist.artwork_1 + artist.artwork_2 + artist.artwork_3 + '</td>',
+      '<td>' + artwork_1 + artwork_2 + artwork_3 + '</td>',
       '<td>' + artist.photo + '</td>',
       '<td>' + artist.url + '</td>',
       '<td width="10%">' + status + '</td>',
