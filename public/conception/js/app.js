@@ -164,8 +164,7 @@ var CONCEPTION = (function() {
 
 
   return {
-    conceptionInit: conceptionInit,
-		approveUsers: approveUsers
+    conceptionInit: conceptionInit
   };
 
 }());
