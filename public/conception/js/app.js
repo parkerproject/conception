@@ -159,6 +159,8 @@ var CONCEPTION = (function() {
 
   function approveUsers() {
     $('.box-body').on('click', '.approve', function() {
+			
+			console.log('yes');
 
       var email = $(this).data('email');
       var approved = ($(this).is(":checked")) ? true : false;
