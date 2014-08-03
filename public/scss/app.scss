@@ -986,11 +986,11 @@ legend{
 .featured_artists{
 	margin-bottom: 50px;
 	
-	img{
+	a{
     width: 258px;
-    height: 196px;
+    height: 232px;
     overflow: hidden;
-  
+		display: block
   }
 	
 }

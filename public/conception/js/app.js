@@ -138,6 +138,8 @@ var CONCEPTION = (function() {
           document.querySelector('.event_json').innerHTML = content;
           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
         });
+				
+				approveUsers();
       }
 
 
