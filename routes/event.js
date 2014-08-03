@@ -42,7 +42,7 @@ module.exports = function(router) {
           });
         });
         setTimeout(function() {
-          res.render('event ', {
+          res.render('event', {
             title: 'conception events',
             data: JSON.stringify(event),
             artists: artists,
