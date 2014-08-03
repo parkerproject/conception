@@ -71,9 +71,9 @@ var CONCEPTION = (function() {
     var colorLabel, html, ticketSold = 0;
 
     var today = new Date();
-    var month = artist.date_birth.month;
-    var day = artist.date_birth.day;
-    var year = artist.date_birth.year;
+    var month = artist.dateBirth.month;
+    var day = artist.dateBirth.day;
+    var year = artist.dateBirth.year;
 
     var dob = new Date(month + '/' + day + '/' + year);
     var age = today.getFullYear() - dob.getFullYear();
