@@ -18,7 +18,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-function getEvent(email, fn) {
+function getEvent(email, fn, cb) {
   db.events.find({
     artists: {
       $in: [email]
@@ -99,10 +99,10 @@ module.exports = function(router, passport, db) {
 
             }(d);
 
+          }, function(eArtist) {
+            res.send(eArtist);
           });
 
-        }, function(eArtist) {
-          res.send(eArtist);
         });
 
 
