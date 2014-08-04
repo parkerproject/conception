@@ -94,7 +94,7 @@ var CONCEPTION = (function() {
       '<td>' + artwork_1 + artwork_2 + artwork_3 + '</td>',
       '<td><a href="/artists_images/' + artist.photo + '" target="_blank">Photo</a></td>',
       '<td>' + artist.url + '</td>',
-      '<td width="10%">' + status + '</td>',
+      '<td width="10%" class="approve_parent">' + status + '</td>',
       '</tr>'
     ].join("");
 
@@ -139,7 +139,6 @@ var CONCEPTION = (function() {
           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
         });
 				
-				approveUsers();
       }
 
 
@@ -161,12 +160,12 @@ var CONCEPTION = (function() {
 
   function approveUsers() {
 		console.log('ran');
-    $("input[type=checkbox]").change(function() {
+    $(".approve_parent").click(function() {
 
       console.log('yes');
-
-      var email = $(this).data('email');
-      var approved = ($(this).is(":checked")) ? true : false;
+      var input = $(this).find('.approve');
+      var email = input.data('email');
+      var approved = (input.is(":checked")) ? true : false;
 
       $.post('/approve_artist', {
         email: email,
