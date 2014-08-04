@@ -65,15 +65,19 @@ module.exports = function(router, passport, db) {
     }
 
     if (req.params.name == 'artists') {
-			
-			getEvent("rachel.wilkins81@yahoo.com", function(data){
-				console.log(data[0].title);
-			});
-			
+
+
       getArtist(function(data) {
-        var newObj = [];
+
+        var newObj = [], title;
+
 
         data.map(function(d) {
+
+          getEvent(d.email, function(title) {
+            title = title[0].title;
+          });
+
           newObj.push({
             artwork_1: d.artwork_1,
             artwork_2: d.artwork_2,
@@ -83,11 +87,13 @@ module.exports = function(router, passport, db) {
             full_name: d.full_name,
             photo: d.photo,
             url: d.url,
-            approved: d.approved
+            approved: d.approved,
+						title: title
           });
 
         });
 
+        console.log(newObj);
         res.send(newObj);
 
       });
