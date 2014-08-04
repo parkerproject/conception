@@ -93,6 +93,7 @@ module.exports = function(router, passport, db) {
             return function(a) {
               a.title = title[0].title;
 							newObj.push(a);
+							console.log(a);
 								
             }(eArtist);
 
