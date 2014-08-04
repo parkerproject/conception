@@ -76,7 +76,7 @@ module.exports = function(router, passport, db) {
         data.map(function(d) {
 
           getEvent(d.email, function(title) {
-          
+
             newObj.push({
               artwork_1: d.artwork_1,
               artwork_2: d.artwork_2,
@@ -89,16 +89,14 @@ module.exports = function(router, passport, db) {
               approved: d.approved,
               title: title[0].title
             });
-						
+
           });
 
-
-        });
-				
-				setTimeout(function(){
-					console.log(newObj);
+          console.log(newObj);
           res.send(newObj);
-				}, 0);
+        });
+
+
 
       });
     }
