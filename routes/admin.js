@@ -69,13 +69,18 @@ module.exports = function(router, passport, db) {
 
       getArtist(function(data) {
 
-        var newObj = [],
-          title;
+        var newObj = [], title;
 
 
         data.map(function(d) {
 
-          getEvent(d.email, function(title) {
+          getEvent(d.email, function(title) { 
+		
+						return function(){
+							title = title[0].title;
+						}();
+					
+					});
 
             newObj.push({
               artwork_1: d.artwork_1,
@@ -87,10 +92,9 @@ module.exports = function(router, passport, db) {
               photo: d.photo,
               url: d.url,
               approved: d.approved,
-              title: title[0].title
+              title: title
             });
 
-          });
 
         });
 
