@@ -98,13 +98,11 @@ module.exports = function(router, passport, db) {
 
             }(d);
 
-          }, function(){
-						res.send(newObj);
-					});
+          });
 
         });
 
-        
+        process.nextTick(res.send(newObj));
           
       
 
