@@ -95,11 +95,11 @@ module.exports = function(router, passport, db) {
 
               };
               newObj.push(eArtist);
-              console.log(eArtist);
 
             }(d);
 
           }, function(eArtist) {
+						console.log(eArtist);
             res.send(eArtist);
           });
 
