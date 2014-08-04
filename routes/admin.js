@@ -100,7 +100,11 @@ module.exports = function(router, passport, db) {
 
         });
 
-           res.send(eArtist);
+        setTimeout(function() {
+          res.send(eArtist);
+        }, 5000);
+
+        
       });
 
     }
