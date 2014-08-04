@@ -111,9 +111,10 @@ module.exports = function(router, passport, db) {
 
 
 
-  router.get('/logout', function(req, res) {
+  router.get('/admin/logout', function(req, res) {
+		req.session.authenticated = false;
     req.logout();
-    res.redirect('/login');
+    res.redirect('/admin/login');
   });
 
 
