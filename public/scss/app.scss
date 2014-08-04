@@ -926,6 +926,7 @@ legend{
   background-size: cover;
   position: relative;
   .campus-inner{
+		font-family: 'GothamMedium';
 		width: 800px;
 		padding: 10px;
 		margin: 0 auto;
@@ -940,17 +941,16 @@ legend{
         display: block;
         margin: 0 auto 20px auto;
     }
-    // p{
-    //     padding: 10px 10px 0 10px;
-    //     font-family: 'GothamLight';
-    //     span{
-    //         display: block;
-    //         font-weight: bold;
-    //         @include font-size(6);
-    //         color: $black-color;
-    //         font-family: 'GothamMedium';
-    //     }
-    // }
+    span{
+				position: relative;
+				top: -12px;
+				display: block;
+				margin-bottom: 20px;
+				font-family: 'GothamMedium';
+		  }
+		p{
+			text-align: left;
+		}
   }
 
 }
