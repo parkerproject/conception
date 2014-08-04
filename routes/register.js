@@ -98,7 +98,7 @@ module.exports = function(router, db) {
             }
           });
 
-          var string = encodeURIComponent('Thank you for submitting. We have emailed you the verification email.');
+          var string = encodeURIComponent('Thank you for submitting your work to Conception.');
           res.redirect('/thank_you?data=' + string);
         }, 0);
       } else {
