@@ -356,6 +356,7 @@
         overflow: hidden;
     }
     img{
+				height: 100%;
         &:hover{
             @include filter(grayscale, 100%);
         }
