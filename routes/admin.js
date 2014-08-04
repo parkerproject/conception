@@ -102,7 +102,9 @@ module.exports = function(router, passport, db) {
 
         });
 
-        process.nextTick(res.send(newObj));
+				process.nextTick(function(){
+					res.send(newObj);
+				});
           
       
 
