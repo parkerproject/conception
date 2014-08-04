@@ -98,11 +98,15 @@ module.exports = function(router, passport, db) {
           });
 
         });
-				
-				res.send(newObj);
+
+
+        setTimeout(function() {
+          res.send(eArtist);
+        }, 4);
+
 
       });
-     
+
     }
 
   });
