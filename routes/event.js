@@ -6,7 +6,7 @@ function getArtist(email, fn) {
   db.artists.findOne({
     email: email,
     emailVerified: true,
-    approved: true
+    approved: "true" || true
   }, function(err, user) {
     if (err || !user) console.log("No user found");
     else fn(user);
