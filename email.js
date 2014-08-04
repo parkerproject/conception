@@ -66,7 +66,7 @@ function sendAdminEmail() {
 
   transporter.sendMail({
     from: 'noreply@conceptionevents.com',
-    to: 'conceptionevents00@gmail.com',
+    to: 'info@conceptionevents.com',
     subject: 'Conception Events: New Artist',
     html: body
   }, function(err, status) {

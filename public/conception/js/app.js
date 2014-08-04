@@ -177,9 +177,9 @@ var CONCEPTION = (function() {
   }
 	
 	function test(){
-		$(document).click(function(){
+		$(document).click(function(e){
 			
-			console.log('document clicked');
+			console.log(e);
 			
 		});
 	}
