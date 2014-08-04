@@ -87,8 +87,9 @@ var CONCEPTION = (function() {
 
 
     var status = (artist.approved) ? '<input type="checkbox" class="approve" name="approve" data-email="' + artist.email + '" checked/>' : '<input type="checkbox" name="approve" class="approve" data-email="' + artist.email + '"/>';
-
-    html = ['<tr>',
+		
+		
+		html = ['<tr>',
       '<td>' + artist.full_name + '</td>',
       '<td>' + artist.email + '</td>',
       '<td>' + age + '</td>',

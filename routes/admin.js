@@ -86,7 +86,7 @@ module.exports = function(router, passport, db) {
             photo: d.photo,
             url: d.url,
             approved: d.approved,
-            title: ''
+						events: d.events
 
           });
 
