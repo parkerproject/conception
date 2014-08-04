@@ -45,7 +45,7 @@ module.exports = function(router) {
           res.render('event', {
             title: 'conception events',
             data: JSON.stringify(event),
-            artists: artists,
+            artists: JSON.stringify(artists),
 						event_id: id
           });
         }, 0);
