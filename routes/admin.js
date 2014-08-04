@@ -92,11 +92,10 @@ module.exports = function(router, passport, db) {
 
           //});
 
-          console.log(newObj);
-          res.send(newObj);
         });
 
-
+          console.log(newObj);
+          res.send(newObj);
 
       });
     }
