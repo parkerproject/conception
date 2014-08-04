@@ -101,8 +101,11 @@ module.exports = function(router, passport, db) {
 
 
         setTimeout(function() {
-          res.send(eArtist);
-        }, 4);
+          return function() {
+            res.send(eArtist);
+          }();
+
+        }, 0);
 
 
       });
