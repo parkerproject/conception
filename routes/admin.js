@@ -69,33 +69,34 @@ module.exports = function(router, passport, db) {
 
       getArtist(function(data) {
 
-        var newObj = [], eArtist,
-          title;
+        var newObj = [],
+          eArtist;
 
 
         data.map(function(d) {
-					
-					eArtist = {
-									artwork_1: d.artwork_1,
-									artwork_2: d.artwork_2,
-									artwork_3: d.artwork_3,
-									dateBirth: d.dateBirth,
-									email: d.email,
-									full_name: d.full_name,
-									photo: d.photo,
-									url: d.url,
-									approved: d.approved,
-	
-								};
+
 
           getEvent(d.email, function(title) {
 
-            return function(a) {
-              a.title = title[0].title;
-							newObj.push(a);
-							console.log(a);
-								
-            }(eArtist);
+            return function(d) {
+
+              eArtist = {
+                artwork_1: d.artwork_1,
+                artwork_2: d.artwork_2,
+                artwork_3: d.artwork_3,
+                dateBirth: d.dateBirth,
+                email: d.email,
+                full_name: d.full_name,
+                photo: d.photo,
+                url: d.url,
+                approved: d.approved,
+								title: title[0].title
+
+              };
+              newObj.push(eArtist);
+              console.log(eArtist);
+
+            }(d);
 
           });
 
