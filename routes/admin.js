@@ -7,6 +7,8 @@
  */
 var getEvents = require('../models/get_events');
 var getArtist = require('../models/artists_list');
+var db = require('../config/database.js');
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
