@@ -16,6 +16,17 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
+// function getEvent(email, fn) {
+//   db.events.findOne({
+//     artists: array.indexOf(email),
+   
+//   }, function(err, user) {
+//     if (err || !user) console.log("No user found");
+//     else fn(user);
+//   });
+// }
+
+
 module.exports = function(router, passport, db) {
 
   /*************** admin routes ******************/
