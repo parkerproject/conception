@@ -92,7 +92,7 @@ module.exports = function(router, passport, db) {
 
         });
 
-        res.send(eArtist);
+        res.send(newObj);
 
       });
 
