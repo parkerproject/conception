@@ -16,15 +16,16 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-// function getEvent(email, fn) {
-//   db.events.findOne({
-//     artists: array.indexOf(email),
-   
-//   }, function(err, user) {
-//     if (err || !user) console.log("No user found");
-//     else fn(user);
-//   });
-// }
+function getEvent(email, fn) {
+  db.events.find({
+    artists: {
+      $in: [email]
+    }
+  }, function(err, event) {
+    if (err || !event) console.log("No event found");
+    else fn(event);
+  });
+}
 
 
 module.exports = function(router, passport, db) {
@@ -62,9 +63,12 @@ module.exports = function(router, passport, db) {
     }
 
     if (req.params.name == 'artists') {
+			
+			getEvent("rachel.wilkins81@yahoo.com", function(data){
+				console.log(data);
+			});
+			
       getArtist(function(data) {
-
-
         var newObj = [];
 
         data.map(function(d) {
@@ -109,9 +113,9 @@ module.exports = function(router, passport, db) {
   router.post('/approve_artist', function(req, res) {
 
     if (req.session.authenticated) {
-			
-			var status = (req.body.approved === 'true') ? true : false;
-			
+
+      var status = (req.body.approved === 'true') ? true : false;
+
       db.artists.findAndModify({
         query: {
           email: req.body.email
@@ -126,8 +130,8 @@ module.exports = function(router, passport, db) {
         if (err) {
           console.log(err);
         } else {
-					res.send('update successfully');
-				}
+          res.send('update successfully');
+        }
       });
     }
 
