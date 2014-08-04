@@ -89,14 +89,16 @@ module.exports = function(router, passport, db) {
               approved: d.approved,
               title: title[0].title
             });
+						
           });
 
 
         });
-
-				console.log(newObj);
-
-        res.send(newObj);
+				
+				setTimeout(function(){
+					console.log(newObj);
+          res.send(newObj);
+				}, 0);
 
       });
     }
