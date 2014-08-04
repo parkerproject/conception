@@ -66,12 +66,10 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
 
-    
+      var newObj = [],
+        eArtist;
+
       getArtist(function(data) {
-
-        var newObj = [],
-          eArtist;
-
 
         data.map(function(d) {
 
@@ -90,7 +88,7 @@ module.exports = function(router, passport, db) {
                 photo: d.photo,
                 url: d.url,
                 approved: d.approved,
-								title: title[0].title
+                title: title[0].title
 
               };
               newObj.push(eArtist);
@@ -102,12 +100,10 @@ module.exports = function(router, passport, db) {
 
         });
 
-				process.nextTick(function(){
-					res.send(newObj);
-				});
-          
-      
+      });
 
+      process.nextTick(function() {
+        res.send(newObj);
       });
     }
 
