@@ -87,21 +87,20 @@ module.exports = function(router, passport, db) {
             photo: d.photo,
             url: d.url,
             approved: d.approved,
-						title: ''
+            title: ''
 
           };
-					
-//           getEvent(d.email, function(title) {
-//             return function(d) {
-//                   d.title = title[0].title;
-//             }(d);
 
-//           });
+          getEvent(d.email, function(title) {
+
+            eArtist.title = title[0].title;
+            newObj.push(eArtist);
+
+          });
 
         });
-				
-        newObj.push(eArtist);
-        res.send(eArtist);
+
+           res.send(eArtist);
       });
 
     }
