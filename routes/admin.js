@@ -71,7 +71,7 @@ module.exports = function(router, passport, db) {
 
 
       var newObj = [],
-        eArtist;
+        eArtist = {};
 
       getArtist(function(data) {
 
@@ -86,7 +86,8 @@ module.exports = function(router, passport, db) {
             full_name: d.full_name,
             photo: d.photo,
             url: d.url,
-            approved: d.approved
+            approved: d.approved,
+						title: ''
 
           };
 					
