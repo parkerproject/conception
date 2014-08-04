@@ -159,12 +159,12 @@ var CONCEPTION = (function() {
 
 
   function approveUsers() {
-    $(".approve_parent").click(function() {
+    $(document).on('click', '.approve', function() {
 
       console.log('yes');
-      var input = $(this).find('.approve');
-      var email = input.data('email');
-      var approved = (input.is(":checked")) ? true : false;
+  
+      var email = $(this).data('email');
+      var approved = ($(this).is(":checked")) ? true : false;
 
       $.post('/approve_artist', {
         email: email,
@@ -176,18 +176,10 @@ var CONCEPTION = (function() {
 
   }
 	
-	function test(){
-		$(document).click(function(e){
-			
-			console.log(e);
-			
-		});
-	}
 
   function conceptionInit() {
     routes();
     approveUsers();
-		test();
   }
 
 
