@@ -67,7 +67,7 @@ module.exports = function(router, passport, db) {
     if (req.params.name == 'artists') {
 			
 			getEvent("rachel.wilkins81@yahoo.com", function(data){
-				console.log(data);
+				console.log(data.title);
 			});
 			
       getArtist(function(data) {
