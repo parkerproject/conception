@@ -38,7 +38,7 @@ module.exports = function(router) {
 
         event.artists.map(function(artist) {
           getArtist(artist, function(details) {
-            artists.push(artistTemplate(details));
+            artists.push(details);
           });
         });
         setTimeout(function() {
