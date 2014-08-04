@@ -160,6 +160,7 @@ var CONCEPTION = (function() {
 
 
   function approveUsers() {
+		console.log('ran');
     $("input[type=checkbox]").change(function() {
 
       console.log('yes');
@@ -193,6 +194,4 @@ var CONCEPTION = (function() {
 
 $(function() {
   CONCEPTION.conceptionInit();
-
-
 });
