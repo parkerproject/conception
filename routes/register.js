@@ -58,7 +58,8 @@ module.exports = function(router, db) {
       twitter_url: '',
       instagram: '',
       googleplus: '',
-      isAdmin: false
+      isAdmin: false,
+			events: [event_id]
     };
 
     db.artists.findOne({
