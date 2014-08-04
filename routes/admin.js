@@ -18,7 +18,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-function getEvent(email, fn, cb) {
+function getEvent(email, fn) {
   db.events.find({
     artists: {
       $in: [email]
@@ -27,7 +27,7 @@ function getEvent(email, fn, cb) {
     if (err || !event) {
       console.log("No event found");
     } else {
-      fn(event, cb);
+      fn(event);
     }
   });
 }
@@ -95,17 +95,16 @@ module.exports = function(router, passport, db) {
 
               };
               newObj.push(eArtist);
+							
+							return eArtist;
 
             }(d);
 
-          }, function(eArtist) {
-						console.log(eArtist);
-            res.send(eArtist);
           });
 
         });
 
-
+           res.send(eArtist);
       });
 
     }
