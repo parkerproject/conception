@@ -90,12 +90,12 @@ module.exports = function(router, passport, db) {
 
           };
 					
-          getEvent(d.email, function(title) {
-            return function(d) {
-                  d.title = title[0].title;
-            }(d);
+//           getEvent(d.email, function(title) {
+//             return function(d) {
+//                   d.title = title[0].title;
+//             }(d);
 
-          });
+//           });
 
         });
 				
