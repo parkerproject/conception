@@ -99,6 +99,8 @@ module.exports = function(router, passport, db) {
 
     if (req.session.authenticated) {
 			
+			console.log(req.body.email, req.body.approved);
+			
       db.artists.findAndModify({
         query: {
           user_token: req.body.email
@@ -113,6 +115,7 @@ module.exports = function(router, passport, db) {
         if (err) {
           console.log(err);
         } else {
+					console.log(doc);
 					res.send('update successfully');
 				}
       });
