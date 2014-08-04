@@ -13,14 +13,7 @@ function getArtist(email, fn) {
   });
 }
 
-function artistTemplate(artist) {
-  var html = ['<div class="large-4 columns featured_artists">',
-  '<a class="featured_artists_img" href="/artist/' + artist.user_token + '"><img src="/artists_images/' + artist.photo + '" alt="' + artist.full_name + '" /></a>',
-  '<span class = "name"> <a href = "/artist/'+artist.user_token+'"> '+artist.full_name+' <i class = "icon-angle-double-right"></i></a></span>',
-  '<span class="title">'+artist.genre+'</span ></div>'].join('');
-	return html;
 
-}
 
 module.exports = function(router) {
 

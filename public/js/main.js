@@ -14,7 +14,7 @@ var CONCEPTION = {
     this.eventSinglePage();
     this.eventsPage();
     this.slider();
-		this.scroll();
+    this.scroll();
   },
 
   validate: function() {
@@ -69,7 +69,7 @@ var CONCEPTION = {
 
       var dob = new Date(month + '/' + day + '/' + year);
       var age = today.getFullYear() - dob.getFullYear();
-     
+
       if (age < 21) {
         alert('You must be at least 21yrs to register');
       }
@@ -179,6 +179,16 @@ var CONCEPTION = {
     }
   },
 
+  artistTemplate: function(artist) {
+    var html = ['<div class="large-4 columns featured_artists">',
+      '<a class="featured_artists_img" href="/artist/' + artist.user_token + '"><img src="/artists_images/' + artist.photo + '" alt="' + artist.full_name + '" /></a>',
+      '<span class = "name"> <a href = "/artist/' + artist.user_token + '"> ' + artist.full_name + ' <i class = "icon-angle-double-right"></i></a></span>',
+      '<span class="title">' + artist.genre + '</span ></div>'
+    ].join('');
+    return html;
+
+  },
+
   eventSinglePage: function() {
     if (window.hasOwnProperty('fullEvent') && !fullEvent.hasOwnProperty('error_type')) {
 
@@ -198,7 +208,7 @@ var CONCEPTION = {
         img = images[0];
       } else {}
 
-      var address = (fullEvent.venue.address != "") ? fullEvent.venue.address : 'TBD';
+      var address = (fullEvent.venue.address !== "") ? fullEvent.venue.address : 'TBD';
 
       var when_where = ['<span>' + address + ' // ' + start_time + ' - ' + end_time + '</span>',
         '<span class="event-location">' + fullEvent.venue.name + '</span>'
@@ -210,6 +220,21 @@ var CONCEPTION = {
       $('.event-img').attr('src', '/images/' + img);
 
     }
+		
+		
+		if (window.hasOwnProperty('artists')) {
+			
+			var listOfArtists = [];
+			var self = this;
+			
+			artists.map(function(artist){
+				listOfArtists.push(self.artistTemplate(artist));
+			});
+			
+			document.querySelector('.artists-holder').innerHTML = listOfArtists.join('');
+		}
+
+
   },
 
   eventsPage: function() {
