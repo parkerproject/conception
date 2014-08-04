@@ -90,11 +90,11 @@ module.exports = function(router, passport, db) {
 
           getEvent(d.email, function(title) {
 
-            return function() {
-              eArtist.title = title[0].title;
-							newObj.push(eArtist);
+            return function(a) {
+              a.title = title[0].title;
+							newObj.push(a);
 								
-            }();
+            }(eArtist);
 
           });
 

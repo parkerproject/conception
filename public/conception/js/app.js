@@ -56,7 +56,7 @@ var CONCEPTION = (function() {
       '<th>Email</th>',
       '<th>Age</th>',
 			'<th>Event</th>',
-      '<th>Artwork</th>',
+      '<th style="width: 15%">Artwork</th>',
       '<th>Photo</th>',
       '<th>Url</th>',
       '<th>Approved</th>',
