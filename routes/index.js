@@ -33,7 +33,7 @@ function ensureAuthenticated(req, res, next) {
 
 router.get('/', function(req, res) {
 
-  db.events.find({}, function(err, events) {
+  db.events.find({$query: {}, $orderby: { _id : 1 }}, function(err, events) {
     if (err || !events) {
       console.log(err);
     } else {
