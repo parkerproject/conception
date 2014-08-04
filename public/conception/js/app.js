@@ -55,8 +55,8 @@ var CONCEPTION = (function() {
       '<th style="width: 10px">Artist</th>',
       '<th>Email</th>',
       '<th>Age</th>',
-			'<th>Event</th>',
-      '<th style="width: 15%">Artwork</th>',
+      '<th>Event</th>',
+      '<th style="width: 25%">Artwork</th>',
       '<th>Photo</th>',
       '<th>Url</th>',
       '<th>Approved</th>',
@@ -69,7 +69,8 @@ var CONCEPTION = (function() {
 
   function artistTemplate(artist) {
 
-    var colorLabel, html, ticketSold = 0;
+    var colorLabel, html, ticketSold = 0,
+      events_title;
 
     var today = new Date();
     var month = artist.dateBirth.month;
@@ -85,15 +86,19 @@ var CONCEPTION = (function() {
 
 
 
+    if (artist.events[0] == '12420440873') events_title = 'Conception New City';
+    if (artist.events[0] == '12423943349') events_title = 'Conception Philadelphia';
+    if (artist.events[0] == '12423951373') events_title = 'Conception Liverpool';
+
 
     var status = (artist.approved) ? '<input type="checkbox" class="approve" name="approve" data-email="' + artist.email + '" checked/>' : '<input type="checkbox" name="approve" class="approve" data-email="' + artist.email + '"/>';
-		
-		
-		html = ['<tr>',
+
+
+    html = ['<tr>',
       '<td>' + artist.full_name + '</td>',
       '<td>' + artist.email + '</td>',
       '<td>' + age + '</td>',
-			'<td>' + artist.title + '</td>',
+      '<td>' + events_title + '</td>',
       '<td>' + artwork_1 + artwork_2 + artwork_3 + '</td>',
       '<td><a href="/artists_images/' + artist.photo + '" target="_blank">Photo</a></td>',
       '<td>' + artist.url + '</td>',
@@ -141,7 +146,7 @@ var CONCEPTION = (function() {
           document.querySelector('.event_json').innerHTML = content;
           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
         });
-				
+
       }
 
 
@@ -165,7 +170,7 @@ var CONCEPTION = (function() {
     $(document).on('click', '.approve', function() {
 
       console.log('yes me now');
-  
+
       var email = $(this).data('email');
       var approved = ($(this).is(":checked")) ? true : false;
 
@@ -178,7 +183,7 @@ var CONCEPTION = (function() {
     });
 
   }
-	
+
 
   function conceptionInit() {
     routes();
