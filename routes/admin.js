@@ -66,7 +66,7 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
 
-
+    
       getArtist(function(data) {
 
         var newObj = [],
@@ -98,12 +98,14 @@ module.exports = function(router, passport, db) {
 
             }(d);
 
-          });
+          }, function(){
+						res.send(newObj);
+					});
 
         });
 
         
-          res.send(newObj);
+          
       
 
       });
