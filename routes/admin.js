@@ -8,7 +8,6 @@
 var getEvents = require('../models/get_events');
 var getArtist = require('../models/artists_list');
 var db = require('../config/database.js');
-var first = require('first');
 
 
 function ensureAuthenticated(req, res, next) {
@@ -76,40 +75,32 @@ module.exports = function(router, passport, db) {
 
       getArtist(function(data) {
 
-        first(function() {
+        data.map(function(d) {
 
-          data.map(function(d) {
+          eArtist = {
+            artwork_1: d.artwork_1,
+            artwork_2: d.artwork_2,
+            artwork_3: d.artwork_3,
+            dateBirth: d.dateBirth,
+            email: d.email,
+            full_name: d.full_name,
+            photo: d.photo,
+            url: d.url,
+            approved: d.approved
 
-            eArtist = {
-              artwork_1: d.artwork_1,
-              artwork_2: d.artwork_2,
-              artwork_3: d.artwork_3,
-              dateBirth: d.dateBirth,
-              email: d.email,
-              full_name: d.full_name,
-              photo: d.photo,
-              url: d.url,
-              approved: d.approved
+          };
+					
+//           getEvent(d.email, function(title) {
+//             return function(d) {
+//                   d.title = title[0].title;
+//             }(d);
 
-            };
-
-						getEvent(d.email, function(title) {
-							return function(d) {
-								eArtist.title = title[0].title;
-								newObj.push(eArtist);
-								console.log(eArtist);
-							}(d);
-
-						});
-          });
-
-        }).
-        then(function() {
-
-          res.send(eArtist);
+//           });
 
         });
-
+				
+        newObj.push(eArtist);
+        res.send(eArtist);
       });
 
     }
