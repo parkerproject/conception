@@ -24,8 +24,11 @@ function getEvent(email, fn) {
       $in: [email]
     }
   }, function(err, event) {
-    if (err || !event) console.log("No event found");
-    else fn(event);
+    if (err || !event) {
+      console.log("No event found");
+    } else {
+      fn(event, cb);
+    }
   });
 }
 
@@ -66,6 +69,7 @@ module.exports = function(router, passport, db) {
 
     if (req.params.name == 'artists') {
 
+
       var newObj = [],
         eArtist;
 
@@ -97,15 +101,9 @@ module.exports = function(router, passport, db) {
 
           });
 
+        }, function(eArtist) {
+          res.send(eArtist);
         });
-
-
-        setTimeout(function() {
-          return function() {
-            res.send(eArtist);
-          }();
-
-        }, 0);
 
 
       });
