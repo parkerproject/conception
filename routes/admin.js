@@ -79,30 +79,34 @@ module.exports = function(router, passport, db) {
 
             return function() {
               title = title[0].title;
+							console.log(title);
             }();
 
           });
 
-          setTimeout(function() {
-            newObj.push({
-              artwork_1: d.artwork_1,
-              artwork_2: d.artwork_2,
-              artwork_3: d.artwork_3,
-              dateBirth: d.dateBirth,
-              email: d.email,
-              full_name: d.full_name,
-              photo: d.photo,
-              url: d.url,
-              approved: d.approved,
-              title: title
-            });
 
-          }, 0);
+          newObj.push({
+            artwork_1: d.artwork_1,
+            artwork_2: d.artwork_2,
+            artwork_3: d.artwork_3,
+            dateBirth: d.dateBirth,
+            email: d.email,
+            full_name: d.full_name,
+            photo: d.photo,
+            url: d.url,
+            approved: d.approved,
+            title: title
+          });
+
+
 
         });
 
-        console.log(newObj);
-        res.send(newObj);
+        setTimeout(function() {
+
+          console.log(newObj);
+          res.send(newObj);
+        }, 0);
 
       });
     }
