@@ -75,7 +75,7 @@ module.exports = function(router, passport, db) {
         data.map(function(d) {
 
           getEvent(d.email, function(title) {
-            console.log(title);
+            console.log(title[0].title);
           });
 
           newObj.push({
