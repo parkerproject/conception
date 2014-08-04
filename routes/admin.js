@@ -102,11 +102,9 @@ module.exports = function(router, passport, db) {
 
         });
 
-        setTimeout(function() {
-
-          console.log(newObj);
+        
           res.send(newObj);
-        }, 0);
+      
 
       });
     }
