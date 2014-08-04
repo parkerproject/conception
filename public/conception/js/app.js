@@ -159,7 +159,6 @@ var CONCEPTION = (function() {
 
 
   function approveUsers() {
-		console.log('ran');
     $(".approve_parent").click(function() {
 
       console.log('yes');
@@ -176,10 +175,19 @@ var CONCEPTION = (function() {
     });
 
   }
+	
+	function test(){
+		$(document).click(function(){
+			
+			console.log('document clicked');
+			
+		});
+	}
 
   function conceptionInit() {
     routes();
     approveUsers();
+		test();
   }
 
 
