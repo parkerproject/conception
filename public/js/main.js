@@ -83,7 +83,7 @@ var CONCEPTION = {
     var start_time = moment(data.start_date).format("h:mmA");
     var end_time = moment(data.end_date).format("h:mmA");
 
-    var images = ['philly_big.png', 'liverpool_big.png', 'new_york_big.png'],
+    var images = ['philly_eventslist.png', 'liverpool_eventslist.png', 'new_york_eventslist.jpg'],
       img;
 
     if (data.venue.city === 'New York') {
