@@ -1000,11 +1000,12 @@ legend{
 	color: lighten($black-color, 70%);
 	h3,h4{
 		color: $primary-color;
-		margin-bottom: 20px;
+		padding: 20px 0;
+		margin-left: 0;
 	}
 }
 
 .about-image{
-	margin: 20px 0;
+	margin: 30px 0;
 	display: block;
 }
