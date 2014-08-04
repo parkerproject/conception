@@ -38,7 +38,12 @@ module.exports = function(router) {
 
         event.artists.map(function(artist) {
           getArtist(artist, function(details) {
-            artists.push(details);
+						artists.push({
+							user_token: details.user_token,
+							photo: details.photo,
+							full_name: details.full_name,
+							genre: details.genre
+						});
           });
         });
         setTimeout(function() {
