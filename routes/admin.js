@@ -73,7 +73,6 @@ module.exports = function(router, passport, db) {
 
         data.map(function(d) {
 
-
           getEvent(d.email, function(title) {
 
             return function(d) {
@@ -99,12 +98,11 @@ module.exports = function(router, passport, db) {
           });
 
         });
+				
+				res.send(newObj);
 
       });
-
-      process.nextTick(function() {
-        res.send(newObj);
-      });
+     
     }
 
   });
