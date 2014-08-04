@@ -100,7 +100,6 @@ module.exports = function(router, passport, db) {
     if (req.session.authenticated) {
 			
 			var status = (req.body.approved === 'true') ? true : false;
-			console.log(status, req.body.approved);
 			
       db.artists.findAndModify({
         query: {
@@ -108,7 +107,7 @@ module.exports = function(router, passport, db) {
         },
         update: {
           $set: {
-            approved: req.body.approved
+            approved: status
           }
         },
         new: true
