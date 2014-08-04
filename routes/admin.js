@@ -70,14 +70,13 @@ module.exports = function(router, passport, db) {
     if (req.params.name == 'artists') {
 
 
-      var newObj = [],
-        eArtist = {};
+      var newObj = [];
 
       getArtist(function(data) {
 
         data.map(function(d) {
 
-          eArtist = {
+          newObj.push({
             artwork_1: d.artwork_1,
             artwork_2: d.artwork_2,
             artwork_3: d.artwork_3,
@@ -89,9 +88,7 @@ module.exports = function(router, passport, db) {
             approved: d.approved,
             title: ''
 
-          };
-
-          newObj.push(eArtist);
+          });
 
         });
 
