@@ -926,14 +926,19 @@ legend{
   background-size: cover;
   position: relative;
   .campus-inner{
-    width: 200px;
-    padding: 10px;
+		width: 800px;
+		padding: 10px;
+		margin: 0 auto;
+		text-align: center;
+		color: darken($white-color, 10%);
+		background: rgba(0, 0, 0, 0.2);
+		padding: 20px;
     .campus-logo{
         background: url(/images/campus_logo.png) no-repeat;
         width: 100px;
         height: 100px;
         display: block;
-        margin: 10px 0;
+        margin: 0 auto 20px auto;
     }
     // p{
     //     padding: 10px 10px 0 10px;
