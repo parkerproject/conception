@@ -91,20 +91,12 @@ module.exports = function(router, passport, db) {
 
           };
 
-          getEvent(d.email, function(title) {
-
-            eArtist.title = title[0].title;
-            newObj.push(eArtist);
-
-          });
+          newObj.push(eArtist);
 
         });
 
-        setTimeout(function() {
-          res.send(eArtist);
-        }, 5000);
+        res.send(eArtist);
 
-        
       });
 
     }
