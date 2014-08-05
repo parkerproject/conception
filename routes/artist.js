@@ -62,6 +62,7 @@ module.exports = function(router, passport, db) {
             story: req.body.my_story,
             facebook_url: req.body.artist_facebook_url,
             twitter_url: req.body.artist_twitter_url,
+						instagram: req.body.artist_instagram,
             url: req.body.artist_url
           }
         }
