@@ -58,7 +58,7 @@ module.exports = function(router, db) {
 
 
 
-  router.post('/login', ensureAuthenticated, function(req, res) {
+  router.post('/login', function(req, res) {
 
     db.artists.findOne({
       email: req.body.username,
@@ -79,7 +79,7 @@ module.exports = function(router, db) {
 
 
   // handles editing of artist profile =======================
-  router.post('/artist_update', function(req, res) {
+  router.post('/artist_update', ensureAuthenticated, function(req, res) {
 
     if (req.url == '/artist_update') {
       db.artists.findAndModify({
