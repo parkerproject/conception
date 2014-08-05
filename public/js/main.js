@@ -289,7 +289,7 @@ var CONCEPTION = {
 
 //        $(this).next().html(paypal).show();
 //     });
-    $('button').find('.paypal-button').text('Reserve a spot');
+    $('button.paypal-button').text('Reserve a spot');
   }
 
 
