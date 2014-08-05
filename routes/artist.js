@@ -62,8 +62,7 @@ module.exports = function(router, db) {
 
     db.artists.findOne({
       email: req.body.username,
-      password: req.body.password,
-      approved: true
+      password: req.body.password
     }, function(err, user) {
       if (err || !user) res.redirect('/login');
       req.session.authenticated = true;
