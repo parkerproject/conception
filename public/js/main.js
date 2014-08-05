@@ -15,6 +15,7 @@ var CONCEPTION = {
     this.eventsPage();
     this.slider();
     this.scroll();
+		this.reserveSpot();
   },
 
   validate: function() {
@@ -220,19 +221,19 @@ var CONCEPTION = {
       $('.event-img').attr('src', '/images/' + img);
 
     }
-		
-		
-		if (window.hasOwnProperty('artists')) {
-			
-			var listOfArtists = [];
-			var self = this;
-			
-			artists.map(function(artist){
-				listOfArtists.push(self.artistTemplate(artist));
-			});
-			
-			document.querySelector('.artists-holder').innerHTML = listOfArtists.join('');
-		}
+
+
+    if (window.hasOwnProperty('artists')) {
+
+      var listOfArtists = [];
+      var self = this;
+
+      artists.map(function(artist) {
+        listOfArtists.push(self.artistTemplate(artist));
+      });
+
+      document.querySelector('.artists-holder').innerHTML = listOfArtists.join('');
+    }
 
 
   },
@@ -274,6 +275,21 @@ var CONCEPTION = {
         scrollTop: $(".top-bar-section").offset().top
       }, 2000);
     });
+  },
+
+  reserveSpot: function() {
+
+    $('.reserve').on('change', function() {
+
+      var paypal = ['<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS"',
+        'data-button="buynow"',
+        'data-name="'+$(this).val()+'"',
+        'data-amount="30.00"></script>'
+      ].join('');
+
+       $(this).next().html(paypal).show();
+    });
+
   }
 
 
