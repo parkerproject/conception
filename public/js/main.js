@@ -15,7 +15,7 @@ var CONCEPTION = {
     this.eventsPage();
     this.slider();
     this.scroll();
-		this.reserveSpot();
+		//this.reserveSpot();
   },
 
   validate: function() {
