@@ -15,7 +15,7 @@ var CONCEPTION = {
     this.eventsPage();
     this.slider();
     this.scroll();
-		//this.reserveSpot();
+		this.reserveSpot();
   },
 
   validate: function() {
@@ -279,17 +279,17 @@ var CONCEPTION = {
 
   reserveSpot: function() {
 
-    $('.reserve').on('change', function() {
+//     $('.reserve').on('change', function() {
 
-      var paypal = ['<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS"',
-        'data-button="buynow"',
-        'data-name="'+$(this).val()+'"',
-        'data-amount="30.00"></script>'
-      ].join('');
+//       var paypal = ['<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS"',
+//         'data-button="buynow"',
+//         'data-name="'+$(this).val()+'"',
+//         'data-amount="30.00"></script>'
+//       ].join('');
 
-       $(this).next().html(paypal).show();
-    });
-
+//        $(this).next().html(paypal).show();
+//     });
+    $('button').find('.paypal-button').text('Reserve a spot');
   }
 
 
