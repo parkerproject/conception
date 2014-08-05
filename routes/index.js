@@ -11,7 +11,7 @@ require('./uploadManager')(router);
 require('./register')(router,db);
 require('./events')(router,db);
 require('./event')(router);
-require('./artist')(router,passport, db);
+require('./artist')(router,db);
 require('./press')(router);
 require('./whats_new')(router);
 require('./admin')(router,passport,db);
