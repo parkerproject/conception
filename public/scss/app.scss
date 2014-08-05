@@ -657,11 +657,6 @@
 
 .art-thumb{
     margin: 20px 0 30px 0;
-    img{
-        margin: 0 5px 0 0;
-			  width: 40px;
-			  height: 40px;
-    }
     .file{
         background: url('../images/upload.jpg') no-repeat;
         cursor: pointer;
@@ -1024,4 +1019,10 @@ legend{
 	li{
     padding-bottom: 30px;
    }
+}
+
+.clearing-thumbs{
+	li{
+		padding-bottom: 30px
+	}
 }
