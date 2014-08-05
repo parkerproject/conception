@@ -93,7 +93,8 @@ module.exports = function(router, db) {
             facebook_url: req.body.artist_facebook_url,
             twitter_url: req.body.artist_twitter_url,
             instagram: req.body.artist_instagram,
-            url: req.body.artist_url
+            url: req.body.artist_url,
+						music_url: req.body.artist_music
           }
         }
 
