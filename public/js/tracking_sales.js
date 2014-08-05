@@ -12,7 +12,7 @@
 
   var sendTo = "http://www.eventbrite.com/event/4653432542?ref=ebtn";
 
-  $('.artist-profile').on('click', 'button', function(e) {
+  $('.artist-profile').on('click', '.artist-submit', function(e) {
     e.preventDefault();
     var user = $(this).attr('data-artist');
 		$.cookie('conception_artist', user, {path: '/'});
