@@ -68,8 +68,7 @@ module.exports = function(router, db) {
   router.post('/reset_password', function(req, res) {
 		
 		var password = randtoken.generate(5);
-		console.log(password, req.body.email);
-
+		
    db.artists.findAndModify({
       query: {
         email: req.body.email

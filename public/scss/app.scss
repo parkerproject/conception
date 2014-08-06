@@ -1032,6 +1032,9 @@ legend{
 	padding: 4px 19px;
 	width: 300px!important;
 	color: #fff!important;
+	height: 40px;
+  font-weight: normal;
+	font-style: normal;
 }
 
 .paypal-button button:before {
@@ -1095,4 +1098,8 @@ legend{
 	position: relative;
   top: 20px;
   font-size: 13px;
+}
+
+#reserve-spot{
+	text-align: center
 }

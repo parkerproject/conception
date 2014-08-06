@@ -10,8 +10,6 @@
 
 (function($) {
 
-  var sendTo = "http://www.eventbrite.com/event/4653432542?ref=ebtn";
-
   $('.artist-profile').on('click', '.artist-submit', function(e) {
     e.preventDefault();
     var user = $(this).attr('data-artist');
@@ -19,4 +17,11 @@
     var event_id = $.cookie('conception_event');
     window.location.href = 'http://www.eventbrite.com/event/' + event_id + '?ref=' + user;
   });
+	
+	$('.reserve-link').click(function(){
+		var user = $('#reserve-spot').attr('data-artist');
+		$.cookie('conception_reserve_artist', user, {path: '/'});
+		
+	});
+	
 })(jQuery);

@@ -71,22 +71,7 @@
 
       </div>
 <div class="artist-details large-6 small-12 columns">
-	<div class="row" id="reserve-spot">
-<!-- 		<select class="reserve" name="reserve">
-			    <option value="">Reserve a spot</option>
-          <option value="12420440873">Conception New York City</option>
-					<option value="12423943349">Conception Philadelphia</option>
-					<option value="12423951373">Conception Liverpool</option>
-		</select> -->
-	<p>
-	<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS" 
-    data-button="buynow"      
-    data-name="Two Conception NYC Tickets"
-    data-amount="30.00"
-></script>
-	</p>
-		
-	</div>
+	<p class="text-right"><a href="#" class="reserve-link" data-reveal-id="myReserve">Reserve a spot</a></p>
     <div class="row">
     <input name="artist_name" type="text" placeholder="Name" class="text large-6 columns" value="{{data.full_name}}"/>
     </div>
@@ -230,9 +215,42 @@
       <p class="text-center">Copyright &copy; 2014 Conception</p>
     </large-12>
   </div>
+	
+	
+	
+
+<div id="myReserve" class="reveal-modal" data-reveal>
+	 <h6>Hello {{data.full_name}}!</h6>
+
+<p>We are thrilled to welcome you to our creative community and look forward to getting to 
+	know more about you and your craft.</p> 
+
+<p>Please click button below to purchase your first 2 tickets to your upcoming showcase. 
+	This will automatically activate your profile which will allow you to share your work with 
+	the art world as well as sell your tickets to your friends and followers.</p>
+
+ 	<div class="row" id="reserve-spot" data-artist="{{data.user_token}}">
+<!-- 		<select class="reserve" name="reserve">
+			    <option value="">Reserve a spot</option>
+          <option value="12420440873">Conception New York City</option>
+					<option value="12423943349">Conception Philadelphia</option>
+					<option value="12423951373">Conception Liverpool</option>
+		</select> -->
+	<p>
+	<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS" 
+    data-button="buynow"      
+    data-name="Two Conception NYC Tickets"
+    data-amount="30.00"
+		data-callback="http://www.conceptionevents.com/verify_payment"
+></script>
+	</p>
+		
+	</div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
 
 
-     <script src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/foundation/js/foundation.min.js"></script>
 	<script src="/vendor/foundation/js/foundation/foundation.clearing.js"></script>
   <script src="/vendor/slick-carousel/slick/slick.js"></script>
@@ -241,6 +259,7 @@
 	<script src="/js/jquery.cookie.js"></script>
 
   <script src="/js/main.js"></script>
+	<script src="/js/tracking_sales.js"></script>
 	
 
      <script>
@@ -249,7 +268,7 @@
 	
 	<script>
 		$(window).bind("load", function() {
-      $('button.paypal-button').text('Reserve a spot');
+      $('button.paypal-button').text('Buy 2 tickets');
     });
 	</script>
 
