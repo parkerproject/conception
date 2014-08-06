@@ -56,6 +56,25 @@ function sendPasswordEmail(toEmail, name, password) {
 
 }
 
+function sendNewPasswordEmail(toEmail, name, password) {
+
+  var emailHtml = 'Hi <b>' + name + '</b>' +
+    '<br />Your new password is ' + password +
+    '<br /><br />Have a great day' +
+    '<br />Conception Team';
+
+  transporter.sendMail({
+    from: 'noreply@conceptionevents.com',
+    to: toEmail,
+    subject: 'Conception Events: New Password',
+    html: emailHtml
+  }, function(err, status) {
+    if (err) console.log(err);
+    if (status) console.log('login email sent');
+  });
+
+}
+
 
 function sendAdminEmail() {
 
@@ -80,3 +99,4 @@ function sendAdminEmail() {
 module.exports.sendAdminEmail = sendAdminEmail;
 module.exports.sendPasswordEmail = sendPasswordEmail;
 module.exports.sendEmail = sendEmail;
+module.exports.sendNewPasswordEmail = sendNewPasswordEmail;

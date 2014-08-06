@@ -59,7 +59,9 @@ module.exports = function(router, db) {
       instagram: '',
       googleplus: '',
       isAdmin: false,
-			events: [event_id]
+			events: [event_id],
+			tickets: 15,
+			reserved: 'no'
     };
 
     db.artists.findOne({

@@ -1,3 +1,6 @@
+var randtoken = require('rand-token');
+var email = require('../email');
+
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
     return next();
@@ -31,30 +34,10 @@ module.exports = function(router, db) {
   router.get('/login', function(req, res) {
     res.render('artist_login', {
       title: 'artist',
-      message: req.flash('error')
+      message: req.params.error
     });
   });
 
-
-//   router.post('/login', passport.authenticate('local', {
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   }), function(req, res) {
-
-//     db.artists.findOne({
-//       email: req.body.username,
-//       approved: true
-//     }, function(err, user) {
-//       if (err || !user) console.log("No user found");
-//       else {
-//         res.render('edit_profile', {
-//           title: '',
-//           data: user
-//         });
-//       }
-//     });
-
-//   });
 
 
 
@@ -64,14 +47,53 @@ module.exports = function(router, db) {
       email: req.body.username,
       password: req.body.password
     }, function(err, user) {
-      if (err || !user) res.redirect('/login');
+      if (err || !user) res.redirect('/login?error=unknown user');
       req.session.authenticated = true;
       res.render('edit_profile', {
         title: '',
         data: user
       });
-			
+
     });
+
+  });
+
+
+  router.get('/reset_password', function(req, res) {
+    res.render('reset_password', {
+      title: 'reset password'
+    });
+  });
+
+  router.post('/reset_password', function(req, res) {
+		
+		var password = randtoken.generate(5);
+		console.log(password, req.body.email);
+
+   db.artists.findAndModify({
+      query: {
+        email: req.body.email
+      },
+      update: {
+        $set: {
+          password: password
+        }
+      },
+      new: true
+    }, function(err, doc, lastErrObj) {
+      if (err) {
+        console.log(err);
+      } else {
+
+        email.sendNewPasswordEmail(doc.email, doc.full_name, doc.password);
+      }
+    });
+
+    var passedVariable = 'Check your email for your new password!';
+    res.render('thank_you', {
+      data: passedVariable
+    });
+  
 
   });
 
@@ -93,7 +115,7 @@ module.exports = function(router, db) {
             twitter_url: req.body.artist_twitter_url,
             instagram: req.body.artist_instagram,
             url: req.body.artist_url,
-						music_url: req.body.artist_music
+            music_url: req.body.artist_music
           }
         }
 
