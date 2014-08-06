@@ -1076,3 +1076,17 @@ legend{
 	border-radius: 0 !important;
 	font-size: 17px !important;
 }
+
+.flex-video-new{
+	position: relative;
+	padding-top: 1.5625rem;
+	padding-bottom: 67.5%;
+	height: 0;
+	margin-bottom: 1rem;
+	overflow: hidden;
+}
+
+#myVideo{
+	background: none;
+	border: none;
+}
