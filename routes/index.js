@@ -114,8 +114,7 @@ router.get('/verify_payment', function(req, res) {
         $inc: {
           tickets: -2
         },
-        reserved: 'yes',
-        approved: true
+        reserved: 'yes'
       },
       new: true
     }, function(err, doc, lastErrObj) {
