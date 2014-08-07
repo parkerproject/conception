@@ -25,6 +25,7 @@ module.exports = function(router) {
       if (err || !artists) {
         console.log(err);
       } else {
+			
         getEvent(id, function(event) {
           res.render('event', {
             title: 'conception events',
@@ -32,6 +33,7 @@ module.exports = function(router) {
             artists: artists,
             event_id: id
           });
+					
         });
       }
     });
