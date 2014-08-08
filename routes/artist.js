@@ -56,10 +56,14 @@ module.exports = function(router, db) {
       password: req.body.password
     }, function(err, user) {
       if (err || !user) res.redirect('/login?error=unknown user');
+			
+			var showActivate = (user.approved && user.reserved === 'no') ? true : false;
+		
       req.session.authenticated = true;
       res.render('edit_profile', {
         title: '',
-        data: user
+        data: user,
+				showActivate: showActivate
       });
 
     });
