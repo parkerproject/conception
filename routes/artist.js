@@ -1,11 +1,19 @@
 var randtoken = require('rand-token');
 var email = require('../email');
+var fs = require('fs');
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
     return next();
   }
   res.redirect('/login');
+}
+
+function deleteFile(file) {
+  fs.unlink(process.env.OPENSHIFT_DATA_DIR + '/artists_images/' + file, function(err) {
+    if (err) console.log(err);
+    console.log('successfully deleted ' + file);
+  });
 }
 
 
@@ -66,10 +74,10 @@ module.exports = function(router, db) {
   });
 
   router.post('/reset_password', function(req, res) {
-		
-		var password = randtoken.generate(5);
-		
-   db.artists.findAndModify({
+
+    var password = randtoken.generate(5);
+
+    db.artists.findAndModify({
       query: {
         email: req.body.email
       },
@@ -92,7 +100,7 @@ module.exports = function(router, db) {
     res.render('thank_you', {
       data: passedVariable
     });
-  
+
 
   });
 
@@ -102,25 +110,56 @@ module.exports = function(router, db) {
   router.post('/artist_update', ensureAuthenticated, function(req, res) {
 
     if (req.url == '/artist_update') {
+
+
+      var objForUpdate = {};
+
+      if (req.files.artwork_1) {
+        objForUpdate.artwork_1 = req.files.artwork_1.name;
+        var oldArtwork_1 = req.body.artwork_1_hidden;
+      }
+
+      if (req.files.artwork_2) {
+        objForUpdate.artwork_2 = req.files.artwork_2.name;
+        var oldArtwork_2 = req.body.artwork_2_hidden;
+      }
+
+      if (req.files.artwork_3) {
+        objForUpdate.artwork_3 = req.files.artwork_3.name;
+        var oldArtwork_3 = req.body.artwork_3_hidden;
+      }
+
+      if (req.files.photo) {
+        objForUpdate.photo = req.files.photo.name;
+        var oldPhoto = req.body.photo_hidden;
+      }
+
+      if (req.body.story) objForUpdate.story = req.body.story;
+      if (req.body.facebook_url) objForUpdate.facebook_url = req.body.artist_facebook_url;
+      if (req.body.twitter_url) objForUpdate.twitter_url = req.body.artist_twitter_url;
+      if (req.body.instagram) objForUpdate.instagram = req.body.artist_instagram;
+      if (req.body.url) objForUpdate.url = req.body.artist_url;
+      if (req.body.music_url) objForUpdate.music_url = req.body.artist_music_url;
+
+
       db.artists.findAndModify({
 
         query: {
           email: req.body.artist_email_hidden
         },
         update: {
-          $set: {
-            story: req.body.my_story,
-            facebook_url: req.body.artist_facebook_url,
-            twitter_url: req.body.artist_twitter_url,
-            instagram: req.body.artist_instagram,
-            url: req.body.artist_url,
-            music_url: req.body.artist_music
-          }
+          $set: objForUpdate
         }
 
       }, function(err, user) {
-        if (err || !user) console.log("No user found");
+        if (err || !user) console.log("No user updated");
         else {
+
+          if (oldArtwork_1 && oldArtwork_1 !== '') deleteFile(oldArtwork_1);
+          if (oldArtwork_2 && oldArtwork_2 !== '') deleteFile(oldArtwork_2);
+          if (oldArtwork_3 && oldArtwork_3 !== '') deleteFile(oldArtwork_3);
+          if (oldPhoto && oldPhoto !== '') deleteFile(oldPhoto);
+
           res.redirect('/artist/' + req.body.artist_token);
         }
       });

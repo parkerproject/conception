@@ -57,9 +57,15 @@
     </div>
   </div>
 
-<form id="artist-edit-form" action="/artist_update" method="post" >
+<form id="artist-edit-form" action="/artist_update" method="post" enctype="multipart/form-data">
   <div class="row artist-profile edit-artist-profile">
       <div class="artist-details large-6 small-12 columns">
+				      <div class="row">
+             <div class="large-5 columns register-upload">
+                <label for="photo"><i>Update Profile pic</i></label>
+                 <input type="file" name="photo" class="file" id="photo" />
+             </div>
+         </div>
           <img src="/artists_images/{{data.photo}}" alt="" class="artist-pic" />
 <!--           <a class="edit-photo">Edit Photo</a> -->
           <h4>My Story</h4>
@@ -71,8 +77,11 @@
 
       </div>
 <div class="artist-details large-6 small-12 columns">
+	{{#if data.approved}}
 	<p class="text-right"><a href="#" class="reserve-link" data-reveal-id="myReserve">Reserve a spot</a></p>
-    <div class="row">
+   {{/if}}
+	
+	<div class="row">
     <input name="artist_name" type="text" placeholder="Name" class="text large-6 columns" value="{{data.full_name}}"/>
     </div>
 
@@ -80,6 +89,11 @@
     <input name="artist_email" type="text" placeholder="Email" class="text large-6 columns" value="{{data.email}}" disabled/>
 			<input name="artist_email_hidden" type="hidden" value="{{data.email}}" />
 			<input name="artist_token" type="hidden" value="{{data.user_token}}" />
+			<input type="hidden" name="artwork_1_hidden" value="{{data.artwork_1}}" />
+			<input type="hidden" name="artwork_2_hidden" value="{{data.artwork_2}}" />
+			<input type="hidden" name="artwork_3_hidden" value="{{data.artwork_3}}" />
+			<input type="hidden" name="photo_hidden" value="{{data.photo}}" />
+			
     </div>
 
 <!--     <div class="row">
@@ -148,31 +162,48 @@
       </div>
 
       <div class="row">
-          <div class="large-12 columns art-thumb">
+          <div class="large-12 columns art-thumb profile">
 						<ul class="clearing-thumbs" data-clearing>
 							{{#if data.artwork_1}}
-              <li><a href="/artists_images/{{data.artwork_1}}"><img src="/artists_images/{{data.artwork_1}}" alt="" /></a></li>
+              <li><span class="art-label">Artwork 1</span><a href="/artists_images/{{data.artwork_1}}"><img src="/artists_images/{{data.artwork_1}}" alt="" /></a></li>
               {{/if}}
 							
 							{{#if data.artwork_2}}
-							<li><a href="/artists_images/{{data.artwork_2}}"><img src="/artists_images/{{data.artwork_2}}" alt="" /></a></li>
+							<li><span class="art-label">Artwork 3</span><a href="/artists_images/{{data.artwork_2}}"><img src="/artists_images/{{data.artwork_2}}" alt="" /></a></li>
               {{/if}}
 							
 							{{#if data.artwork_3}}
-							<li><a href="/artists_images/{{data.artwork_3}}"><img src="/artists_images/{{data.artwork_3}}" alt="" /></a></li>
+							<li><span class="art-label">Artwork 3</span><a href="/artists_images/{{data.artwork_3}}"><img src="/artists_images/{{data.artwork_3}}" alt="" /></a></li>
 							{{/if}}
 						</ul>
-
-<!-- 						<select name="art_work" id="art_work">
-							<option value="">Update artwork</option>
-						   <option value="1">Art work 1</option>
-							 <option value="2">Art work 2</option>
-							 <option value="3">Art work 3</option>
-						</select>
-            <span class="file right">
-              <input type="file" name="file" />
-            </span> -->
           </div>
+				
+				<div class="row">
+					
+       <fieldset id="el">
+        <legend>Update your art work (3 max)</legend>
+            <div class="row">
+                 <div class="large-12 columns register-upload">
+                <label for="artwork_1"><i>Artwork 1</i></label>
+                <input type="file" name="artwork_1" class="artwork file" id="artwork_1" />
+                 </div>
+             </div>
+
+            <div class="row">
+                 <div class="large-12 columns register-upload">
+                <label for="artwork_2"><i>Artwork 2</i></label>
+                <input type="file" name="artwork_2" class="artwork file" id="artwork_2" />
+                 </div>
+             </div>
+
+              <div class="row">
+                 <div class="large-12 columns register-upload">
+                <label for="artwork_3"><i>Artwork 3</i></label>
+                <input type="file" name="artwork_3" class="artwork file" id="artwork_3" />
+                 </div>
+             </div>
+        </fieldset>
+				</div>
       </div>
 
   </div>

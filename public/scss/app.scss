@@ -1018,6 +1018,9 @@ legend{
 .mygallery{
 	li{
     padding-bottom: 30px;
+		img{
+			height: 200px;
+		}
    }
 }
 
@@ -1102,4 +1105,19 @@ legend{
 
 #reserve-spot{
 	text-align: center
+}
+
+.art-thumb.profile{
+	img{
+		height: 100px;
+	}
+	.clearing-container{
+		img{
+			height: 100%;
+		}
+	}
+	.art-label{
+		  color: darken($white-color, 5%);
+      font-family: 'GothamExtraLight';
+	}
 }
