@@ -61,7 +61,8 @@ module.exports = function(router, db) {
       isAdmin: false,
 			events: [event_id],
 			tickets: 15,
-			reserved: 'no'
+			reserved: 'no',
+			marketing: req.body.marketing
     };
 
     db.artists.findOne({
