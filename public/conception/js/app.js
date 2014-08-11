@@ -73,7 +73,7 @@ var CONCEPTION = (function() {
       e.preventDefault();
       var self = $(this),
         artistModal = $('#artistModal'),
-        events_title;
+        events_title, photoImage;
 
 
       var name = self.data('full_name'),
@@ -98,6 +98,12 @@ var CONCEPTION = (function() {
       if (events == '12420440873') events_title = 'Conception New City';
       if (events == '12423943349') events_title = 'Conception Philadelphia';
       if (events == '12423951373') events_title = 'Conception Liverpool';
+			
+			if(photo !== ''){
+				photoImage = '/artists_images/' + photo;
+			}else{
+				photoImage = '/images/no-image.jpg';
+			}
 
 
       artistModal.find('.event > a').html(url);
@@ -109,7 +115,7 @@ var CONCEPTION = (function() {
       artistModal.find('.url > strong').html(url);
       artistModal.find('.remaining').html(tickets_remaining);
       artistModal.find('.sold').html(tickets_sold);
-      artistModal.find('.user-image > img').attr('src', '/artists_images/' + photo);
+      artistModal.find('.user-image > img').attr('src', photoImage);
       artistModal.find('.status').html(status);
 			artistModal.find('.event').find('strong').html(events_title);
 			
