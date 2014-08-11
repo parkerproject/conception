@@ -67,103 +67,117 @@ var CONCEPTION = (function() {
     return html;
   }
 
-  function artistTemplate(artist) {
+  function artistModal() {
 
-    var colorLabel, html, ticketSold = 0,
-      events_title;
-
-    var today = new Date();
-    var month = artist.dateBirth.month;
-    var day = artist.dateBirth.day;
-    var year = artist.dateBirth.year;
-
-    var dob = new Date(month + '/' + day + '/' + year);
-    var age = today.getFullYear() - dob.getFullYear();
-
-    var artwork_1 = (artist.artwork_1 !== '') ? '<a href="/artists_images/' + artist.artwork_1 + '" target="_blank">Artwork 1</a>, ' : '';
-    var artwork_2 = (artist.artwork_2 !== '') ? '<a href="/artists_images/' + artist.artwork_2 + '" target="_blank">Artwork 2</a>, ' : '';
-    var artwork_3 = (artist.artwork_3 !== '') ? '<a href="/artists_images/' + artist.artwork_3 + '" target="_blank">Artwork 3</a>' : '';
+    $(document).on('click', '.artist_profile', function(e) {
+      e.preventDefault();
+      var self = $(this),
+        artistModal = $('#artistModal'),
+        events_title;
 
 
+      var name = self.data('full_name'),
+        age = self.data('age'),
+        genre = self.data('genre'),
+        artwork_1 = self.data('artwork_1'),
+        artwork_2 = self.data('artwork_2'),
+        artwork_3 = self.data('artwork_3'),
+        photo = self.data('photo'),
+        url = self.data('url'),
+        email = self.data('email'),
+        events = self.data('events'),
+        tickets_remaining = self.data('tickets'),
+        tickets_sold = 15 - tickets_remaining,
+        status = (self.data('approved')) ? '<label>Approved <input type="checkbox" class="approve" name="approve" data-email="' + email + '" checked/></label>' : '<label>Approved <input type="checkbox" name="approve" class="approve" data-email="' + email + '"/></label>';
 
-    if (artist.events[0] == '12420440873') events_title = 'Conception New City';
-    if (artist.events[0] == '12423943349') events_title = 'Conception Philadelphia';
-    if (artist.events[0] == '12423951373') events_title = 'Conception Liverpool';
+      var artworks = [];
+      if (artwork_1 !== '') artworks.push('<a href="/artists_images/' + artwork_1 + '" target="_blank">Artwork 1</a>');
+      if (artwork_2 !== '') artworks.push('<a href="/artists_images/' + artwork_2 + '" target="_blank">Artwork 2</a>');
+      if (artwork_3 !== '') artworks.push('<a href="/artists_images/' + artwork_3 + '" target="_blank">Artwork 3</a>');
 
-
-    var status = (artist.approved) ? '<input type="checkbox" class="approve" name="approve" data-email="' + artist.email + '" checked/>' : '<input type="checkbox" name="approve" class="approve" data-email="' + artist.email + '"/>';
-
-
-    html = ['<tr>',
-      '<td>' + artist.full_name + '</td>',
-      '<td>' + artist.email + '</td>',
-      '<td>' + age + '</td>',
-      '<td>' + events_title + '</td>',
-      '<td>' + artwork_1 + artwork_2 + artwork_3 + '</td>',
-      '<td><a href="/artists_images/' + artist.photo + '" target="_blank">Photo</a></td>',
-      '<td>' + artist.url + '</td>',
-      '<td width="10%" class="approve_parent">' + status + '</td>',
-      '</tr>'
-    ].join("");
-
-    return html;
-
-  }
+      if (events == '12420440873') events_title = 'Conception New City';
+      if (events == '12423943349') events_title = 'Conception Philadelphia';
+      if (events == '12423951373') events_title = 'Conception Liverpool';
 
 
-  function routes() {
+      artistModal.find('.event > a').html(url);
+      artistModal.find('.age > strong').html(age);
+      artistModal.find('.name').html(name);
+      artistModal.find('.email > strong').html(email);
+      artistModal.find('.genre > strong').html(genre);
+      artistModal.find('.artwork > strong').html(artworks.join(''));
+      artistModal.find('.url > strong').html(url);
+      artistModal.find('.remaining').html(tickets_remaining);
+      artistModal.find('.sold').html(tickets_sold);
+      artistModal.find('.user-image > img').attr('src', '/artists_images/' + photo);
+      artistModal.find('.status').html(status);
+			artistModal.find('.event').find('strong').html(events_title);
+			
+			console.log(events_title);
 
-    page('/conception/:name', function(ctx) {
-
-      var name = ctx.params.name;
-
-      if (name == 'events') {
-        $.getJSON('/conception/' + name, function(data) {
-          var events = data.events,
-            html = [],
-            rows;
-          for (var i = 0; i < events.length; i++) {
-            html.push(rowTpl(events[i].event));
-          }
-
-          rows = template(html.join(""));
-          document.querySelector('.event_json').innerHTML = rows;
-          document.querySelector('.content-header').querySelector('h1').innerHTML = 'Events';
-        });
-      }
-
-      if (name == 'artists') {
-        $.getJSON('/conception/' + name, function(data) {
-
-          var rows = [],
-            content;
-
-          data.map(function(artist) {
-            rows.push(artistTemplate(artist));
-          });
-
-          content = artistTplHeader(rows.join(""));
-          document.querySelector('.event_json').innerHTML = content;
-          document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
-        });
-
-      }
-
+      artistModal.modal('show');
 
     });
 
 
-    page('/conception', function() {
-      var dashboardTpl = Templates.dashboard();
-      document.querySelector('.event_json').innerHTML = dashboardTpl;
-      document.querySelector('.content-header')
-        .querySelector('h1')
-        .innerHTML = 'Dashboard';
-
-    });
-
-    page();
   }
+
+
+
+
+  //   function routes() {
+
+  //     page('/conception/:name', function(ctx) {
+
+  //       var name = ctx.params.name;
+
+  //       if (name == 'events') {
+  //         $.getJSON('/conception/' + name, function(data) {
+  //           var events = data.events,
+  //             html = [],
+  //             rows;
+  //           for (var i = 0; i < events.length; i++) {
+  //             html.push(rowTpl(events[i].event));
+  //           }
+
+  //           rows = template(html.join(""));
+  //           document.querySelector('.event_json').innerHTML = rows;
+  //           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Events';
+  //         });
+  //       }
+
+  //       if (name == 'artists') {
+  //         $.getJSON('/conception/' + name, function(data) {
+
+  //           var rows = [],
+  //             content;
+
+  //           data.map(function(artist) {
+  //             rows.push(artistTemplate(artist));
+  //           });
+
+  //           content = artistTplHeader(rows.join(""));
+  //           document.querySelector('.event_json').innerHTML = content;
+  //           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
+  //         });
+
+  //       }
+
+
+  //     });
+
+
+  //     page('/conception', function() {
+  //       var dashboardTpl = Templates.dashboard();
+  //       document.querySelector('.event_json').innerHTML = dashboardTpl;
+  //       document.querySelector('.content-header')
+  //         .querySelector('h1')
+  //         .innerHTML = 'Dashboard';
+
+  //     });
+
+  //     page();
+  //   }
 
 
   function approveUsers() {
@@ -186,7 +200,7 @@ var CONCEPTION = (function() {
 
 
   function conceptionInit() {
-    routes();
+    artistModal();
     approveUsers();
   }
 

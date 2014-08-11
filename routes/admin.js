@@ -17,6 +17,18 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/admin');
 }
 
+function registration(fn) {
+  db.artists.count(function(err, count) {
+    fn(count);
+  });
+}
+
+function sales(fn) {
+  db.sales.count(function(err, count) {
+    fn(count);
+  });
+}
+
 
 function getEvent(email, fn) {
   db.events.find({
@@ -75,6 +87,15 @@ module.exports = function(router, passport, db) {
       getArtist(function(data) {
 
         data.map(function(d) {
+          var today = new Date();
+          var month = d.dateBirth.month;
+          var day = d.dateBirth.day;
+          var year = d.dateBirth.year;
+
+          var dob = new Date(month + '/' + day + '/' + year);
+          var age = today.getFullYear() - dob.getFullYear();
+
+          var label = (d.approved) ? '<span class="label label-success">Approved</span>' : '<span class="label label-warning">Pending</span>';
 
           newObj.push({
             artwork_1: d.artwork_1,
@@ -85,14 +106,22 @@ module.exports = function(router, passport, db) {
             full_name: d.full_name,
             photo: d.photo,
             url: d.url,
+            events: d.events,
+            label: label,
+            age: age,
             approved: d.approved,
-						events: d.events
+            genre: d.genre,
+            tickets: d.tickets
 
           });
 
         });
 
-        res.send(newObj);
+        //res.send(newObj);
+        res.render('admin/artists', {
+          title: 'artist',
+          data: newObj
+        });
 
       });
 
@@ -102,8 +131,15 @@ module.exports = function(router, passport, db) {
 
   router.get('/conception', ensureAuthenticated, function(req, res) {
 
-    res.render('admin/home', {
-      title: 'Conception'
+		db.artists.find({full_name: {$ne: 'test'}}).count(function(err, reg) {
+      db.sales.count(function(err, sales) {
+				
+        res.render('admin/home', {
+          title: 'Conception',
+          sales: sales,
+					registration: reg
+        });
+      });
 
     });
 
@@ -112,7 +148,7 @@ module.exports = function(router, passport, db) {
 
 
   router.get('/admin/logout', function(req, res) {
-		req.session.authenticated = false;
+    req.session.authenticated = false;
     req.logout();
     res.redirect('/admin');
   });
