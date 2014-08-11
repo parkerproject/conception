@@ -32,6 +32,7 @@ function ensureAuthenticated(req, res, next) {
 
 
 router.get('/', function(req, res) {
+	console.log(req.cookies);
 
   db.events.find({
     $query: {},
@@ -74,7 +75,7 @@ router.get('/campus', function(req, res) {
 //eventbrite ticket purchase callback
 router.get('/payment/:eid/:oid', function(req, res) {
 
-  if (req.cookies.conception_event) {
+  if (req.cookies.conception_event && req.cookies.conception_general_sale === 'no') {
 
     var sales = {
       order_id: req.params.oid,

@@ -142,7 +142,7 @@ var CONCEPTION = {
       '<span>',
       '<i class="month">' + month + '</i><i class="day">' + day + '</i>',
       ' </span>',
-      '<a href="event/' + data.event_id + '" class="buy-tickets">buy tickets<i class="icon-angle-double-right"></i></a>',
+      '<a href="http://www.eventbrite.com/event/' + data.event_id + '" class="buy-tickets">buy tickets<i class="icon-angle-double-right"></i></a>',
       '</span>',
       ' </div>',
       '<div class="large-8 columns event-meta">',
