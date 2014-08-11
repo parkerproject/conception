@@ -138,14 +138,14 @@ module.exports = function(router, db) {
         var oldPhoto = req.body.photo_hidden;
       }
 
-      if (req.body.story) objForUpdate.story = req.body.story;
-      if (req.body.facebook_url) objForUpdate.facebook_url = req.body.artist_facebook_url;
-      if (req.body.twitter_url) objForUpdate.twitter_url = req.body.artist_twitter_url;
-      if (req.body.instagram) objForUpdate.instagram = req.body.artist_instagram;
-      if (req.body.url) objForUpdate.url = req.body.artist_url;
-      if (req.body.music_url) objForUpdate.music_url = req.body.artist_music_url;
+      if (req.body.my_story) objForUpdate.story = req.body.my_story;
+      if (req.body.artist_facebook_url) objForUpdate.facebook_url = req.body.artist_facebook_url;
+      if (req.body.artist_twitter_url) objForUpdate.twitter_url = req.body.artist_twitter_url;
+      if (req.body.artist_instagram) objForUpdate.instagram = req.body.artist_instagram;
+      if (req.body.artist_url) objForUpdate.url = req.body.artist_url;
+      if (req.body.artist_music_url) objForUpdate.music_url = req.body.artist_music_url;
 
-
+       console.log(objForUpdate);
       db.artists.findAndModify({
 
         query: {
