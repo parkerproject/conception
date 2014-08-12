@@ -90,6 +90,7 @@ var CONCEPTION = (function() {
         tickets_sold = 15 - tickets_remaining,
         status = (self.data('approved')) ? '<label>Approved <input type="checkbox" class="approve" name="approve" data-email="' + email + '" checked/></label>' : '<label>Approved <input type="checkbox" name="approve" class="approve" data-email="' + email + '"/></label>';
 
+
       var artworks = [];
       if (artwork_1 !== '') artworks.push('<a href="/artists_images/' + artwork_1 + '" target="_blank">Artwork 1</a>');
       if (artwork_2 !== '') artworks.push('<a href="/artists_images/' + artwork_2 + '" target="_blank">Artwork 2</a>');
@@ -98,12 +99,12 @@ var CONCEPTION = (function() {
       if (events == '12420440873') events_title = 'Conception New City';
       if (events == '12423943349') events_title = 'Conception Philadelphia';
       if (events == '12423951373') events_title = 'Conception Liverpool';
-			
-			if(photo !== ''){
-				photoImage = '/artists_images/' + photo;
-			}else{
-				photoImage = '/images/no-image.jpg';
-			}
+
+      if (photo !== '') {
+        photoImage = '/artists_images/' + photo;
+      } else {
+        photoImage = '/images/no-image.jpg';
+      }
 
 
       artistModal.find('.event > a').html(url);
@@ -117,9 +118,13 @@ var CONCEPTION = (function() {
       artistModal.find('.sold').html(tickets_sold);
       artistModal.find('.user-image > img').attr('src', photoImage);
       artistModal.find('.status').html(status);
-			artistModal.find('.event').find('strong').html(events_title);
-			
-			console.log(events_title);
+      artistModal.find('.event').find('strong').html(events_title);
+
+      if (self.data('reserved') === 'no') {
+        artistModal.find('.activate').html('<label>Activate <input type="checkbox" class="activate" name="activate" data-email="' + email + '" />');
+      }
+
+      console.log(events_title);
 
       artistModal.modal('show');
 
@@ -205,9 +210,28 @@ var CONCEPTION = (function() {
   }
 
 
+  function activateUsers() {
+    $(document).on('click', '.activate', function() {
+
+      console.log('user activated');
+
+      var email = $(this).data('email');
+
+      $.post('/activate_artist', {
+        email: email,
+        reserved: 'yes'
+      }, function(data) {
+        console.log(data);
+      });
+    });
+
+  }
+
+
   function conceptionInit() {
     artistModal();
     approveUsers();
+		activateUsers();
   }
 
 

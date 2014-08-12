@@ -111,7 +111,8 @@ module.exports = function(router, passport, db) {
             age: age,
             approved: d.approved,
             genre: d.genre,
-            tickets: d.tickets
+            tickets: d.tickets,
+            activate: d.reserved
 
           });
 
@@ -131,13 +132,17 @@ module.exports = function(router, passport, db) {
 
   router.get('/conception', ensureAuthenticated, function(req, res) {
 
-		db.artists.find({full_name: {$ne: 'test'}}).count(function(err, reg) {
+    db.artists.find({
+      full_name: {
+        $ne: 'test'
+      }
+    }).count(function(err, reg) {
       db.sales.count(function(err, sales) {
-				
+
         res.render('admin/home', {
           title: 'Conception',
           sales: sales,
-					registration: reg
+          registration: reg
         });
       });
 
@@ -179,7 +184,34 @@ module.exports = function(router, passport, db) {
       });
     }
 
+  });
 
+
+  router.post('/activate_artist', function(req, res) {
+
+    if (req.session.authenticated) {
+
+      db.artists.findAndModify({
+        query: {
+          email: req.body.email
+        },
+        update: {
+          $set: {
+            reserved: req.body.reserved
+          },
+          $inc: {
+            tickets: -2
+          }
+        },
+        new: true
+      }, function(err, doc, lastErrObj) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send('activated successfully');
+        }
+      });
+    }
 
   });
 

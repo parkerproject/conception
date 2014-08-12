@@ -2,7 +2,7 @@ var db = require('../config/database.js');
 
 module.exports = exports = function(fn) {
   var artists = [];
-  db.artists.find({}, function(err, result) {
+	db.artists.find().sort({$natural: -1 }, function(err, result) {
     if (err || !result) console.log("No artist users found");
 
     else result.forEach(function(artist) {
@@ -11,5 +11,6 @@ module.exports = exports = function(fn) {
 
     fn(artists);
 
-  });
+	});
 };
+
