@@ -122,7 +122,9 @@ var CONCEPTION = (function() {
 
       if (self.data('reserved') === 'no') {
         artistModal.find('.activate').html('<label>Activate <input type="checkbox" class="activate" name="activate" data-email="' + email + '" />');
-      }
+      }else{
+				artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Profile is active</i>');
+			}
 
       console.log(events_title);
 
