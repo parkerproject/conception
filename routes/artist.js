@@ -50,9 +50,11 @@ module.exports = function(router, db) {
 
 
   router.post('/login', function(req, res) {
+		
+		var email = req.body.username;
 
     db.artists.findOne({
-      email: req.body.username,
+      email: email.toLowerCase(),
       password: req.body.password
     }, function(err, user) {
       if (err || !user) res.redirect('/login?error=unknown user');

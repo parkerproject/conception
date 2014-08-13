@@ -34,11 +34,13 @@ module.exports = function(router, db) {
       photo = (req.files.hasOwnProperty('photo')) ? req.files.photo.name : '',
       event_id = parseInt(req.body.city);
 
+		
+		var artistEmail = req.body.email; 
 
     var userInfo = {
       full_name: req.body.name,
       password: password,
-      email: req.body.email,
+      email: artistEmail.toLowerCase(),
       user_token: randtoken.generate(10),
       emailVerified: false,
       approved: false,
@@ -66,7 +68,7 @@ module.exports = function(router, db) {
     };
 
     db.artists.findOne({
-      email: req.body.email
+      email: artistEmail.toLowerCase()
     }, function(err, result) {
 
       if (err) console.log('first error ' + err);
