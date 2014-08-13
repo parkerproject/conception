@@ -42,7 +42,7 @@ module.exports = function(router, db) {
   router.get('/login', function(req, res) {
     res.render('artist_login', {
       title: 'artist',
-      message: req.params.error
+      message: req.query.error
     });
   });
 
@@ -50,23 +50,25 @@ module.exports = function(router, db) {
 
 
   router.post('/login', function(req, res) {
-		
-		var email = req.body.username;
+
+    var email = req.body.username;
 
     db.artists.findOne({
       email: email.toLowerCase(),
       password: req.body.password
     }, function(err, user) {
-      if (err || !user) res.redirect('/login?error=unknown user');
-			
-			var showActivate = (user.approved && user.reserved === 'no') ? true : false;
-		
-      req.session.authenticated = true;
-      res.render('edit_profile', {
-        title: '',
-        data: user,
-				showActivate: showActivate
-      });
+      if (err || !user) {
+        res.redirect('/login?error=unknown user');
+      } else {
+        var showActivate = (user.approved && user.reserved === 'no') ? true : false;
+
+        req.session.authenticated = true;
+        res.render('edit_profile', {
+          title: '',
+          data: user,
+          showActivate: showActivate
+        });
+      }
 
     });
 
@@ -147,7 +149,7 @@ module.exports = function(router, db) {
       if (req.body.artist_url) objForUpdate.url = req.body.artist_url;
       if (req.body.artist_music_url) objForUpdate.music_url = req.body.artist_music_url;
 
-       console.log(objForUpdate);
+      console.log(objForUpdate);
       db.artists.findAndModify({
 
         query: {
