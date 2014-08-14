@@ -1126,15 +1126,18 @@ legend{
 .search_artist_form{
 	float: right;
 	input{
-		width: 305px;
-		background: #222;
+		background: $black-color;
 		border: none;
-		padding: 10px;
-		border-bottom: 1px solid grey;
 		position: relative;
 		top: -2px;
 		font-family: 'GothamExtraLight';
 		color: darken($white-color, 5%);
+		width: 100%;
+		padding: 17px 0 0 0;
+		top: -2px;
+		height: 100%;
+		box-sizing: border-box;
+		outline: none;
 	}
 	button{
 		background-color: transparent;
@@ -1142,8 +1145,8 @@ legend{
     @include font-size(9);
 		position: absolute;
 		right: 7px;
-		padding: 0;
-		top: 12px
+		padding: 5px 0 0 0;
+		color: darken($white-color, 5%);
 	}
 }
 
