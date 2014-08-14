@@ -83,7 +83,7 @@ module.exports = function(router, db) {
 
   /******* artist search ********/
   router.get('/artist_search', function(req, res) {
-		
+
     if (req.headers.referer != null) {
 
       db.artists.find({
@@ -109,38 +109,43 @@ module.exports = function(router, db) {
         }
 
       });
-    }else{
-			res.redirect('/');
-		}
+    } else {
+      res.redirect('/');
+    }
 
 
   });
 
   router.post('/artist_search', function(req, res) {
 
+    if (req.body.query !== '') {
 
-    var query = {
-      full_name: new RegExp(req.body.query, 'i')
-    };
+      var query = {
+        full_name: new RegExp(req.body.query, 'i')
+      };
 
 
-    db.artists.findOne(query, function(err, artist) {
+      db.artists.findOne(query, function(err, artist) {
 
-      if (err) {
-        console.log('search has no result');
+        if (err) {
+          console.log('search has no result');
 
-      } else if (!artist) {
+        } else if (!artist) {
 
-        var passedVariable = 'No artist with that name!';
-        res.render('thank_you', {
-          data: passedVariable
-        });
+          var passedVariable = 'No artist with that name!';
+          res.render('thank_you', {
+            data: passedVariable
+          });
 
-      } else {
-        res.redirect('/artist/' + artist.user_token);
-      }
+        } else {
+          res.redirect('/artist/' + artist.user_token);
+        }
 
-    });
+      });
+    }else{
+			res.redirect('/event/12420440873');
+		}
+
 
   });
 
