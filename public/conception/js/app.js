@@ -122,9 +122,18 @@ var CONCEPTION = (function() {
 
       if (self.data('reserved') === 'no') {
         artistModal.find('.activate').html('<label>Activate <input type="checkbox" class="activate" name="activate" data-email="' + email + '" />');
-      }else{
-				artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Profile is active</i>');
-			}
+      } else {
+        artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Profile is active</i>');
+      }
+
+      if (self.data('tickets') !== 0) {
+        artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" data-tickets="' + tickets_remaining + '" />');
+      } else {
+        artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Artist has sold all 15 tickets</i>');
+      }
+
+
+
 
       console.log(events_title);
 
@@ -196,17 +205,16 @@ var CONCEPTION = (function() {
   function approveUsers() {
     $(document).on('click', '.approve', function() {
 
-      console.log('yes me now');
+        var email = $(this).data('email');
+        var approved = ($(this).is(":checked")) ? true : false;
 
-      var email = $(this).data('email');
-      var approved = ($(this).is(":checked")) ? true : false;
-
-      $.post('/approve_artist', {
-        email: email,
-        approved: approved
-      }, function(data) {
-        console.log(data);
-      });
+        $.post('/approve_artist', {
+          email: email,
+          approved: approved
+        }, function(data) {
+          console.log(data);
+        });
+    
     });
 
   }
@@ -215,16 +223,33 @@ var CONCEPTION = (function() {
   function activateUsers() {
     $(document).on('click', '.activate', function() {
 
-      console.log('user activated');
+        var email = $(this).data('email');
 
-      var email = $(this).data('email');
+        $.post('/activate_artist', {
+          email: email,
+          reserved: 'yes'
+        }, function(data) {
+          console.log(data);
+        });
+     
+    });
 
-      $.post('/activate_artist', {
-        email: email,
-        reserved: 'yes'
-      }, function(data) {
-        console.log(data);
-      });
+  }
+
+
+  function fullTickets() {
+    $(document).on('click', '.empty_tickets', function() {
+
+        var email = $(this).data('email');
+				var tickets = $(this).data('tickets');
+
+        $.post('/full_tickets', {
+          email: email,
+          tickets: tickets
+        }, function(data) {
+          console.log(data);
+        });
+
     });
 
   }
@@ -233,7 +258,8 @@ var CONCEPTION = (function() {
   function conceptionInit() {
     artistModal();
     approveUsers();
-		activateUsers();
+    activateUsers();
+    fullTickets();
   }
 
 

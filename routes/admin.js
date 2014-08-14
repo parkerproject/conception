@@ -216,6 +216,32 @@ module.exports = function(router, passport, db) {
   });
 
 
+  router.post('/full_tickets', function(req, res) {
+
+    if (req.session.authenticated) {
+
+      db.artists.findAndModify({
+        query: {
+          email: req.body.email
+        },
+        update: {
+          $inc: {
+            tickets: -req.body.tickets
+          }
+        },
+        new: true
+      }, function(err, doc, lastErrObj) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send('tickets paid in full');
+        }
+      });
+    }
+
+  });
+
+
 
   return router;
 
