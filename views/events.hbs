@@ -53,6 +53,10 @@
             <li class="campus"><a href="/campus">campus</a></li>
             <li class="whats_new"><a href="/what-new">what's new</a></li>
           </ul>
+					<form action="/artist_search" method="post" class="search_artist_form">
+						<div id="prefetch"><input name="query" class="text typeahead" placeholder="Search for artist..."/></div>
+						<button type="submit" class="search icon-search"></button>
+					</form>
         </section>
       </nav>
     </div>
@@ -95,6 +99,8 @@
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/foundation/js/foundation.min.js"></script>
   <script src="/vendor/slick-carousel/slick/slick.js"></script>
+	 <script src="/js/jquery.validate.js"></script>
+	<script src="/js/typeahead.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
    <script src="/js/jquery.validate.js"></script>
   <script src="/js/main.js"></script>

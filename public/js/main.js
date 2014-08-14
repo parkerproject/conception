@@ -16,6 +16,7 @@ var CONCEPTION = {
     this.slider();
     this.scroll();
     //this.reserveSpot();
+    this.search();
   },
 
   validate: function() {
@@ -253,6 +254,37 @@ var CONCEPTION = {
       $('html, body').animate({
         scrollTop: $(".top-bar-section").offset().top
       }, 2000);
+    });
+  },
+
+  search: function() {
+
+    var artists = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+
+        url: '/artist_search',
+        
+        filter: function(list) {
+          return $.map(list, function(artist) {
+            return {
+              name: artist
+            };
+          });
+        }
+      }
+    });
+
+    
+    artists.initialize();
+
+ 
+    $('#prefetch .typeahead').typeahead(null, {
+      name: 'artists',
+      displayKey: 'name',
+      source: artists.ttAdapter()
     });
   },
 

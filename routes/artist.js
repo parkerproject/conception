@@ -81,6 +81,52 @@ module.exports = function(router, db) {
     });
   });
 
+  /******* artist search ********/
+  router.get('/artist_search', function(req, res) {
+
+    db.artists.find({
+      reserved: 'yes',
+      approved: true
+    }, function(err, users) {
+
+      var names = [];
+
+      if (err) {
+        console.log(err);
+      }
+
+      if (!users) {
+        console.log('no users found');
+      }
+
+      if (users) {
+        users.forEach(function(user) {
+          names.push(user.full_name);
+        });
+        res.send(names);
+      }
+
+    });
+  });
+
+  router.post('/artist_search', function(req, res) {
+
+    var query = req.body.query;
+
+    db.artists.findOne({
+      full_name: query
+    }, function(err, artist) {
+
+      if (err) {
+        console.log('search has no result');
+      } else {
+        res.redirect('/artist/' + artist.user_token);
+      }
+
+    });
+
+  });
+
   router.post('/reset_password', function(req, res) {
 
     var password = randtoken.generate(5);
@@ -149,7 +195,7 @@ module.exports = function(router, db) {
       if (req.body.artist_url) objForUpdate.url = req.body.artist_url;
       if (req.body.artist_music_url) objForUpdate.music_url = req.body.artist_music_url;
 
-      console.log(objForUpdate);
+
       db.artists.findAndModify({
 
         query: {

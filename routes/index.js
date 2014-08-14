@@ -32,7 +32,6 @@ function ensureAuthenticated(req, res, next) {
 
 
 router.get('/', function(req, res) {
-	console.log(req.cookies);
 
   db.events.find({
     $query: {},

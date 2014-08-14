@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/fonts.css">
   <link rel="stylesheet" href="/vendor/slick-carousel/slick/slick.css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="/css/app.css" />
-  <script src="vendor/modernizr/modernizr.js"></script>
+  <script src="/vendor/modernizr/modernizr.js"></script>
 </head>
 <body>
 <div class="top-header-bar">
@@ -49,6 +49,10 @@
             <li><a href="/campus">campus</a></li>
             <li><a href="/what-new">what's new</a></li>
           </ul>
+					<form action="/artist_search" method="post" class="search_artist_form">
+						<div id="prefetch"><input name="query" class="text typeahead" placeholder="Search for artist..."/></div>
+						<button type="submit" class="search icon-search"></button>
+					</form>
         </section>
       </nav>
     </div>
@@ -324,6 +328,7 @@
   <script src="/vendor/foundation/js/foundation.min.js"></script>
   <script src="/vendor/slick-carousel/slick/slick.js"></script>
    <script src="/js/jquery.validate.js"></script>
+	 <script src="/js/typeahead.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
   <script src="js/main.js"></script>
@@ -335,7 +340,6 @@
 	<script>
 		$(function(){
 			$(document).on('click', '.buy-tickets', function(){
-				console.log('yes');
 				$.cookie('conception_general_sale', 'yes', {path: '/'});
 			});
 		});
