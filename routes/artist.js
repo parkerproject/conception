@@ -83,42 +83,59 @@ module.exports = function(router, db) {
 
   /******* artist search ********/
   router.get('/artist_search', function(req, res) {
+		
+    if (req.headers.referer != null) {
 
-    db.artists.find({
-      reserved: 'yes',
-      approved: true
-    }, function(err, users) {
+      db.artists.find({
+        reserved: 'yes',
+        approved: true
+      }, function(err, users) {
 
-      var names = [];
+        var names = [];
 
-      if (err) {
-        console.log(err);
-      }
+        if (err) {
+          console.log(err);
+        }
 
-      if (!users) {
-        console.log('no users found');
-      }
+        if (!users) {
+          console.log('no users found');
+        }
 
-      if (users) {
-        users.forEach(function(user) {
-          names.push(user.full_name);
-        });
-        res.send(names);
-      }
+        if (users) {
+          users.forEach(function(user) {
+            names.push(user.full_name);
+          });
+          res.send(names);
+        }
 
-    });
+      });
+    }else{
+			res.redirect('/');
+		}
+
+
   });
 
   router.post('/artist_search', function(req, res) {
 
-    var query = req.body.query;
 
-    db.artists.findOne({
-      full_name: query
-    }, function(err, artist) {
+    var query = {
+      full_name: new RegExp(req.body.query, 'i')
+    };
+
+
+    db.artists.findOne(query, function(err, artist) {
 
       if (err) {
         console.log('search has no result');
+
+      } else if (!artist) {
+
+        var passedVariable = 'No artist with that name!';
+        res.render('thank_you', {
+          data: passedVariable
+        });
+
       } else {
         res.redirect('/artist/' + artist.user_token);
       }

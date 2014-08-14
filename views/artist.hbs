@@ -62,7 +62,7 @@
 
   <div class="row artist-profile">
       <div class="large-4 columns">
-          <img src="/artists_images/{{data.photo}}" alt="" class="artist-pic">
+          <img src="http://www.conceptionevents.com/artists_images/{{data.photo}}" alt="" class="artist-pic">
           <div class="artist-details">
               <span class="name">{{data.full_name}}</span>
               <span class="category">{{data.genre}}</span>
@@ -87,7 +87,7 @@
               {{#if data.url}}
               <a href="http://{{data.url}}" class="artist-url"><i class="icon-link-streamline"></i>{{data.url}}</a>
 						  {{/if}}
-              <button data-artist="{{data.user_token}}" class="artist-submit"><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
+              <button data-artist="{{data.user_token}}" class="artist-submit" data-events="{{data.events}}"><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
           </div>
 
       </div>
@@ -95,13 +95,13 @@
 
 				<ul class="mygallery clearing-thumbs" data-clearing>
 					{{#if data.artwork_1}}
-					<li><a href="/artists_images/{{data.artwork_1}}"><img src="/artists_images/{{data.artwork_1}}"></a></li>
+					<li><a href="http://www.conceptionevents.com/artists_images/{{data.artwork_1}}"><img src="http://www.conceptionevents.com/artists_images/{{data.artwork_1}}"></a></li>
 					{{/if}}
 					{{#if data.artwork_2}}
-					<li><a href="/artists_images/{{data.artwork_2}}"><img src="/artists_images/{{data.artwork_2}}"></a></li>
+					<li><a href="http://www.conceptionevents.com/artists_images/{{data.artwork_2}}"><img src="http://www.conceptionevents.com/artists_images/{{data.artwork_2}}"></a></li>
 					{{/if}}
 					{{#if data.artwork_3}}
-					<li><a href="/artists_images/{{data.artwork_3}}"><img src="/artists_images/{{data.artwork_3}}"></a></li>
+					<li><a href="http://www.conceptionevents.com/artists_images/{{data.artwork_3}}"><img src="http://www.conceptionevents.com/artists_images/{{data.artwork_3}}"></a></li>
 					{{/if}}
 				</ul>
       </div>
