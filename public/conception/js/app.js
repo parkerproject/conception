@@ -120,11 +120,6 @@ var CONCEPTION = (function() {
       artistModal.find('.status').html(status);
       artistModal.find('.event').find('strong').html(events_title);
 
-      if (self.data('reserved') === 'no') {
-        artistModal.find('.activate').html('<label>Activate <input type="checkbox" class="activate" name="activate" data-email="' + email + '" />');
-      } else {
-        artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Profile is active</i>');
-      }
 
       if (self.data('tickets') !== 0) {
         artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" data-tickets="' + tickets_remaining + '" />');
@@ -220,22 +215,6 @@ var CONCEPTION = (function() {
   }
 
 
-  function activateUsers() {
-    $(document).on('click', '.activate', function() {
-
-        var email = $(this).data('email');
-
-        $.post('/activate_artist', {
-          email: email,
-          reserved: 'yes'
-        }, function(data) {
-          console.log(data);
-        });
-     
-    });
-
-  }
-
 
   function fullTickets() {
     $(document).on('click', '.empty_tickets', function() {
@@ -258,7 +237,6 @@ var CONCEPTION = (function() {
   function conceptionInit() {
     artistModal();
     approveUsers();
-    activateUsers();
     fullTickets();
   }
 

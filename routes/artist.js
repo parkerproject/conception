@@ -83,7 +83,7 @@ module.exports = function(router, db) {
       if (err || !user) {
         res.redirect('/login?error=unknown user');
       } else {
-        var showActivate = (user.approved && user.reserved === 'no') ? true : false;
+     
 				var totalTickets = (user.tickets !== 0 && user.reserved === 'yes')? true : false;
 				var amount = (user.tickets) * 15;
 
@@ -91,7 +91,6 @@ module.exports = function(router, db) {
         res.render('edit_profile', {
           title: '',
           data: user,
-          showActivate: showActivate,
 					totalTickets: totalTickets,
 					amount: amount
 					

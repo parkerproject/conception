@@ -20,8 +20,7 @@ module.exports = function(router) {
     var id = parseInt(req.params.id);
     db.artists.find({
       "events": id,
-      approved: true,
-			reserved: 'yes'
+      approved: true
     }, function(err, artists) {
       if (err || !artists) {
         console.log(err);

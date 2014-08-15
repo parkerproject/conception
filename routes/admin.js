@@ -112,7 +112,6 @@ module.exports = function(router, passport, db) {
             approved: d.approved,
             genre: d.genre,
             tickets: d.tickets,
-            activate: d.reserved
 
           });
 
