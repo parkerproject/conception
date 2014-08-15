@@ -29,9 +29,32 @@ module.exports = function(router, db) {
         console.log(err);
         res.redirect('/');
       } else {
+				var eventlist = [], option = '<option value="">Select event to attend</option>';
+				user.events.forEach(function(event){
+					
+					if(event === 12420440873) {
+						option += '<option value="12420440873">Conception New York City</option>';
+						//eventlist.push(option);
+					}
+					
+					if(event === 12423943349){
+						option += '<option value="12423943349">Conception Philadelphia</option>';
+						//eventlist.push(option);
+					} 
+					
+					if(event === 12423951373) {
+						option += '<option value="12423951373">Conception Liverpool</option>';
+						//eventlist.push(option);
+					}
+					
+				});
+				
+			
+				
         res.render('artist', {
           title: 'conception events',
-          data: user
+          data: user,
+					events: option
         });
       }
     });

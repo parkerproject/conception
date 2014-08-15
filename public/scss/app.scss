@@ -1157,3 +1157,17 @@ legend{
 	padding: 10px 0 0 10px;
 	background-color: rgba(0, 0, 0, 0.6);
 }
+
+#request_event{
+	border: none!important;
+	background: none!important;
+	form{
+		background: $white-color;
+		margin: 0 auto;
+		width: 50%;
+		padding: 20px;
+		select{
+			@include font-size(9);
+		  }
+		}
+}
