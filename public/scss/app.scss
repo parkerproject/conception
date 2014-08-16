@@ -765,6 +765,11 @@ span.artist-social-prefix{
     input:-webkit-autofill {
         background: #111!important;
    }
+	.upload-help{
+		color: darken($white-color, 5%);
+		font-family: 'GothamLight';
+		@include font-size(7);
+	}
 
 }
 
@@ -1170,4 +1175,5 @@ legend{
 			@include font-size(9);
 		  }
 		}
+
 }
