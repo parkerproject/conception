@@ -540,6 +540,7 @@
             display: block;
             text-align: center;
             color: darken($white-color, 45%);
+					  cursor: auto;
             position: relative;
             i{
                 @include font-size(10);
@@ -1175,5 +1176,19 @@ legend{
 			@include font-size(9);
 		  }
 		}
+
+}
+
+#tickets-info{
+	padding: 20px 0;
+	span{
+	color: darken($white-color, 5%);
+	font-family: 'GothamLight';
+	display: inline-block;
+	@include font-size(8);
+		i{
+			font-style: normal;
+		}
+	}
 
 }
