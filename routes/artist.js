@@ -1,6 +1,8 @@
 var randtoken = require('rand-token');
 var email = require('../email');
 var fs = require('fs');
+var getOrders = require('../models/get_orders');
+var _ = require('underscore');
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
@@ -29,32 +31,33 @@ module.exports = function(router, db) {
         console.log(err);
         res.redirect('/');
       } else {
-				var eventlist = [], option = '<option value="">Select event to attend</option>';
-				user.events.forEach(function(event){
-					
-					if(event === 12420440873) {
-						option += '<option value="12420440873">Conception New York City</option>';
-						//eventlist.push(option);
-					}
-					
-					if(event === 12423943349){
-						option += '<option value="12423943349">Conception Philadelphia</option>';
-						//eventlist.push(option);
-					} 
-					
-					if(event === 12423951373) {
-						option += '<option value="12423951373">Conception Liverpool</option>';
-						//eventlist.push(option);
-					}
-					
-				});
-				
-			
-				
+        var eventlist = [],
+          option = '<option value="">Select event to attend</option>';
+        user.events.forEach(function(event) {
+
+          if (event === 12420440873) {
+            option += '<option value="12420440873">Conception New York City</option>';
+            //eventlist.push(option);
+          }
+
+          if (event === 12423943349) {
+            option += '<option value="12423943349">Conception Philadelphia</option>';
+            //eventlist.push(option);
+          }
+
+          if (event === 12423951373) {
+            option += '<option value="12423951373">Conception Liverpool</option>';
+            //eventlist.push(option);
+          }
+
+        });
+
+
+
         res.render('artist', {
           title: 'conception events',
           data: user,
-					events: option
+          events: option
         });
       }
     });
@@ -71,6 +74,17 @@ module.exports = function(router, db) {
 
 
 
+  router.get('/artist_orders', function(req, res) {
+    var event_id = 12420440873;
+
+    getOrders(event_id, function(orders) {
+      res.send(orders);
+
+    });
+
+  });
+
+
 
   router.post('/login', function(req, res) {
 
@@ -83,17 +97,44 @@ module.exports = function(router, db) {
       if (err || !user) {
         res.redirect('/login?error=unknown user');
       } else {
-     
-				var totalTickets = (user.tickets !== 0 && user.reserved === 'yes')? true : false;
-				var amount = (user.tickets) * 15;
+
+        var totalTickets = (user.tickets !== 0 && user.approved === true) ? true : false;
+        var soldAll = (user.tickets === 0) ? true : false;
+        var htmlArray = [];
+
+        if (typeof user.events == 'number') {
+          if (user.events === 12420440873) htmlArray.push('<a href="#" data-event="12420440873">Conception Philadelphia</a>');
+        }
+
+        if (typeof user.events === 'string') {
+
+          var eventArray = user.events.split(',');
+          
+
+          for (var i = 0; i < eventArray.length; i++) {
+            if (eventArray[i] == 12420440873) {
+              htmlArray.push('<a href="#" data-event="12420440873">Conception NYC</a>');
+            }
+                        
+             if (eventArray[i] == 12423943349) {
+              htmlArray.push('<a href="#" data-event="12423943349">Conception Philadelphia</a>');
+            }
+                        
+             if (eventArray[i] == 12423951373) {
+              htmlArray.push('<a href="#" data-event="12423951373">Conception Liverpool</a>');
+            }
+          }
+
+        }
 
         req.session.authenticated = true;
         res.render('edit_profile', {
           title: '',
           data: user,
-					totalTickets: totalTickets,
-					amount: amount
-					
+          totalTickets: totalTickets,
+          soldAll: soldAll,
+           userEvents: htmlArray.join('')
+
         });
       }
 
@@ -169,9 +210,9 @@ module.exports = function(router, db) {
         }
 
       });
-    }else{
-			res.redirect('/event/12420440873');
-		}
+    } else {
+      res.redirect('/event/12420440873');
+    }
 
 
   });

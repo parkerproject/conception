@@ -70,6 +70,7 @@
                                 <i class="glyphicon glyphicon-list"></i> <span>Artists</span>
                             </a>
                         </li>
+											
 
                     </ul>
                 </section>
@@ -85,6 +86,17 @@
                         <small>manage artists from this page</small>
                     </h1>
                 </section>
+							
+							<div class="col-md-12">
+							<div class="col-md-6">
+									<form role="form">
+										 <div class="form-group">
+										 <input type="text" id="search-artist" class="form-control" placeholder="Search for Artist ...">
+											</div>
+								 </form>
+							</div>
+								</div>
+
 
                 <!-- Main content -->
                 <section class="content">
@@ -97,6 +109,7 @@
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tbody><tr>
+																					  <td>ID</td>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Status</th>
@@ -104,7 +117,8 @@
                                         </tr>
 																				{{#each data}}
                                         <tr>
-                                            <td><a class="artist_profile" href="#" data-artwork_1="{{artwork_1}}" 
+																					<td>{{user_token}}</td>
+                                            <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}" 
 																									 data-artwork_1="{{artwork_1}}" 
 																									 data-artwork_2="{{artwork_2}}" 
 																									 data-artwork_3="{{artwork_3}}" 
@@ -112,7 +126,7 @@
 																									 data-genre="{{genre}}"
 																									 data-age="{{age}}" 
 																									 data-email="{{email}}" 
-																									 data-tickets="{{tickets}}" 
+																									 data-tickets={{tickets}} 
 																									 data-events="{{events}}"
 																									 data-url="{{url}}" 
 																									 data-full_name="{{full_name}}"  
@@ -165,7 +179,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row overview">
+<!--             <div class="row overview">
                 <div class="col-md-4 user-pad text-center">
                     <h3>TICKETS</h3>
                     <h4 class="total-tickets">15</h4>
@@ -178,7 +192,7 @@
                     <h3>REMAINING</h3>
                     <h4 class="remaining">15</h4>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         </div></div>
@@ -194,8 +208,9 @@
  
 
         <!-- AdminLTE App -->
-    
+        <script src="/conception/js/jquery.quicksearch.js" type="text/javascript"></script>
         <script src="/conception/js/app.js" type="text/javascript"></script>
+			
 
 
     </body>

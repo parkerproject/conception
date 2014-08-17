@@ -12,7 +12,7 @@
   <script src="/vendor/modernizr/modernizr.js"></script>
 </head>
 
-<body>
+<body id="{{data.user_token}}">
 <div class="top-header-bar">
     <div class="row">
       <a href="/" class="large-7 columns logo">conception events</a>
@@ -76,11 +76,25 @@
 				
 
       </div>
+		
+
 <div class="artist-details large-6 small-12 columns">
+
 	
-	{{#if totalTickets}}
-	<p class="text-right"><a href="#" class="reserve-link" data-reveal-id="full-tickets">Buy remaining {{data.tickets}} ticket(s)</a></p>
-   {{/if}}
+	
+<!-- 	{{#if totalTickets}}
+	<p class="text-right"><a href="#" class="reserve-link" data-reveal-id="full-tickets">Buy remaining <i></i> ticket(s)</a></p>
+	
+	<div class="row" id="tickets-info">
+		<span class="label">Total Tickets: 15</span>
+		<span class="success label ticket-sold">Sold: <i>0</i></span>
+		<span class="alert label ticket-left">Remaining: <i>0</i></span>
+	</div>
+	 {{/if}} -->
+	
+<!-- 	{{#if soldAll}}
+	<p class="text-right"><a>All 15 tickets sold</a></p>
+	{{/if}} -->
 	
 	<div class="row">
     <input name="artist_name" type="text" placeholder="Name" class="text large-6 columns" value="{{data.full_name}}"/>
@@ -248,36 +262,7 @@
     </large-12>
   </div>
 	
-	
-	
 
-<div id="myReserve" class="reveal-modal" data-reveal>
-	 <h6>Hello {{data.full_name}}!</h6>
-
-<p>We are thrilled to welcome you to our creative community and look forward to getting to 
-	know more about you and your craft.</p> 
-
-<p>Please click button below to purchase your first 2 tickets to your upcoming showcase. 
-	This will automatically activate your profile which will allow you to share your work with 
-	the art world as well as sell your tickets to your friends and followers.</p>
-
- 	<div class="row" id="reserve-spot" data-artist="{{data.user_token}}">
-<!-- 		<select class="reserve" name="reserve">
-			    <option value="">Reserve a spot</option>
-          <option value="12420440873">Conception New York City</option>
-					<option value="12423943349">Conception Philadelphia</option>
-					<option value="12423951373">Conception Liverpool</option>
-		</select> -->
-	<p>
-	<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS" 
-					data-button="buynow" 
-					data-name="Two Conception NYC Tickets" 
-					data-amount="30.00"></script>
-	</p>
-		
-	</div>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
 	
 	
 	
@@ -293,11 +278,11 @@
 					<option value="12423943349">Conception Philadelphia</option>
 					<option value="12423951373">Conception Liverpool</option>
 		</select> -->
-	<p>
+	<p class="paypal_holder">
 	<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS" 
 					data-button="buynow" 
-					data-name="Two Conception NYC Tickets" 
-					data-amount="{{amount}}"></script>
+					data-name="" 
+					data-amount=""></script>
 	</p>
 		
 	</div>
@@ -313,6 +298,10 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 	<script src="/js/jquery.cookie.js"></script>
 
+	<script>
+			window.user_event = "{{data.events}}";
+	</script>	
+	
   <script src="/js/main.js"></script>
 	<script src="/js/tracking_sales.js"></script>
 	
@@ -320,13 +309,7 @@
      <script>
     $(document).foundation();
   </script>
-	
-	<script>
-		$(window).bind("load", function() {
-      $('#myReserve').find('button.paypal-button').text('Buy 2 tickets');
-			$('#full-tickets').find('button.paypal-button').text('Buy remaining {{data.tickets}} ticket(s)');
-    });
-	</script>
+
 
 </body>
 

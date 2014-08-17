@@ -10,8 +10,9 @@ var getArtist = require('../models/artists_list');
 var db = require('../config/database.js');
 
 
+
 function ensureAuthenticated(req, res, next) {
-  if (req.session && req.session.authenticated) {
+  if (req.session && req.session.admin_authenticated) {
     return next();
   }
   res.redirect('/admin');
@@ -63,7 +64,7 @@ module.exports = function(router, passport, db) {
     }, function(err, user) {
 
       if (err || !user) res.redirect('/admin');
-      req.session.authenticated = true;
+      req.session.admin_authenticated = true;
       res.redirect('/conception');
 
     });
@@ -78,6 +79,8 @@ module.exports = function(router, passport, db) {
         res.send(data);
       });
     }
+		
+
 
     if (req.params.name == 'artists') {
 
@@ -112,6 +115,7 @@ module.exports = function(router, passport, db) {
             approved: d.approved,
             genre: d.genre,
             tickets: d.tickets,
+						user_token: d.user_token
 
           });
 
@@ -160,7 +164,7 @@ module.exports = function(router, passport, db) {
 
   router.post('/approve_artist', function(req, res) {
 
-    if (req.session.authenticated) {
+    if (req.session.admin_authenticated) {
 
       var status = (req.body.approved === 'true') ? true : false;
 
@@ -186,9 +190,10 @@ module.exports = function(router, passport, db) {
   });
 
 
-  router.post('/activate_artist', function(req, res) {
 
-    if (req.session.authenticated) {
+  router.post('/full_tickets', function(req, res) {
+
+    if (req.session.admin_authenticated) {
 
       db.artists.findAndModify({
         query: {
@@ -196,36 +201,7 @@ module.exports = function(router, passport, db) {
         },
         update: {
           $set: {
-            reserved: req.body.reserved
-          },
-          $inc: {
-            tickets: -2
-          }
-        },
-        new: true
-      }, function(err, doc, lastErrObj) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send('activated successfully');
-        }
-      });
-    }
-
-  });
-
-
-  router.post('/full_tickets', function(req, res) {
-
-    if (req.session.authenticated) {
-
-      db.artists.findAndModify({
-        query: {
-          email: req.body.email
-        },
-        update: {
-          $inc: {
-            tickets: -req.body.tickets
+            tickets: Number(0)
           }
         },
         new: true
@@ -239,8 +215,7 @@ module.exports = function(router, passport, db) {
     }
 
   });
-
-
+	
 
   return router;
 

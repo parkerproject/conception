@@ -557,12 +557,12 @@ $legend-bg: transparent;
 // $legend-padding: rem-calc(0 3);
 
 // We use these to style the prefix and postfix input elements
-// $input-prefix-bg: scale-color(#fff, $lightness: -5%);
-// $input-prefix-border-color: scale-color(#fff, $lightness: -20%);
+ $input-prefix-bg: #111;
+$input-prefix-border-color: #222;
 // $input-prefix-border-size: 1px;
 // $input-prefix-border-type: solid;
 // $input-prefix-overflow: hidden;
-// $input-prefix-font-color: #333;
+ $input-prefix-font-color: darken($white-color, 25%);
 // $input-prefix-font-color-alt: #fff;
 
 // We use these to style the error states for inputs and labels

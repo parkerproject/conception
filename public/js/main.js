@@ -15,8 +15,8 @@ var CONCEPTION = {
     this.eventsPage();
     this.slider();
     this.scroll();
-    //this.reserveSpot();
     this.search();
+    this.getOrders();
   },
 
   validate: function() {
@@ -259,49 +259,94 @@ var CONCEPTION = {
 
   search: function() {
 
-    var artists = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      limit: 10,
-      prefetch: {
+    if (typeof Bloodhound !== 'undefined') {
+      var artists = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
 
-        url: '/artist_search',
-        
-        filter: function(list) {
-          return $.map(list, function(artist) {
-            return {
-              name: artist
-            };
-          });
+          url: '/artist_search',
+
+          filter: function(list) {
+            return $.map(list, function(artist) {
+              return {
+                name: artist
+              };
+            });
+          }
         }
-      }
-    });
+      });
 
-    
-    artists.initialize();
 
- 
-    $('#prefetch .typeahead').typeahead(null, {
-      name: 'artists',
-      displayKey: 'name',
-      source: artists.ttAdapter()
-    });
+      artists.initialize();
+
+
+      $('#prefetch .typeahead').typeahead(null, {
+        name: 'artists',
+        displayKey: 'name',
+        source: artists.ttAdapter()
+      });
+    }
+
   },
 
-  reserveSpot: function() {
 
-    //     $('.reserve').on('change', function() {
 
-    //       var paypal = ['<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS"',
-    //         'data-button="buynow"',
-    //         'data-name="'+$(this).val()+'"',
-    //         'data-amount="30.00"></script>'
-    //       ].join('');
 
-    //        $(this).next().html(paypal).show();
-    //     });
-    $('button.paypal-button').text('Reserve a spot');
+  getOrders: function(user_token, tickets) {
+
+    var className = $('body').attr('id').toLowerCase();
+		
+		
+// 		$.getJSON('/artist_orders', {event: user_event}, function(json) {
+//         /*optional stuff to do after success */
+// });
+
+    if (className === user_token) {
+
+      var currentTicketSold = $('.ticket-sold').find('i').text();
+      var updatedTicketSold = parseInt(currentTicketSold) + parseInt(tickets);
+      var ticketsLeft = 15 - updatedTicketSold;
+
+      $('.ticket-sold').find('i').text(updatedTicketSold);
+      $('.ticket-left').find('i').text(ticketsLeft);
+      $('.reserve-link').find('i').text(ticketsLeft);
+
+    } else {
+      $('.ticket-sold').find('i').text(0);
+      $('.ticket-left').find('i').text(15);
+      $('.reserve-link').find('i').text(15);
+    }
+
+    var outstanding = $('.ticket-left').find('i').text();
+    var amount;
+    var name;
+
+    if (user_event == 12420440873) {
+      amount = 15 * outstanding; //new york
+      name = "Conception NYC Tickets";
+
+    } else if (user_event == 12423951373) {
+      amount = 12.15 * outstanding; //liverpool
+      name = "Conception Liverpool Tickets";
+
+    } else if (user_event == 12423943349) {
+      amount = 15 * outstanding; //philly
+      name = "Conception Philadephia Tickets";
+
+    } else {
+      amount = 15 * outstanding; //new york
+      name = "Conception NYC Tickets";
+    }
+
+    $('#full-tickets').find('button.paypal-button').text('Buy remaining ' + outstanding + ' ticket(s)');
+    $('.paypal_holder').find('input[name=amount]').val(amount);
+    $('.paypal_holder').find('input[name=item_name]').val(name);
+
+
   }
+
 
 
 };

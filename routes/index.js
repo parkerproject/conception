@@ -100,45 +100,6 @@ router.get('/payment/:eid/:oid', function(req, res) {
 
 });
 
-// 2 tickets reservation callback
-router.get('/verify_payment', function(req, res) {
-
-  var artist = req.cookies.conception_reserve_artist;
-
-  if (req.cookies.conception_reserve_artist) {
-    db.artists.findAndModify({
-      query: {
-        user_token: artist
-      },
-      update: {
-        $inc: {
-          tickets: -2
-        },
-        reserved: 'yes'
-      },
-      new: true
-    }, function(err, doc, lastErrObj) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('paypal payment successful');
-
-        var passedVariable = 'Your account is now activated!';
-        res.render('thank_you', {
-          data: passedVariable
-        });
-
-      }
-
-    });
-  } else {
-    res.send('Sorry no direct access to this page');
-  }
-
-
-
-
-});
 
 router.get('/logout', function(req, res) {
   req.logout();

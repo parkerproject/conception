@@ -701,8 +701,8 @@
 }
 
 span.artist-social-prefix{
-    background-color: darken($white-color, 45%);
-    border: 1px solid darken($white-color, 45%);
+    //background-color: darken($white-color, 45%);
+    //border: 1px solid darken($white-color, 45%);
     i{
        @include font-size(10);
        position: relative;

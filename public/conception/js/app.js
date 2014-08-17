@@ -1,72 +1,6 @@
 var CONCEPTION = (function() {
   'use strict';
 
-  function rowTpl(model) {
-    var colorLabel, html, ticketSold;
-    if (model.hasOwnProperty('tickets')) {
-      if (model.tickets[0].ticket.quantity_sold === 0) {
-        colorLabel = 'bg-red';
-      } else {
-        colorLabel = 'bg-green';
-      }
-      ticketSold = model.tickets[0].ticket.quantity_sold;
-    } else {
-      colorLabel = 'bg-yellow';
-      ticketSold = 'Create tickets';
-    }
-
-    // var colorLabel = (model.tickets[0].ticket.quantity_sold)
-    html = ['<tr>',
-      '<td>' + model.id + '</td>',
-      '<td>' + model.title + '</td>',
-      '<td>' + model.start_date + '</td>',
-      '<td>' + model.end_date + '</td>',
-      '<td>' + model.status + '</td>',
-      '<td width="10%"><span class="badge ' + colorLabel + '">' + ticketSold + '</span></td>',
-      '</tr>'
-    ].join("");
-
-    return html;
-  }
-
-  function template(row) {
-    var html = ['<div class="box">',
-      '<div class="box-body">',
-      '<table class="table table-bordered table table-hover dataTable">',
-      '<tbody><tr>',
-      '<th style="width: 10px">Event ID</th>',
-      '<th>Name</th>',
-      '<th>Start date</th>',
-      '<th>End date</th>',
-      '<th>Status</th>',
-      '<th>Tickets sold</th>',
-      '</tr>' + row + '</tbody></table>',
-      '</div>',
-      '</div>'
-    ].join("");
-    return html;
-  }
-
-  function artistTplHeader(row) {
-    var html = ['<div class="box">',
-      '<div class="box-body">',
-      '<table class="table table-bordered table table-hover dataTable">',
-      '<tbody><tr>',
-      '<th style="width: 10px">Artist</th>',
-      '<th>Email</th>',
-      '<th>Age</th>',
-      '<th>Event</th>',
-      '<th style="width: 25%">Artwork</th>',
-      '<th>Photo</th>',
-      '<th>Url</th>',
-      '<th>Approved</th>',
-      '</tr>' + row + '</tbody></table>',
-      '</div>',
-      '</div>'
-    ].join("");
-    return html;
-  }
-
   function artistModal() {
 
     $(document).on('click', '.artist_profile', function(e) {
@@ -86,11 +20,12 @@ var CONCEPTION = (function() {
         url = self.data('url'),
         email = self.data('email'),
         events = self.data('events'),
-        tickets_remaining = self.data('tickets'),
-        tickets_sold = 15 - tickets_remaining,
+        //tickets_sold = self.data('tickets_sold'),
+				//tickets_remaining = 15 - tickets_sold,
         status = (self.data('approved')) ? '<label>Approved <input type="checkbox" class="approve" name="approve" data-email="' + email + '" checked/></label>' : '<label>Approved <input type="checkbox" name="approve" class="approve" data-email="' + email + '"/></label>';
 
-
+			
+			
       var artworks = [];
       if (artwork_1 !== '') artworks.push('<a href="/artists_images/' + artwork_1 + '" target="_blank">Artwork 1</a>');
       if (artwork_2 !== '') artworks.push('<a href="/artists_images/' + artwork_2 + '" target="_blank">Artwork 2</a>');
@@ -114,23 +49,20 @@ var CONCEPTION = (function() {
       artistModal.find('.genre > strong').html(genre);
       artistModal.find('.artwork > strong').html(artworks.join(''));
       artistModal.find('.url > strong').html(url);
-      artistModal.find('.remaining').html(tickets_remaining);
-      artistModal.find('.sold').html(tickets_sold);
+      //artistModal.find('.remaining').html(tickets_remaining);
+      //artistModal.find('.sold').html(tickets_sold);
       artistModal.find('.user-image > img').attr('src', photoImage);
       artistModal.find('.status').html(status);
       artistModal.find('.event').find('strong').html(events_title);
 
 
       if (self.data('tickets') !== 0) {
-        artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" data-tickets="' + tickets_remaining + '" />');
+
+        artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" />');
       } else {
+				
         artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Artist has sold all 15 tickets</i>');
       }
-
-
-
-
-      console.log(events_title);
 
       artistModal.modal('show');
 
@@ -141,75 +73,19 @@ var CONCEPTION = (function() {
 
 
 
-
-  //   function routes() {
-
-  //     page('/conception/:name', function(ctx) {
-
-  //       var name = ctx.params.name;
-
-  //       if (name == 'events') {
-  //         $.getJSON('/conception/' + name, function(data) {
-  //           var events = data.events,
-  //             html = [],
-  //             rows;
-  //           for (var i = 0; i < events.length; i++) {
-  //             html.push(rowTpl(events[i].event));
-  //           }
-
-  //           rows = template(html.join(""));
-  //           document.querySelector('.event_json').innerHTML = rows;
-  //           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Events';
-  //         });
-  //       }
-
-  //       if (name == 'artists') {
-  //         $.getJSON('/conception/' + name, function(data) {
-
-  //           var rows = [],
-  //             content;
-
-  //           data.map(function(artist) {
-  //             rows.push(artistTemplate(artist));
-  //           });
-
-  //           content = artistTplHeader(rows.join(""));
-  //           document.querySelector('.event_json').innerHTML = content;
-  //           document.querySelector('.content-header').querySelector('h1').innerHTML = 'Artists';
-  //         });
-
-  //       }
-
-
-  //     });
-
-
-  //     page('/conception', function() {
-  //       var dashboardTpl = Templates.dashboard();
-  //       document.querySelector('.event_json').innerHTML = dashboardTpl;
-  //       document.querySelector('.content-header')
-  //         .querySelector('h1')
-  //         .innerHTML = 'Dashboard';
-
-  //     });
-
-  //     page();
-  //   }
-
-
   function approveUsers() {
     $(document).on('click', '.approve', function() {
 
-        var email = $(this).data('email');
-        var approved = ($(this).is(":checked")) ? true : false;
+      var email = $(this).data('email');
+      var approved = ($(this).is(":checked")) ? true : false;
 
-        $.post('/approve_artist', {
-          email: email,
-          approved: approved
-        }, function(data) {
-          console.log(data);
-        });
-    
+      $.post('/approve_artist', {
+        email: email,
+        approved: approved
+      }, function(data) {
+        console.log(data);
+      });
+
     });
 
   }
@@ -219,25 +95,30 @@ var CONCEPTION = (function() {
   function fullTickets() {
     $(document).on('click', '.empty_tickets', function() {
 
-        var email = $(this).data('email');
-				var tickets = $(this).data('tickets');
+      var email = $(this).data('email');
 
-        $.post('/full_tickets', {
-          email: email,
-          tickets: tickets
-        }, function(data) {
-          console.log(data);
-        });
+      $.post('/full_tickets', {
+        email: email
+      }, function(data) {
+        console.log(data);
+      });
 
     });
 
   }
 
+  function instantSearch() {
+    $('input#search-artist').quicksearch('table tbody tr');
+  }
+
+
+ 
 
   function conceptionInit() {
     artistModal();
     approveUsers();
     fullTickets();
+		instantSearch();
   }
 
 
