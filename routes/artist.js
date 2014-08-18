@@ -100,13 +100,13 @@ module.exports = function(router, db) {
         var totalTickets = (user.tickets !== 0 && user.approved === true) ? true : false;
         var soldAll = (user.tickets === 0) ? true : false;
 
-
         req.session.authenticated = true;
         res.render('edit_profile', {
           title: '',
           data: user,
           totalTickets: totalTickets,
           soldAll: soldAll,
+					numberOfEvents: user.events.length
         });
       }
 
