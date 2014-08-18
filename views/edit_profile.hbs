@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/css/fonts.css">
   <link href="/css/square/blue.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/app.css" />
+   <script src="/js/pace.min.js"></script>
   <script src="/vendor/modernizr/modernizr.js"></script>
 </head>
 
@@ -73,29 +74,20 @@
               <textarea name="my_story">{{data.story}} </textarea>
 
           </p>
-				
+
 
       </div>
-		
+
 
 <div class="artist-details large-6 small-12 columns">
 
-	
-	
-<!-- 	{{#if totalTickets}}
-	<p class="text-right"><a href="#" class="reserve-link" data-reveal-id="full-tickets">Buy remaining <i></i> ticket(s)</a></p>
-	
-	<div class="row" id="tickets-info">
-		<span class="label">Total Tickets: 15</span>
-		<span class="success label ticket-sold">Sold: <i>0</i></span>
-		<span class="alert label ticket-left">Remaining: <i>0</i></span>
-	</div>
-	 {{/if}} -->
-	
-<!-- 	{{#if soldAll}}
-	<p class="text-right"><a>All 15 tickets sold</a></p>
-	{{/if}} -->
-	
+      <select class="ticket_tracker" name="track">
+         <option value="">Track your ticket sales for...</option>
+         <option value="12420440873">Conception New York City</option>
+         <option value="12423943349">Conception Philadelphia</option>
+         <option value="12423951373">Conception Liverpool</option>
+        </select>
+
 	<div class="row">
     <input name="artist_name" type="text" placeholder="Name" class="text large-6 columns" value="{{data.full_name}}"/>
     </div>
@@ -108,7 +100,7 @@
 			<input type="hidden" name="artwork_2_hidden" value="{{data.artwork_2}}" />
 			<input type="hidden" name="artwork_3_hidden" value="{{data.artwork_3}}" />
 			<input type="hidden" name="photo_hidden" value="{{data.photo}}" />
-			
+
     </div>
 
 <!--     <div class="row">
@@ -166,7 +158,7 @@
           <input type="text" name="artist_instagram" placeholder="Enter your Instagram URL..." value="{{data.instagram}}">
         </div>
       </div>
-	
+
 	   <div class="row collapse">
         <div class="small-3 large-2 columns">
           <span class="prefix artist-social-prefix"><i class="icon-music-note"></i></span>
@@ -182,19 +174,19 @@
 							{{#if data.artwork_1}}
               <li><span class="art-label">Artwork 1</span><a href="http://www.conceptionevents.com/artists_images/{{data.artwork_1}}"><img src="http://www.conceptionevents.com/artists_images/{{data.artwork_1}}" alt="" /></a></li>
               {{/if}}
-							
+
 							{{#if data.artwork_2}}
 							<li><span class="art-label">Artwork 3</span><a href="http://www.conceptionevents.com/artists_images/{{data.artwork_2}}"><img src="http://www.conceptionevents.com/artists_images/{{data.artwork_2}}" alt="" /></a></li>
               {{/if}}
-							
+
 							{{#if data.artwork_3}}
 							<li><span class="art-label">Artwork 3</span><a href="http://www.conceptionevents.com/artists_images/{{data.artwork_3}}"><img src="http://www.conceptionevents.com/artists_images/{{data.artwork_3}}" alt="" /></a></li>
 							{{/if}}
 						</ul>
           </div>
-				
+
 				<div class="row">
-					
+
        <fieldset id="el">
         <legend>Update your art work (3 max)</legend>
             <div class="row">
@@ -261,33 +253,50 @@
       <p class="text-center">Copyright &copy; 2014 Conception</p>
     </large-12>
   </div>
-	
 
-	
-	
-	
-	<div id="full-tickets" class="reveal-modal" data-reveal>
+<div id="tickets_tracker" class="reveal-modal" data-reveal>
+   {{#if totalTickets}}
+    <div class="row" id="tickets-info">
+        <a class="close-reveal-modal">&#215;</a>
+        <h2 class="">Total Tickets: 15</h2>
+        <h2 class="ticket-sold">Sold: <i>0</i></h2>
+        <h2 class="ticket-left">Remaining: <i>0</i></h2>
+
+    <p class="paypal_holder">
+    <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS"
+    data-button="buynow"
+    data-name=""
+    data-amount=""></script>
+    </p>
+    </div>
+
+
+    {{/if}}
+
+    {{#if soldAll}}
+    <p class="text-right"><a>All 15 tickets sold</a></p>
+    {{/if}}
+
+</div>
+
+
+<!--
+<div id="full-tickets" class="reveal-modal" data-reveal>
 	 <h6>Hello {{data.full_name}}!</h6>
 
 <p>Please click button below to purchase your remaining {{data.tickets}} ticket(s) to your upcoming showcase.</p>
 
  	<div class="row" id="fill_ticket" data-artist="{{data.user_token}}">
-<!-- 		<select class="reserve" name="reserve">
-			    <option value="">Reserve a spot</option>
-          <option value="12420440873">Conception New York City</option>
-					<option value="12423943349">Conception Philadelphia</option>
-					<option value="12423951373">Conception Liverpool</option>
-		</select> -->
 	<p class="paypal_holder">
-	<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS" 
-					data-button="buynow" 
-					data-name="" 
+	<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=4EAWKCHAUVLZS"
+					data-button="buynow"
+					data-name=""
 					data-amount=""></script>
 	</p>
-		
+
 	</div>
   <a class="close-reveal-modal">&#215;</a>
-</div>
+</div> -->
 
 
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
@@ -297,14 +306,17 @@
    <script src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 	<script src="/js/jquery.cookie.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+
+
 
 	<script>
 			window.user_event = "{{data.events}}";
-	</script>	
-	
+	</script>
+
   <script src="/js/main.js"></script>
 	<script src="/js/tracking_sales.js"></script>
-	
+
 
      <script>
     $(document).foundation();

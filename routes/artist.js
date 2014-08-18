@@ -53,7 +53,6 @@ module.exports = function(router, db) {
         });
 
 
-
         res.render('artist', {
           title: 'conception events',
           data: user,
@@ -75,7 +74,7 @@ module.exports = function(router, db) {
 
 
   router.get('/artist_orders', function(req, res) {
-    var event_id = 12420440873;
+    var event_id = req.query.event;
 
     getOrders(event_id, function(orders) {
       res.send(orders);
@@ -100,32 +99,7 @@ module.exports = function(router, db) {
 
         var totalTickets = (user.tickets !== 0 && user.approved === true) ? true : false;
         var soldAll = (user.tickets === 0) ? true : false;
-        var htmlArray = [];
 
-        if (typeof user.events == 'number') {
-          if (user.events === 12420440873) htmlArray.push('<a href="#" data-event="12420440873">Conception Philadelphia</a>');
-        }
-
-        if (typeof user.events === 'string') {
-
-          var eventArray = user.events.split(',');
-          
-
-          for (var i = 0; i < eventArray.length; i++) {
-            if (eventArray[i] == 12420440873) {
-              htmlArray.push('<a href="#" data-event="12420440873">Conception NYC</a>');
-            }
-                        
-             if (eventArray[i] == 12423943349) {
-              htmlArray.push('<a href="#" data-event="12423943349">Conception Philadelphia</a>');
-            }
-                        
-             if (eventArray[i] == 12423951373) {
-              htmlArray.push('<a href="#" data-event="12423951373">Conception Liverpool</a>');
-            }
-          }
-
-        }
 
         req.session.authenticated = true;
         res.render('edit_profile', {
@@ -133,8 +107,6 @@ module.exports = function(router, db) {
           data: user,
           totalTickets: totalTickets,
           soldAll: soldAll,
-           userEvents: htmlArray.join('')
-
         });
       }
 
