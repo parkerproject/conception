@@ -543,6 +543,10 @@
             color: darken($white-color, 45%);
 					  cursor: auto;
             position: relative;
+					  width: 250px;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
             i{
                 @include font-size(10);
             }
@@ -1224,6 +1228,12 @@ legend{
 	}
 	
 }
+
+	.photo-cell{
+		max-height: 250px;
+    overflow: hidden;
+	}
+
 
 .pace {
   -webkit-box-sizing: border-box;

@@ -19,6 +19,13 @@ function deleteFile(file) {
   });
 }
 
+function addhttp(url) {
+    if (!/^(?:f|ht)tps?\:\/\//.test(url)){
+        url = "http://" + url;
+    }
+    return url;
+}
+
 
 module.exports = function(router, db) {
 
@@ -57,7 +64,8 @@ module.exports = function(router, db) {
         res.render('artist', {
           title: 'conception events',
           data: user,
-          events: option
+          events: option,
+					user_url: addhttp(user.url)
         });
       }
     });
