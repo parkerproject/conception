@@ -67,11 +67,6 @@
               <span class="name">{{data.full_name}}</span>
               <span class="category">{{data.genre}}</span>
 
-						{{#if data.story}}
-              <h4>my story</h4>
-              <p>{{data.story}}</p>
-						{{/if}}
-
               <ul class="inline-list artist-social">
 								{{#if data.facebook_url}}
                   <li><a href="{{data.facebook_url}}" class="icon-facebook"><!--facebook--></a></li>
@@ -92,6 +87,14 @@
 
       </div>
       <div class="large-8 columns">
+				
+					 {{#if data.story}}
+				    <section class="artist-story">
+							<h4>my story</h4>
+              <p class="">{{data.story}}</p>
+				   </section>
+
+						{{/if}}
 
 				<ul class="mygallery clearing-thumbs" data-clearing>
 					{{#if data.artwork_1}}
@@ -153,10 +156,11 @@
 	 <script src="/js/typeahead.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 	<script src="/js/jquery.cookie.js"></script>
-
+	<script src="/js/readmore.min.js"></script>
   <script src="/js/main.js"></script>
 	
 	<script src="/js/tracking_sales.js"></script>
+
 
      <script>
     $(document).foundation();

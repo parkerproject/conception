@@ -2,6 +2,7 @@ var randtoken = require('rand-token');
 var email = require('../email');
 var fs = require('fs');
 var getOrders = require('../models/get_orders');
+var getArtist_ticket = require('../models/get_artist_sold_all');
 var _ = require('underscore');
 
 function ensureAuthenticated(req, res, next) {
@@ -106,7 +107,7 @@ module.exports = function(router, db) {
           data: user,
           totalTickets: totalTickets,
           soldAll: soldAll,
-					numberOfEvents: user.events.length
+          numberOfEvents: user.events.length
         });
       }
 
@@ -285,6 +286,18 @@ module.exports = function(router, db) {
     }
 
 
+  });
+
+  router.get('/get_artist_ticket', function(req, res) {
+		
+		console.log(req.query.user_token);
+		
+    getArtist_ticket(req.query.user_token, function(user) {
+		
+			console.log(user.tickets);
+			
+        res.json(user.tickets);
+    });
   });
 
 

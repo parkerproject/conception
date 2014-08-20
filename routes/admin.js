@@ -90,6 +90,7 @@ module.exports = function(router, passport, db) {
       getArtist(function(data) {
 
         data.map(function(d) {
+					
           var today = new Date();
           var month = d.dateBirth.month;
           var day = d.dateBirth.day;

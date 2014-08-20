@@ -311,8 +311,8 @@ var CONCEPTION = {
           salesRow.push('<tr><td>' + e.attendee.first_name + ' ' + e.attendee.last_name + '</td><td>' + e.attendee.amount_paid + ' ' + e.attendee.currency + '</td><td>' + e.attendee.quantity + '</td><td>' + e.attendee.email + '</td></tr>');
 
         });
-				
-				console.log(thisUser);
+
+        console.log(thisUser);
 
 
         var gangOfEight = ['info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com'];
@@ -372,7 +372,5 @@ var CONCEPTION = {
     }
 
   }
-
-
 
 };

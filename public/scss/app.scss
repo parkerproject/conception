@@ -530,6 +530,7 @@
     .artist-pic{
         border-bottom: 2px solid $secondary-color;
 			  width: 302px;
+			  margin-top: 26px;
     }
     .artist-details{
         background: #222222;
@@ -1204,6 +1205,24 @@ legend{
 #tickets_tracker{
     background: rgba(0, 0, 0, 0.6);
     border: none;
+}
+
+
+.artist-story{
+	h4{
+		text-transform: uppercase;
+		color: #f2f2f2;
+		font-size: 8px;
+		font-size: 1rem;
+		padding: 20px 0 0 20px;
+	}
+	p{
+		color: #a6a6a6;
+		padding: 0 10px 0 20px;
+		font-size: 7px;
+		font-size: 0.875rem;
+	}
+	
 }
 
 .pace {
