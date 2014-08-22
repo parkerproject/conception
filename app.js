@@ -54,8 +54,8 @@ app.set('view engine', 'hbs');
 
 
 app
+    .use(favicon(__dirname + '/public/favicon.ico'))
     .use(compress())
-    .use(favicon())
     .use(logger('dev'))
     .use(cookieParser())
     .use(bodyParser())
