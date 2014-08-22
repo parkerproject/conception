@@ -1,6 +1,7 @@
 require('dotenv').load();
 
 var db = require('../config/database');
+var _ = require('underscore');
 
 function getEvent(id, fn) {
   db.events.findOne({
@@ -25,12 +26,17 @@ module.exports = function(router) {
       if (err || !artists) {
         console.log(err);
       } else {
+				
+				var sortedArtists = _.sortBy(artists, function(artist){ return artist.full_name.toLowerCase(); });
+				
+				
 			
         getEvent(id, function(event) {
           res.render('event', {
             title: 'conception events',
             data: JSON.stringify(event),
             artists: artists,
+						sortedArtists: sortedArtists,
             event_id: id
           });
 					

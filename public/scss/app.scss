@@ -420,8 +420,9 @@
 
 .event-bg{
     height: 450px;
-    overflow: hidden;
+    //overflow: hidden;
     position: relative;
+    padding-bottom: 20px;
     img{
         position: absolute;
     }
@@ -504,12 +505,14 @@
 
 .organizer-row{
     padding: 30px 0;
+	  margin-top: 51px;
     h3{
         border-bottom: 1px solid darken($white-color, 75%);
         text-transform: capitalize;
         color: darken($white-color, 45%);
         font-family: "GothamLight";
         margin-bottom: 20px;
+			  @include font-size(10);
     }
     span{
         display: block;
@@ -1234,6 +1237,32 @@ legend{
     overflow: hidden;
 	}
 
+.general{
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+  font-family: 'GothamMedium';
+}
+
+#generalTicketModal{
+	border: none;
+	background-color: rgba(0, 0, 0, 0.6);
+	.row{
+		width: 50%;
+    //margin: 0 auto;
+		padding: 20px;
+    position: relative;
+		background-color: $white-color;
+		top: 50%;
+		-webkit-transform: translateY(50%);
+		-ms-transform: translateY(50%);
+		-o-transform: translateY(50%);
+		transform: translateY(50%);
+		h2{
+		  color: lighten($black-color, 5%);
+		}
+	}
+}
+
 
 .pace {
   -webkit-box-sizing: border-box;
@@ -1317,3 +1346,8 @@ legend{
 .pace.pace-inactive {
   display: none;
 }
+
+.close-reveal-modal{
+	font-weight: normal;
+}
+

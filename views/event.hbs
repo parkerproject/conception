@@ -82,8 +82,9 @@
         </div>
 
         <div class="row">
-            <div class="large-10 event-blurb">
+            <div class="large-12 event-blurb">
                 <p></p>
+							<a href="#" class="button alert  general" data-reveal-id="generalTicketModal">Buy Tickets</a>
             </div>
         </div>
     </div>
@@ -94,22 +95,12 @@
 
 <!--   <div class="row body-content">
     <div class="large-12 columns organizer-row">
-    <h3>organizers</h3>
+    <h3>event host</h3>
     <div class="row">
         <div class="large-4 columns">
-            <img src="/images/organizer.jpg" alt="" />
-            <span class="name"><a href="">mike wolf<i class="icon-angle-double-right"></i></a></span>
+            <img src="/images/event-host.jpg" alt="" />
+            <span class="name"><a href="">David Powell<i class="icon-angle-double-right"></i></a></span>
             <span class="title">host</span>
-        </div>
-        <div class="large-4 columns">
-            <img src="/images/organizer.jpg" alt="" />
-            <span class="name"><a href="">mike wolf<i class="icon-angle-double-right"></i></a></span>
-            <span class="title">host</span>
-        </div>
-        <div class="large-4 columns">
-        <img src="/images/organizer.jpg" alt="" />
-        <span class="name"><a href="">mike wolf<i class="icon-angle-double-right"></i></a></span>
-        <span class="title">host</span>
         </div>
     </div>
     </div>
@@ -166,6 +157,22 @@
       <p class="text-center">Copyright &copy; 2014 Conception</p>
     </large-12>
   </div>
+	
+		<div id="generalTicketModal" class="reveal-modal" data-reveal>
+		  <div class="row">
+				<h2 class="event-title"></h2>
+				<label for="">Pick the artist you are supporting!</label>
+				<select name="ticket_type" class="ticket_type">
+					<option value="general">General Admission</option>
+					{{#each sortedArtists}}
+					<option value="{{user_token}}">{{full_name}}</option>
+					{{/each}}
+				</select>
+				
+				<a href="#" class="button secondary right next_step">Next Step</a>
+				<a class="close-reveal-modal">&#215;</a>
+			</div>
+		</div>
 
 
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
