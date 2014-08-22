@@ -17,7 +17,7 @@ var CONCEPTION = {
     this.scroll();
     this.search();
     this.ticketsTracker();
-		this.generalTicketSale();
+    this.generalTicketSale();
   },
 
   validate: function() {
@@ -373,19 +373,22 @@ var CONCEPTION = {
     }
 
   },
-	
-	generalTicketSale: function(){
-		
-		document.querySelector('#generalTicketModal').querySelector('.event-title').textContent = fullEvent.title;
-		
-		$('.next_step').on('click', function(e) {
-			e.preventDefault();
+
+  generalTicketSale: function() {
+
+    if ($('#generalTicketModal').length !== 0) {
 			
-			var artist = $('.ticket_type').val();
-			window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
-			
-		});
-		
-	}
+      document.querySelector('#generalTicketModal').querySelector('.event-title').textContent = fullEvent.title;
+
+      $('.next_step').on('click', function(e) {
+        e.preventDefault();
+
+        var artist = $('.ticket_type').val();
+        window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
+
+      });
+    }
+
+  }
 
 };
