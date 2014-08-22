@@ -1237,10 +1237,17 @@ legend{
     overflow: hidden;
 	}
 
-.general{
+.button.general{
 	text-transform: uppercase;
 	letter-spacing: 0.4px;
   font-family: 'GothamMedium';
+	border: 1px solid darken($secondary-color, 40%);
+	background-color: rgba(0, 0, 0, 0.6);
+	color: $primary-color;
+	&:hover{
+		background-color: darken($primary-color, 5%);
+		border: 0.5px solid darken($primary-color, 5%);
+	}
 }
 
 #generalTicketModal{
