@@ -13,7 +13,6 @@ function getEvent(id, fn) {
 }
 
 
-
 module.exports = function(router) {
 
 
@@ -26,20 +25,22 @@ module.exports = function(router) {
       if (err || !artists) {
         console.log(err);
       } else {
-				
-				var sortedArtists = _.sortBy(artists, function(artist){ return artist.full_name.toLowerCase(); });
-				
-				
-			
+
+        var sortedArtists = _.sortBy(artists, function(artist) {
+          return artist.full_name.toLowerCase();
+        });
+
+
+
         getEvent(id, function(event) {
           res.render('event', {
             title: 'conception events',
             data: JSON.stringify(event),
             artists: artists,
-						sortedArtists: sortedArtists,
+            sortedArtists: sortedArtists,
             event_id: id
           });
-					
+
         });
       }
     });

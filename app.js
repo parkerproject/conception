@@ -23,6 +23,7 @@ var express = require('express'),
 
 
 var app = express();
+var qt = require('quickthumb');
 
 /**
  * A simple if condtional helper for handlebars
@@ -60,7 +61,7 @@ app
     .use(cookieParser())
     .use(bodyParser())
     .use(methodOverride())
-    .use('/artists_images', express.static(process.env.OPENSHIFT_DATA_DIR + '/artists_images'))
+    .use('/artists_images', qt.static(process.env.OPENSHIFT_DATA_DIR + '/artists_images'))
     .use(express.static(path.join(__dirname, 'public')))
     .use(multer({
         dest: process.env.OPENSHIFT_DATA_DIR + '/artists_images'

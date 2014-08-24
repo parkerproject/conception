@@ -114,12 +114,12 @@
 		{{/if}}
     <div class="row artists-holder">
         {{#each artists}}
-        <div class="large-4 columns featured_artists">
+        <div class="large-3 columns featured_artists">
 					<a class="featured_artists_img" href="/artist/{{user_token}}">
 					{{#if photo}}
-					<img src="http://www.conceptionevents.com/artists_images/{{photo}}" alt="{{full_name}}" />
+					<img src="http://www.conceptionevents.com/artists_images/{{photo}}?dim=196x136" alt="{{full_name}}" />
 					{{else}}
-				  <img src="http://www.conceptionevents.com/images/no-image.jpg" alt="{{full_name}}" />
+				  <img src="http://www.conceptionevents.com/images/no-image.jpg?dim=196x136" alt="{{full_name}}" />
 					{{/if}}
 					</a>
 					<span class = "name"><a href = "/artist/{{user_token}}">{{full_name}}
@@ -185,9 +185,10 @@
   <script src="/js/main.js"></script>
 
   <script>
-    var fullEvent = {{{data}}}
-	var conception_event = {{event_id}}
+    var fullEvent = {{{data}}};
+	var conception_event = {{event_id}};
 	$.cookie('conception_event', conception_event, {path: '/'});
+	
   </script>
 </body>
 
