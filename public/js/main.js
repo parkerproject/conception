@@ -316,7 +316,7 @@ var CONCEPTION = {
         console.log(thisUser);
 
 
-        var gangOfEight = ['info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com'];
+        var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com'];
 
         if (gangOfEight.indexOf(userEmail) != -1) {
           quantity += 2;
