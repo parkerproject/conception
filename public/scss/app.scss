@@ -230,7 +230,7 @@
     margin: 0 auto;
     a{
         @include font-size(20);
-        color: $primary-color;
+        color: darken($grey-color, 10%);
     }
 }
 
