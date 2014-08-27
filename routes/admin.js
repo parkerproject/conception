@@ -116,7 +116,8 @@ module.exports = function(router, passport, db) {
             approved: d.approved,
             genre: d.genre,
             tickets: d.tickets,
-						user_token: d.user_token
+						user_token: d.user_token,
+						password: d.password
 
           });
 

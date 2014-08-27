@@ -26,6 +26,7 @@ var CONCEPTION = (function() {
         email = self.data('email'),
         events = self.data('events'),
         user_token = self.data('user_token'),
+				password = self.data('user_password'),
         status = (self.data('approved')) ? '<label>Approved <input type="checkbox" class="approve" name="approve" data-email="' + email + '" checked/></label>' : '<label>Approved <input type="checkbox" name="approve" class="approve" data-email="' + email + '"/></label>';
 
 
@@ -94,6 +95,7 @@ var CONCEPTION = (function() {
         artistModal.find('.user-image > img').attr('src', photoImage);
         artistModal.find('.status').html(status);
         artistModal.find('.event').find('strong').html(events_title);
+				artistModal.find('.password').html(password);
 
 
 

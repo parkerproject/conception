@@ -3748,3 +3748,7 @@ font-size: 15px;
   text-align: right;
   color: rgba(0, 0, 0, 0.19999999999999996);
 }
+
+.password{
+	font-size: 1em!important;
+}
