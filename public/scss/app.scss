@@ -226,10 +226,10 @@
 }
 
 .footer-social{
-    width: 150px;
+    width: 187px;
     margin: 0 auto;
     a{
-        @include font-size(20);
+        @include font-size(16);
         color: darken($grey-color, 10%);
     }
 }
