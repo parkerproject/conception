@@ -80,7 +80,7 @@ module.exports = function(router, passport, db) {
         res.send(data);
       });
     }
-		
+
 
 
     if (req.params.name == 'artists') {
@@ -91,7 +91,7 @@ module.exports = function(router, passport, db) {
       getArtist(function(data) {
 
         data.map(function(d) {
-					
+
           var today = new Date();
           var month = d.dateBirth.month;
           var day = d.dateBirth.day;
@@ -117,19 +117,31 @@ module.exports = function(router, passport, db) {
             approved: d.approved,
             genre: d.genre,
             tickets: d.tickets,
-						user_token: d.user_token,
-						password: d.password
+            user_token: d.user_token,
+            password: d.password
 
           });
 
         });
 
-        //res.send(newObj);
+        var approvedArtists = _.filter(newObj, function(artist) {
+          return artist.approved === true;
+        });
+				
+				var pendingArtists = _.filter(newObj, function(artist) {
+            return artist.approved === false;
+          });
+				
+				var approvedArtistsNum = _.size(approvedArtists);
+				var pendingArtistsNum = _.size(pendingArtists);
+				
         res.render('admin/artists', {
           title: 'artist',
           data: newObj,
-					approvedArtists: _.filter(newObj, function(artist){ return artist.approved === true; }),
-					pendingArtists:  _.filter(newObj, function(artist){ return artist.approved === false; })
+          approvedArtists: approvedArtists,
+          pendingArtists: pendingArtists,
+					approvedArtistsNum: approvedArtistsNum,
+					pendingArtistsNum: pendingArtistsNum
         });
 
       });
@@ -220,7 +232,7 @@ module.exports = function(router, passport, db) {
     }
 
   });
-	
+
 
   return router;
 

@@ -3763,3 +3763,16 @@ font-size: 15px;
 	font-weight: bold!important;
 	font-size: 1.3em;
 }
+
+.badge-warning, .label-warning {
+  background-color: #f89406;
+}
+.badge-warning:hover, .label-warning:hover {
+  background-color: #c67605;
+}
+.badge-success, .label-success {
+  background-color: #468847;
+}
+.badge-success:hover, .label-success:hover {
+  background-color: #356635;
+}
