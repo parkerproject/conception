@@ -108,8 +108,17 @@
 											
 											<div class="col-xs-12">
                             <div class="box">
-
-                                <div class="box-body table-responsive no-padding">
+															
+														<ul class="nav nav-tabs" role="tablist">
+															<li class="active"><a href="#approved" role="tab" data-toggle="tab">Approved</a></li>
+															<li><a href="#pending" role="tab" data-toggle="tab">Pending</a></li>
+														</ul>
+															
+															
+														<!-- Tab panes -->
+														<div class="tab-content">
+															<div class="tab-pane active" id="approved">
+															  <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tbody><tr>
 																					  <td>ID</td>
@@ -118,7 +127,7 @@
                                             <th>Status</th>
                                             
                                         </tr>
-																				{{#each data}}
+																				{{#each approvedArtists}}
                                         <tr>
 																					<td>{{user_token}}</td>
                                             <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}" 
@@ -143,6 +152,55 @@
                                            
                                     </tbody></table>
                                 </div><!-- /.box-body -->
+															
+															</div>
+															
+															
+															
+															<div class="tab-pane" id="pending">
+																	<div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <tbody><tr>
+																					  <td>ID</td>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            
+                                        </tr>
+																				{{#each pendingArtists}}
+                                        <tr>
+																					<td>{{user_token}}</td>
+                                            <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}" 
+																									 data-artwork_1="{{artwork_1}}" 
+																									 data-artwork_2="{{artwork_2}}" 
+																									 data-artwork_3="{{artwork_3}}" 
+																									 data-photo="{{photo}}" 
+																									 data-genre="{{genre}}"
+																									 data-age="{{age}}" 
+																									 data-email="{{email}}" 
+																									 data-tickets={{tickets}} 
+																									 data-events="{{events}}"
+																									 data-url="{{url}}" 
+																									 data-full_name="{{full_name}}" 
+																									 data-user_token="{{user_token}}" 
+																									 data-user_password="{{password}}"
+																									 data-approved="{{approved}}">{{full_name}}</a></td>
+                                            <td>{{email}}</td>
+                                            <td>{{{label}}}</td>
+                                            </tr>
+																				{{/each}}
+                                           
+                                    </tbody></table>
+                                </div><!-- /.box-body -->
+															</div>
+														</div>
+															
+															
+															
+															
+															
+
+
                             </div><!-- /.box -->
                         </div>
 									  </div>
@@ -164,7 +222,7 @@
                         <h4 class="event"><i class="fa fa-check-circle-o" style="color: green;"></i> attending <em><strong></strong></em> </h4>
                         <h4 class="age">Age: <strong></strong></h4>
 											<h4 class="email">Email: <strong></strong></h4>
-											<span class="label label-success password"></span>
+											<h4 class="">Password: <span class="password"></span></h4>
 											 <h4 class="genre">Genre: <strong></strong></h4>
 											<h4 class="artwork">Artwork: <strong></strong></h4>
 											 <h4 class="url">Website: <strong></strong></h4>

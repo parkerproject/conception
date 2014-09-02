@@ -8,6 +8,7 @@
 var getEvents = require('../models/get_events');
 var getArtist = require('../models/artists_list');
 var db = require('../config/database.js');
+var _ = require('underscore');
 
 
 
@@ -126,7 +127,9 @@ module.exports = function(router, passport, db) {
         //res.send(newObj);
         res.render('admin/artists', {
           title: 'artist',
-          data: newObj
+          data: newObj,
+					approvedArtists: _.filter(newObj, function(artist){ return artist.approved === true; }),
+					pendingArtists:  _.filter(newObj, function(artist){ return artist.approved === false; })
         });
 
       });
