@@ -75,11 +75,16 @@ var CONCEPTION = (function() {
 
         }
 
-        var specialSales = ['markelfman@hotmail.com'];
+        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com'];
 
-        if (specialSales.indexOf(email) != -1) {
+        if (specialSales.indexOf(email) != -1 && email !== 'brianalessandro@gmail.com') {
           quantity += 3;
         }
+				
+				if (specialSales.indexOf(email) != -1 && email === 'brianalessandro@gmail.com') {
+					quantity += 2;
+				}
+				
 
         var ticketsLeft = 15 - quantity;
 

@@ -324,13 +324,19 @@ var CONCEPTION = {
           console.log('first');
         }
 
-        var specialSales = ['markelfman@hotmail.com'];
+				
+				var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com'];
 
-        if (specialSales.indexOf(userEmail) != -1) {
+        if (specialSales.indexOf(userEmail) != -1 && userEmail !== 'brianalessandro@gmail.com') {
           quantity += 3;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
-          console.log('second');
         }
+				
+				if (specialSales.indexOf(userEmail) != -1 && userEmail === 'brianalessandro@gmail.com') {
+					quantity += 2;
+           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
+				}
+
 
         document.querySelector('.sales-data').innerHTML = salesRow.join('');
 
