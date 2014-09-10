@@ -720,7 +720,7 @@ span.artist-social-prefix{
 
 .date_picker{
     select{
-        width: 149px;
+        width: 148px;
         font-family: 'GothamLight';
         height: 50px;
         margin-bottom: 5px;
@@ -1374,4 +1374,19 @@ legend{
 	height: 36px;
 	width: 31px;
 }
+
+#terms_checkbox{
+	float: left;
+}
+
+.terms_holder label{
+	color: #f2f2f2;
+	font-family: 'GothamLight';
+	position: relative;
+	top: 16px;
+	a{
+		text-decoration: underline;
+	}
+}
+
 

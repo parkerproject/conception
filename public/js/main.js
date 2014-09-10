@@ -7,6 +7,7 @@ $(function() {
 var CONCEPTION = {
 
   init: function() {
+		this.enableSubmit();
     this.validate();
     this.validateUpload();
     this.validateAge();
@@ -19,6 +20,18 @@ var CONCEPTION = {
     this.ticketsTracker();
     this.generalTicketSale();
   },
+	
+	enableSubmit: function(){
+		$('#terms_checkbox').on('change', function() {
+			var self = $(this);
+			if(self.is(':checked')){
+				$('.register-submit').removeAttr('disabled');
+			}else{
+				document.querySelector('.register-submit').disabled = 'disabled';
+			}
+			
+		});
+},
 
   validate: function() {
     $('#artistForm').validate({
