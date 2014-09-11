@@ -75,14 +75,19 @@ var CONCEPTION = (function() {
 
         }
 
-        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com'];
+        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
 
-        if (specialSales.indexOf(email) != -1 && email !== 'brianalessandro@gmail.com') {
+        if (specialSales.indexOf(email) != -1 && email !== 'markelfman@hotmail.com') {
           quantity += 3;
         }
 				
 				if (specialSales.indexOf(email) != -1 && email === 'brianalessandro@gmail.com') {
 					quantity += 2;
+				}
+				
+								
+				if (specialSales.indexOf(email) != -1 && email === 'yaiel734@yahoo.co.uk') {
+					quantity += 1;
 				}
 				
 
