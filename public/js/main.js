@@ -345,14 +345,14 @@ var CONCEPTION = {
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
         }
 				
-				if (specialSales.indexOf(userEmail) != -1 && userEmail === 'brianalessandro@gmail.com') {
+				if (specialSales.indexOf(userEmail) != -1 && userEmail == 'brianalessandro@gmail.com') {
 					quantity += 2;
-           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
+           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>2</td><td>N/A</td></tr>');
 				}
 				
-				if (specialSales.indexOf(userEmail) != -1 && userEmail === 'yaiel734@yahoo.co.uk') {
+				if (specialSales.indexOf(userEmail) != -1 && userEmail == 'yaiel734@yahoo.co.uk') {
 					quantity += 1;
-           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
+           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
 				}
 
 
