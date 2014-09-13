@@ -7,7 +7,7 @@ $(function() {
 var CONCEPTION = {
 
   init: function() {
-		this.enableSubmit();
+    this.enableSubmit();
     this.validate();
     this.validateUpload();
     this.validateAge();
@@ -20,18 +20,18 @@ var CONCEPTION = {
     this.ticketsTracker();
     this.generalTicketSale();
   },
-	
-	enableSubmit: function(){
-		$('#terms_checkbox').on('change', function() {
-			var self = $(this);
-			if(self.is(':checked')){
-				$('.register-submit').removeAttr('disabled');
-			}else{
-				document.querySelector('.register-submit').disabled = 'disabled';
-			}
-			
-		});
-},
+
+  enableSubmit: function() {
+    $('#terms_checkbox').on('change', function() {
+      var self = $(this);
+      if (self.is(':checked')) {
+        $('.register-submit').removeAttr('disabled');
+      } else {
+        document.querySelector('.register-submit').disabled = 'disabled';
+      }
+
+    });
+  },
 
   validate: function() {
     $('#artistForm').validate({
@@ -326,7 +326,6 @@ var CONCEPTION = {
 
         });
 
-        console.log(thisUser);
 
 
         var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com'];
@@ -337,23 +336,23 @@ var CONCEPTION = {
           console.log('first');
         }
 
-				
-				var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
+
+        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk', 'pbandjesse@gmail.com'];
 
         if (specialSales.indexOf(userEmail) != -1 && userEmail == 'markelfman@hotmail.com') {
           quantity += 3;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
         }
-				
-				if (specialSales.indexOf(userEmail) != -1 && userEmail == 'brianalessandro@gmail.com') {
-					quantity += 2;
-           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>2</td><td>N/A</td></tr>');
-				}
-				
-				if (specialSales.indexOf(userEmail) != -1 && userEmail == 'yaiel734@yahoo.co.uk') {
-					quantity += 1;
-           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
-				}
+
+        if (specialSales.indexOf(userEmail) != -1 && userEmail == 'brianalessandro@gmail.com') {
+          quantity += 2;
+          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>2</td><td>N/A</td></tr>');
+        }
+
+        if (specialSales.indexOf(userEmail) != -1 && userEmail == 'yaiel734@yahoo.co.uk') {
+          quantity += 1;
+          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
+        }
 
 
         document.querySelector('.sales-data').innerHTML = salesRow.join('');
@@ -401,7 +400,7 @@ var CONCEPTION = {
   generalTicketSale: function() {
 
     if ($('#generalTicketModal').length !== 0) {
-			
+
       document.querySelector('#generalTicketModal').querySelector('.event-title').textContent = fullEvent.title;
 
       $('.next_step').on('click', function(e) {

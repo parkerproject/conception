@@ -75,7 +75,7 @@ var CONCEPTION = (function() {
 
         }
 
-        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
+        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk', 'pbandjesse@gmail.com'];
 
         if (specialSales.indexOf(email) != -1 && email == 'markelfman@hotmail.com') {
           quantity += 3;
