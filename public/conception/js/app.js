@@ -68,14 +68,14 @@ var CONCEPTION = (function() {
         });
 
 
-        var gangOfEight = ['shermaa@optonline.net','info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com'];
+        var gangOfEight = ['shermaa@optonline.net','info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com', 'pbandjesse@gmail.com'];
 
         if (gangOfEight.indexOf(email) != -1) {
           quantity += 2;
 
         }
 
-        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk', 'pbandjesse@gmail.com'];
+        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
 
         if (specialSales.indexOf(email) != -1 && email == 'markelfman@hotmail.com') {
           quantity += 3;

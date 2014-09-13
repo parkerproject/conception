@@ -328,7 +328,7 @@ var CONCEPTION = {
 
 
 
-        var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com'];
+        var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com', 'pbandjesse@gmail.com'];
 
         if (gangOfEight.indexOf(userEmail) != -1) {
           quantity += 2;
@@ -337,7 +337,7 @@ var CONCEPTION = {
         }
 
 
-        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk', 'pbandjesse@gmail.com'];
+        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
 
         if (specialSales.indexOf(userEmail) != -1 && userEmail == 'markelfman@hotmail.com') {
           quantity += 3;
