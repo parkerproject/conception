@@ -359,6 +359,9 @@ var CONCEPTION = {
 
         $('.ticket-sold').find('i').text(quantity);
         var ticketsLeft = 15 - quantity;
+
+        if (ticketsLeft < 0) ticketsLeft = 0;
+
         $('.ticket-left').find('i').text(ticketsLeft);
         $('.reserve-link').find('i').text(ticketsLeft);
 
@@ -385,10 +388,14 @@ var CONCEPTION = {
 
         document.querySelector('.sales-name').innerHTML = name;
 
+        if (ticketsLeft !== 0) {
+          $('.paypal_holder').find('button.paypal-button').text('Buy remaining ' + outstanding + ' ticket(s)');
+          $('.paypal_holder').find('input[name=amount]').val(amount);
+          $('.paypal_holder').find('input[name=item_name]').val(name);
+        }else{
+					$('.paypal_holder').hide();
+				}
 
-        $('.paypal_holder').find('button.paypal-button').text('Buy remaining ' + outstanding + ' ticket(s)');
-        $('.paypal_holder').find('input[name=amount]').val(amount);
-        $('.paypal_holder').find('input[name=item_name]').val(name);
 
 
       });

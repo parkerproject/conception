@@ -91,6 +91,8 @@ var CONCEPTION = (function() {
 				
 
         var ticketsLeft = 15 - quantity;
+				
+				if (ticketsLeft < 0) ticketsLeft = 0;
 
         artistModal.find('.event > a').html(url);
         artistModal.find('.age > strong').html(age);
