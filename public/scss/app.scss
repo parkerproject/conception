@@ -423,8 +423,14 @@
     //overflow: hidden;
     position: relative;
     padding-bottom: 20px;
+	@media #{$small-only}{
+		height: 322px;
+	}
     img{
         position: absolute;
+			@media #{$small-only}{
+				display: none;
+			}
     }
     .event-header{
         position: absolute;
@@ -439,6 +445,9 @@
             background-color: rgba(0, 0, 0, 0.6);
             width: 80px;
             height: 80px;
+					@media #{$small-only}{
+						width: 50px;
+					}
             span{
                 @extend %vertical-align;
                 display: block;
@@ -472,6 +481,9 @@
             color: white;
             @include font-size(30);
             font-family: "GothamBook";
+					@media #{$small-only}{
+						font-size: 2rem;
+					}
         }
         .event-tag{
             text-transform: uppercase;
@@ -493,6 +505,9 @@
                     color: darken( $white-color, 25% );
                 }
             }
+					@media #{$small-only}{
+						width: 77%;
+					}
         }
     }
 }
@@ -501,11 +516,20 @@
     border-top: 1px solid $white-color;
     padding: 10px 0 0 0;
     margin: 20px 0 0 0;
+	  p{
+			@media #{$small-only}{
+				display: none;
+			}
+			
+		}
 }
 
 .organizer-row{
     padding: 30px 0;
 	  margin-top: 51px;
+	@media #{$small-only}{
+		margin-top: 0;
+	}
     h3{
         border-bottom: 1px solid darken($white-color, 75%);
         text-transform: capitalize;
