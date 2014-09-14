@@ -419,6 +419,10 @@ var CONCEPTION = {
       });
     }
 
-  }
+  },
+	
+	featuredHostController: function(){
+		
+	}
 
 };

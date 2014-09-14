@@ -92,19 +92,27 @@
     </div>
 </div>
 </div>
+	
+ {{#ifvalue event_id value=12420440873}}
 
-<!--   <div class="row body-content">
+	<div class="row body-content">
     <div class="large-12 columns organizer-row">
-    <h3>event host</h3>
+    <h3>featured hosts</h3>
     <div class="row">
         <div class="large-4 columns">
-            <img src="/images/event-host.jpg" alt="" />
-            <span class="name"><a href="">David Powell<i class="icon-angle-double-right"></i></a></span>
-            <span class="title">host</span>
+					<a href="#" data-reveal-id="beso_modal"><img src="/images/hosts/4.jpg?dim=258x196" alt="" /></a>
+            <span class="name"><a href="#" data-reveal-id="beso_modal">DJ Beso<i class="icon-angle-double-right"></i></a></span>
+            <span class="title">dj</span>
+        </div>
+			  <div class="large-4 columns left">
+					<a href="#" data-reveal-id="david_modal"><img src="/images/hosts/event-host.jpg" alt="" /></a>
+            <span class="name"><a href="#" data-reveal-id="david_modal">David Powell<i class="icon-angle-double-right"></i></a></span>
+            <span class="title">Conception Host</span>
         </div>
     </div>
     </div>
-  </div> -->
+  </div>
+	 {{/ifvalue}}
 
   <!-- featured artist section -->
     <div class="row body-content">
@@ -154,9 +162,10 @@
   </div>
 
   <div class="row">
-    <large-12 class="cloumns copyright">
+		
+    <div class="large-12 columns copyright">
       <p class="text-center">Copyright &copy; 2014 Conception</p>
-    </large-12>
+    </div>
   </div>
 	
 		<div id="generalTicketModal" class="reveal-modal" data-reveal>
@@ -174,6 +183,60 @@
 				<a class="close-reveal-modal">&#215;</a>
 			</div>
 		</div>
+	
+	<div id="beso_modal" class="reveal-modal" data-reveal>
+		<div class="row">
+			<div class="large-2 columns">
+				<ul class="clearing-thumbs" data-clearing>
+					<li><a href="/images/hosts/1.jpg"><img src="/images/hosts/1.jpg"></a></li>
+					<li><a href="/images/hosts/2.jpg"><img src="/images/hosts/2.jpg"></a></li>
+					<li><a href="/images/hosts/3.jpg"><img src="/images/hosts/3.jpg"></a></li>
+				</ul>
+			</div>
+			<div class="large-10 colums">
+					<h4>DJ Beso - 27 - Long Island, NY</h4>
+
+					<p>Few DJ’s can flip a set like Long Islands DJ Beso (pronounced 'bee-so') from the Vibe Hop music collective. 
+					From nostalgic Old School Hip Hop to floor shaking Moombahton dance mixes, 
+					the 27 year old groove master has a set just for YOU.</p> 
+					
+				<p>Using his immense catalog of music and skill, 
+					you never really know what to expect from this up and coming artist 
+					who rocks heavy mash ups incorporating jams from Ludacris to Bassnectar 
+					to Atmosphere to Stray From The Path.
+				  Also, don’t be surprised if you witness an all vinyl set showcasing beat 
+					juggling and scratch techniques which take his performances to the next level.</p> 
+				
+					<p>Beso has dropped the beat for crowds at countless LI/NYC bars and night clubs as 
+					well as larger venues such as Radio City Music Hall and has spun instrumentals for 
+				some of Long Islands Hip Hop legends, including R.A.
+				  The Rugged Man and elusive Queens rapper and fellow Vibe Hope artist Spektor. 
+					Catch DJ Beso bringing more of the ultimate GOOD VIBES this summer and on to the new year!</p>
+			</div>
+		</div>
+<a class="close-reveal-modal">&#215;</a>
+	</div>
+	
+		<div id="david_modal" class="reveal-modal" data-reveal>
+		<div class="row">
+			<div class="large-2 columns">
+				<ul class="clearing-thumbs" data-clearing>
+					<li><a href="/images/hosts/David_1.jpg"><img src="/images/hosts/David_1.jpg"></a></li>
+					<li><a href="/images/hosts/David_2.jpg"><img src="/images/hosts/David_2.jpg"></a></li>
+				</ul>
+			</div>
+			<div class="large-10 colums">
+					<h4>David Powell</h4>
+
+					<p>An artist in his own way, David has always sought to bring people together: artists, 
+						entrepreneurs, whichever community he finds himself in.  
+						David hosted past Conception events along with others 
+						including Christie’s Underground Concert series and the Gowanus Salons I-V.</p> 
+				<p><a href="https://www.facebook.com/GowanusSalon">www.facebook.com/GowanusSalon</a></p>
+			</div>
+		</div>
+<a class="close-reveal-modal">&#215;</a>
+	</div>
 
 
   <script src="/vendor/jquery/dist/jquery.min.js"></script>

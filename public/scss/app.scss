@@ -1389,4 +1389,13 @@ legend{
 	}
 }
 
+#beso_modal, #david_modal{
+	background-color: rgba(0, 0, 0, 0.6);
+	color: darken($white-color, 15%);
+	border-color: lighten($black-color, 20%);
+	h4{
+		color: $secondary-color;
+	}
+}
+
 
