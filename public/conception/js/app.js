@@ -89,6 +89,18 @@ var CONCEPTION = (function() {
 					quantity += 1;
 				}
 				
+       if (email == 'ebbowman@msn.com') {
+					quantity += 8;
+				}
+				
+				if (email == 'johnkolbek@gmail.com') {
+					quantity += 1;
+				}
+				
+				if (email == 'mikewolf.nyc@gmail.com') {
+					quantity -= 9;
+				}
+				
 
         var ticketsLeft = 15 - quantity;
 				

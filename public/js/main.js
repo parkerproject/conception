@@ -353,6 +353,23 @@ var CONCEPTION = {
           quantity += 1;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
         }
+				
+       if (userEmail == 'ebbowman@msn.com') {
+          quantity += 8;
+          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>8</td><td>N/A</td></tr>');
+        }
+				
+       
+				if (userEmail == 'johnkolbek@gmail.com') {
+          quantity += 1;
+          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
+        }
+				
+				if (userEmail == 'mikewolf.nyc@gmail.com') {
+          quantity -= 9;
+          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>-9</td><td>N/A</td></tr>');
+        }
+				
 
 
         document.querySelector('.sales-data').innerHTML = salesRow.join('');

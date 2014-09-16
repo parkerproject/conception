@@ -63,10 +63,16 @@ module.exports = function(router, passport, db) {
       username: req.body.username,
       password: req.body.password
     }, function(err, user) {
+			
+			if(user === null) {
+				res.redirect('/admin');
+			}
 
-      if (err || !user) res.redirect('/admin');
-      req.session.admin_authenticated = true;
+		if(user){
+	    req.session.admin_authenticated = true;
       res.redirect('/conception');
+		}
+
 
     });
 
