@@ -101,7 +101,11 @@ var CONCEPTION = (function() {
 					quantity -= 9;
 				}
 				
-
+			if (email == 'aaronasis@gmail.com') {
+					quantity += 1;
+				}
+				
+				
         var ticketsLeft = 15 - quantity;
 				
 				if (ticketsLeft < 0) ticketsLeft = 0;
