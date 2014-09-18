@@ -120,30 +120,26 @@ var CONCEPTION = (function() {
         artistModal.find('.event').find('strong').html(events_title);
 				artistModal.find('.password').html(password);
 
+artistModal.modal('show');
+
+//         $.getJSON('/get_artist_ticket', {
+//           user_token: user_token
+//         }, function(data) {
+					
+// 					console.log('testing'+data);
+
+//           if (ticketsLeft > 0 && data > 0) {
+// 						console.log(ticketsLeft, data);
+//             artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" />');
+//            artistModal.find('.activate').html('');
+// 					}
 
 
-        $.getJSON('/get_artist_ticket', {
-          user_token: user_token
-        }, function(data) {
-
-          if (ticketsLeft > 0 && data > 0) {
-						console.log(ticketsLeft, data);
-            artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" />');
-           artistModal.find('.activate').html('');
-					}
-
-          if (data === 0) {
-            artistModal.find('.activate').html('<i class="fa fa-check-circle-o" style="color: green;"> Artist has sold all 15 tickets</i>');
-            artistModal.find('.remaining').html(0);
-            artistModal.find('.sold').html(15);
-						artistModal.find('.empty_tickets').html('');
-          }
-
-          artistModal.modal('show');
+//           artistModal.modal('show');
 
 
 
-        });
+//         });
 
 
       });
