@@ -80,13 +80,11 @@
 
 
 <div class="artist-details large-6 small-12 columns">
- {{#if totalTickets}}
+
 	<p class="text-right"><a href="#" data-reveal-id="tickets_tracker">View your ticket sales</a></p>
-	{{/if}}
+
 	
-	 {{#if soldAll}}
-    <p class="text-right"><a>All 15 tickets sold</a></p>
-    {{/if}}
+
 
 <!--       <select class="ticket_tracker" name="track">
          <option value="">Track your ticket sales for...</option>
@@ -262,7 +260,7 @@
   </div>
 
 <div id="tickets_tracker" class="reveal-modal" data-reveal>
-   {{#if totalTickets}}
+ 
     <div class="row" id="tickets-info">
         <a class="close-reveal-modal">&#215;</a>
 			
@@ -289,11 +287,7 @@
     data-amount=""></script>
     </p>
    
-    {{/if}}
 
-    {{#if soldAll}}
-    <p class="text-right"><a>All 15 tickets sold</a></p>
-    {{/if}}
 			<small>This tool is currently in beta, So if you feel the figures are not accurate, 
 				Please email <a href="mailto:info@conceptionevents.com">info@conceptionevents.com</a> and we will respond promptly.</small>
 		</div>
