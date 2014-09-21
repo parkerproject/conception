@@ -150,9 +150,7 @@ var CONCEPTION = {
     var html = [
       '<div class="row event-row">',
       '<div class="large-4 columns event-image">',
-      '<a class="th" href="#">',
       '<a href="event/' + data.event_id + '"><img src="/images/' + img + '" /></a>',
-      '</a>',
       '<span class="event-date">',
       '<span>',
       '<i class="month">' + month + '</i><i class="day">' + day + '</i>',
@@ -168,6 +166,40 @@ var CONCEPTION = {
       '</div>'
     ].join('');
 
+    return html;
+
+  },
+
+  pastEventTemplate: function(data) {
+    var year = moment(data.start_date).format("YYYY");
+    var day = moment(data.start_date).format("MMM-DD").split('-')[1];
+    var month = moment(data.start_date).format("MMM-DD").split('-')[0];
+    var start_time = moment(data.start_date).format("h:mmA");
+    var end_time = moment(data.end_date).format("h:mmA");
+
+    var images = ['philly_event.jpg', 'liverpool_event.jpg', 'new_york_event.jpg'],
+      img;
+
+    if (data.venue.city === 'New York') {
+      img = images[2];
+    } else if (data.venue.city === 'Liverpool') {
+      img = images[1];
+    } else if (data.venue.city === 'Philadelphia') {
+      img = images[0];
+    } else {}
+
+    var html = ['<div class="row event-row">',
+      '<div class="large-4 columns event-image">',
+      '<a href="event/' + data.event_id + '"><img src="/images/' + img + '" /></a>',
+      '</div>',
+      '<div class="large-8 columns event-meta">',
+      '<span class="letter-space event-type">artist</span>',
+      '<span class="letter-space event-title"><a href="event/' + data.event_id + '">' + data.title + '</a></span>',
+      '<span class="event-location">' + data.venue.address + '</span>',
+      '<span class="event-time">' + start_time + ' - ' + end_time + '</span>',
+      '<span class="event-venue">' + data.venue.name + '</span>',
+      '<div class="past-date"><i>' + month + ' ' + day + ' ' + year + '</i></div></div></div>'
+    ].join('');
     return html;
 
   },
@@ -188,10 +220,14 @@ var CONCEPTION = {
 
       for (var i = 0; i < upcomingEvents.length; i++) {
         upcomingContent.push(this.upcomingEventTemplate(upcomingEvents[i]));
-      };
+      }
+
+      for (var k = 0; k < pastEvents.length; k++) {
+        pastContent.push(this.pastEventTemplate(pastEvents[k]));
+      }
 
       document.querySelector('.upcoming-event').innerHTML = upcomingContent.join('');
-      $('.all-event').prepend(upcomingContent.join(''));
+      $('.past-event').prepend(pastContent.join(''));
     }
   },
 
@@ -227,6 +263,10 @@ var CONCEPTION = {
       $('.event-img').attr('src', '/images/' + img);
       document.querySelector('.month').innerHTML = month;
       document.querySelector('.day').innerHTML = day;
+			
+			if(fullEvent.start_date < moment().format("YYYY-MM-DD HH:mm:ss")){
+				$('.button').remove();
+			}
 
     }
 
@@ -238,7 +278,9 @@ var CONCEPTION = {
       var contents = [];
 
       for (var i = 0; i < events.length; i++) {
+				if(events[i].start_date > moment().format("YYYY-MM-DD HH:mm:ss")){
         contents.push(this.eventsTemplate(events[i]));
+				}
       }
 
       document.querySelector('.event-listing').innerHTML = contents.join('');
@@ -353,29 +395,29 @@ var CONCEPTION = {
           quantity += 1;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
         }
-				
-       if (userEmail == 'ebbowman@msn.com') {
+
+        if (userEmail == 'ebbowman@msn.com') {
           quantity += 8;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>8</td><td>N/A</td></tr>');
         }
-				
-       
-				if (userEmail == 'johnkolbek@gmail.com') {
+
+
+        if (userEmail == 'johnkolbek@gmail.com') {
           quantity += 1;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
         }
-				
-			 if (userEmail == 'aaronasis@gmail.com') {
+
+        if (userEmail == 'aaronasis@gmail.com') {
           quantity += 1;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
         }
-				
-				
-				if (userEmail == 'mikewolf.nyc@gmail.com') {
+
+
+        if (userEmail == 'mikewolf.nyc@gmail.com') {
           quantity -= 9;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>-9</td><td>N/A</td></tr>');
         }
-				
+
 
 
         document.querySelector('.sales-data').innerHTML = salesRow.join('');
@@ -415,9 +457,9 @@ var CONCEPTION = {
           $('.paypal_holder').find('button.paypal-button').text('Buy remaining ' + outstanding + ' ticket(s)');
           $('.paypal_holder').find('input[name=amount]').val(amount);
           $('.paypal_holder').find('input[name=item_name]').val(name);
-        }else{
-					$('.paypal_holder').hide();
-				}
+        } else {
+          $('.paypal_holder').hide();
+        }
 
 
 
@@ -443,9 +485,9 @@ var CONCEPTION = {
     }
 
   },
-	
-	featuredHostController: function(){
-		
-	}
+
+  featuredHostController: function() {
+
+  }
 
 };

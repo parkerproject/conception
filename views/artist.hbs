@@ -85,8 +85,11 @@
               {{#if data.url}}
               <a class="artist-url" href="{{user_url}}">{{data.url}}</a>
 						  {{/if}}
+						
+						{{#if turnOnTicketButton}}
               <button data-artist="{{data.user_token}}" class="artist-submit" data-events="{{data.events}}"><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
-          </div>
+            {{/if}}
+				</div>
 
       </div>
       <div class="large-8 columns">
