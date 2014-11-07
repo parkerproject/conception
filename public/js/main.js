@@ -417,6 +417,14 @@ var CONCEPTION = {
           quantity -= 9;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>-9</td><td>N/A</td></tr>');
         }
+				
+				
+				if (userEmail == 'stephencrete@live.co.uk') {
+          quantity = 15;
+          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>15</td><td>N/A</td></tr>');
+        }
+				
+				
 
 
         document.querySelector('.sales-data').innerHTML = salesRow.join('');

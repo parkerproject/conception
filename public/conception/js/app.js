@@ -26,7 +26,7 @@ var CONCEPTION = (function() {
         email = self.data('email'),
         events = self.data('events'),
         user_token = self.data('user_token'),
-				password = self.data('user_password'),
+        password = self.data('user_password'),
         status = (self.data('approved')) ? '<label>Approved <input type="checkbox" class="approve" name="approve" data-email="' + email + '" checked/></label>' : '<label>Approved <input type="checkbox" name="approve" class="approve" data-email="' + email + '"/></label>';
 
 
@@ -68,7 +68,7 @@ var CONCEPTION = (function() {
         });
 
 
-        var gangOfEight = ['shermaa@optonline.net','info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com', 'pbandjesse@gmail.com'];
+        var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com', 'pbandjesse@gmail.com'];
 
         if (gangOfEight.indexOf(email) != -1) {
           quantity += 2;
@@ -80,35 +80,39 @@ var CONCEPTION = (function() {
         if (specialSales.indexOf(email) != -1 && email == 'markelfman@hotmail.com') {
           quantity += 3;
         }
-				
-				if (specialSales.indexOf(email) != -1 && email == 'brianalessandro@gmail.com') {
-					quantity += 2;
-				}
-				
-				if (specialSales.indexOf(email) != -1 && email == 'yaiel734@yahoo.co.uk') {
-					quantity += 1;
-				}
-				
-       if (email == 'ebbowman@msn.com') {
-					quantity += 8;
-				}
-				
-				if (email == 'johnkolbek@gmail.com') {
-					quantity += 1;
-				}
-				
-				if (email == 'mikewolf.nyc@gmail.com') {
-					quantity -= 9;
-				}
-				
-			if (email == 'aaronasis@gmail.com') {
-					quantity += 1;
-				}
-				
-				
+
+        if (specialSales.indexOf(email) != -1 && email == 'brianalessandro@gmail.com') {
+          quantity += 2;
+        }
+
+        if (specialSales.indexOf(email) != -1 && email == 'yaiel734@yahoo.co.uk') {
+          quantity += 1;
+        }
+
+        if (email == 'ebbowman@msn.com') {
+          quantity += 8;
+        }
+
+        if (email == 'johnkolbek@gmail.com') {
+          quantity += 1;
+        }
+
+        if (email == 'mikewolf.nyc@gmail.com') {
+          quantity -= 9;
+        }
+
+        if (email == 'aaronasis@gmail.com') {
+          quantity += 1;
+        }
+
+        if (email == 'stephencrete@live.co.uk') {
+          quantity = 15;
+        }
+
+
         var ticketsLeft = 15 - quantity;
-				
-				if (ticketsLeft < 0) ticketsLeft = 0;
+
+        if (ticketsLeft < 0) ticketsLeft = 0;
 
         artistModal.find('.event > a').html(url);
         artistModal.find('.age > strong').html(age);
@@ -122,28 +126,28 @@ var CONCEPTION = (function() {
         artistModal.find('.user-image > img').attr('src', photoImage);
         artistModal.find('.status').html(status);
         artistModal.find('.event').find('strong').html(events_title);
-				artistModal.find('.password').html(password);
+        artistModal.find('.password').html(password);
 
-artistModal.modal('show');
+        artistModal.modal('show');
 
-//         $.getJSON('/get_artist_ticket', {
-//           user_token: user_token
-//         }, function(data) {
-					
-// 					console.log('testing'+data);
+        //         $.getJSON('/get_artist_ticket', {
+        //           user_token: user_token
+        //         }, function(data) {
 
-//           if (ticketsLeft > 0 && data > 0) {
-// 						console.log(ticketsLeft, data);
-//             artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" />');
-//            artistModal.find('.activate').html('');
-// 					}
+        // 					console.log('testing'+data);
 
-
-//           artistModal.modal('show');
+        //           if (ticketsLeft > 0 && data > 0) {
+        // 						console.log(ticketsLeft, data);
+        //             artistModal.find('.empty_tickets').html('<label>Full tickets sold <input type="checkbox" class="empty_tickets" name="empty_tickets" data-email="' + email + '" />');
+        //            artistModal.find('.activate').html('');
+        // 					}
 
 
+        //           artistModal.modal('show');
 
-//         });
+
+
+        //         });
 
 
       });
