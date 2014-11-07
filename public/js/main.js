@@ -21,6 +21,8 @@ var CONCEPTION = {
     this.generalTicketSale();
   },
 
+
+
   enableSubmit: function() {
     $('#terms_checkbox').on('change', function() {
       var self = $(this);
@@ -263,10 +265,10 @@ var CONCEPTION = {
       $('.event-img').attr('src', '/images/' + img);
       document.querySelector('.month').innerHTML = month;
       document.querySelector('.day').innerHTML = day;
-			
-			if(fullEvent.start_date < moment().format("YYYY-MM-DD HH:mm:ss")){
-				$('.button').remove();
-			}
+
+      if (fullEvent.start_date < moment().format("YYYY-MM-DD HH:mm:ss")) {
+        $('.button').remove();
+      }
 
     }
 
@@ -278,9 +280,9 @@ var CONCEPTION = {
       var contents = [];
 
       for (var i = 0; i < events.length; i++) {
-				if(events[i].start_date > moment().format("YYYY-MM-DD HH:mm:ss")){
-        contents.push(this.eventsTemplate(events[i]));
-				}
+        if (events[i].start_date > moment().format("YYYY-MM-DD HH:mm:ss")) {
+          contents.push(this.eventsTemplate(events[i]));
+        }
       }
 
       document.querySelector('.event-listing').innerHTML = contents.join('');
@@ -417,14 +419,14 @@ var CONCEPTION = {
           quantity -= 9;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>-9</td><td>N/A</td></tr>');
         }
-				
-				
-				if (userEmail == 'stephencrete@live.co.uk') {
+
+
+        if (userEmail == 'stephencrete@live.co.uk') {
           quantity = 15;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>15</td><td>N/A</td></tr>');
         }
-				
-				
+
+
 
 
         document.querySelector('.sales-data').innerHTML = salesRow.join('');
@@ -440,30 +442,30 @@ var CONCEPTION = {
         var outstanding = $('.ticket-left').find('i').text();
         var amount;
         var name;
-				var currency;
+        var currency;
 
         if (user_event == 12420440873) {
           amount = 15 * outstanding; //new york
           name = "Conception NYC Tickets";
-					currency = "USD";
+          currency = "USD";
 
         } else if (user_event == 12423951373) {
           amount = 12.15 * outstanding; //liverpool
           name = "Conception Liverpool Tickets";
-					currency = "GBP";
+          currency = "GBP";
 
         } else if (user_event == 12423943349) {
           amount = 15 * outstanding; //philly
           name = "Conception Philadephia Tickets";
-					currency = "USD";
+          currency = "USD";
 
         } else {
           amount = 15 * outstanding; //new york
           name = "Conception NYC Tickets";
-					currency = "USD";
+          currency = "USD";
         }
-				
-				console.log(outstanding);
+
+        console.log(outstanding);
 
         document.querySelector('.sales-name').innerHTML = name;
 
@@ -471,12 +473,16 @@ var CONCEPTION = {
           $('.paypal_holder').find('button.paypal-button').text('Buy remaining ' + outstanding + ' ticket(s)');
           $('.paypal_holder').find('input[name=amount]').val(amount);
           $('.paypal_holder').find('input[name=item_name]').val(name);
-					$('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="'+currency+'"/>');
+          $('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
         } else {
-          $('.paypal_holder').hide();
+          //$('.paypal_holder').hide();
+          amount = 12.50;
+					$('.paypal_holder').find('button.paypal-button').text('Buy extra ticket(s)');
+					$('.paypal_holder').find('input[name=amount]').val(amount);
+					$('.paypal_holder').find('input[name=item_name]').val(name);
+					$('<input name=quantity value="" placeholder="1" class="extra_ticket" />').insertBefore('button.paypal-button');
+					$('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
         }
-
-
 
       });
 
