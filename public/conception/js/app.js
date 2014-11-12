@@ -105,7 +105,7 @@ var CONCEPTION = (function() {
           quantity += 1;
         }
 
-        if (email == 'stephencrete@live.co.uk') {
+        if (email == 'stephencrete@live.co.uk' || email == 'debbie.diamond@ymail.com') {
           quantity = 15;
         }
 

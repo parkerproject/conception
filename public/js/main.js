@@ -421,7 +421,7 @@ var CONCEPTION = {
         }
 
 
-        if (userEmail == 'stephencrete@live.co.uk') {
+        if (userEmail == 'stephencrete@live.co.uk' || userEmail == 'debbie.diamond@ymail.com') {
           quantity = 15;
           salesRow.push('<tr><td>other sales</td><td>N/A</td><td>15</td><td>N/A</td></tr>');
         }
