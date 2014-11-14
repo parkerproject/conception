@@ -33,6 +33,8 @@ module.exports = function(router) {
 
 
         getEvent(id, function(event) {
+					delete event.artists;
+					
           res.render('event', {
             title: 'conception events',
             data: JSON.stringify(event),

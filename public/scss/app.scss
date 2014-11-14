@@ -1429,4 +1429,35 @@ legend{
 	margin-right: 5px;
 }
 
+div.switch label{
+border: 1px solid #404040;
+	float: left;
+}
+
+.switch-title{
+	float: left;
+	display: block;
+	color: #2890da;
+	font-family: 'GothamBook'!important;
+	font-size: 0.9em;
+	font-weight: normal;
+	padding-right: 10px;
+	position: relative;
+	top: 5px;
+	i{
+		color: darken($white-color, 55%);
+		font-style: normal;
+		font-size: 12px;
+    padding-right: 8px;
+	}
+}
+
+div.switch input:checked+label{
+	background: none;
+}
+
+div.switch.tiny input:checked+label:after{
+	background: #43ac6a;
+}
+
 

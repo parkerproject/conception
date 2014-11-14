@@ -19,8 +19,96 @@ var CONCEPTION = {
     this.search();
     this.ticketsTracker();
     this.generalTicketSale();
+    this.attendingEvents();
+    this.profileEventsController();
   },
 
+  profileEventsTpl: function(date, eventid, status, title) {
+
+    var html = ['<span class="switch-title"><i>' + date + '</i>' + title + '</span>',
+      '<input id="' + eventid + 'CheckboxSwitch" type="checkbox" value=' + eventid + ' class="checkboxSwitch" ' + status + '>',
+      '<label for="' + eventid + 'CheckboxSwitch"></label>'
+    ].join('');
+    return html;
+  },
+
+  profileEventsController: function() {
+
+    var userEvents = window.user_event.split(',');
+
+    CONCEPTION.getLiveEvents(function(events) {
+
+      var len = events.events.length;
+      for (var i = 0; i < len; i++) {
+
+        var item = events.events[i].event;
+        var html;
+        var _switch = $('.switch');
+        var date = item.start_date;
+        var id = item.id;
+        var status = '';
+        var title = item.title;
+
+        id = id.toString();
+
+        if (userEvents.indexOf(id) === -1) {
+          _switch.append(CONCEPTION.profileEventsTpl(date, id, status, title));
+        } else {
+          status = 'checked';
+          _switch.append(CONCEPTION.profileEventsTpl(date, id, status, title));
+        }
+
+      }
+    });
+
+  },
+
+
+
+  attendingEvents: function() {
+
+    $(document).on('change', '.checkboxSwitch', function() {
+
+      var event_id = $(this).val();
+      var user = $('input[name=artist_token]').val();
+
+
+      var checked = $(this).is(':checked');
+      if (checked) {
+        $.post("/artist_attendingevent", {
+          user: user,
+          event_id: event_id
+        }, function(result) {
+          console.log('you are now attending');
+        });
+
+      } else {
+        $.post("/artist_not_attendingevent", {
+          user: user,
+          event_id: event_id
+        }, function(result) {
+          console.log('you are not attending');
+        });
+
+      }
+
+    });
+
+  },
+
+  eventsMap: function(eventNum) {
+
+    var eventsMap = {
+      '14251206743': 'Conception NYC Tickets'
+    };
+
+    if (eventsMap.hasOwnProperty(eventNum)) {
+      return eventsMap[eventNum];
+    } else {
+      return;
+    }
+
+  },
 
 
   enableSubmit: function() {
@@ -138,16 +226,7 @@ var CONCEPTION = {
     var start_time = moment(data.start_date).format("h:mmA");
     var end_time = moment(data.end_date).format("h:mmA");
 
-    var images = ['philly_event.jpg', 'liverpool_event.jpg', 'new_york_event.jpg'],
-      img;
-
-    if (data.venue.city === 'New York') {
-      img = images[2];
-    } else if (data.venue.city === 'Liverpool') {
-      img = images[1];
-    } else if (data.venue.city === 'Philadelphia') {
-      img = images[0];
-    } else {}
+    var img = 'img_' + data.event_id + '.jpg';
 
     var html = [
       '<div class="row event-row">',
@@ -179,16 +258,7 @@ var CONCEPTION = {
     var start_time = moment(data.start_date).format("h:mmA");
     var end_time = moment(data.end_date).format("h:mmA");
 
-    var images = ['philly_event.jpg', 'liverpool_event.jpg', 'new_york_event.jpg'],
-      img;
-
-    if (data.venue.city === 'New York') {
-      img = images[2];
-    } else if (data.venue.city === 'Liverpool') {
-      img = images[1];
-    } else if (data.venue.city === 'Philadelphia') {
-      img = images[0];
-    } else {}
+    var img = 'img_' + data.event_id + '.jpg';
 
     var html = ['<div class="row event-row">',
       '<div class="large-4 columns event-image">',
@@ -212,6 +282,7 @@ var CONCEPTION = {
         upcomingContent = [],
         pastContent = [],
         allContent = [];
+
       var upcomingEvents = events.filter(function(list) {
         return list.start_date > moment().format("YYYY-MM-DD HH:mm:ss");
       });
@@ -223,6 +294,9 @@ var CONCEPTION = {
       for (var i = 0; i < upcomingEvents.length; i++) {
         upcomingContent.push(this.upcomingEventTemplate(upcomingEvents[i]));
       }
+
+      pastEvents = pastEvents.sort();
+      pastEvents = pastEvents.reverse();
 
       for (var k = 0; k < pastEvents.length; k++) {
         pastContent.push(this.pastEventTemplate(pastEvents[k]));
@@ -279,10 +353,13 @@ var CONCEPTION = {
       var events = eventsData;
       var contents = [];
 
+      events = events.sort();
+      events = events.reverse();
+
       for (var i = 0; i < events.length; i++) {
-        if (events[i].start_date > moment().format("YYYY-MM-DD HH:mm:ss")) {
-          contents.push(this.eventsTemplate(events[i]));
-        }
+        // if (events[i].start_date > moment().format("YYYY-MM-DD HH:mm:ss")) {
+        contents.push(this.eventsTemplate(events[i]));
+        // }
       }
 
       document.querySelector('.event-listing').innerHTML = contents.join('');
@@ -349,146 +426,93 @@ var CONCEPTION = {
 
   },
 
+  payPalBtnController: function(ticketsLeft, name, currency) {
+
+    var amount = (currency == 'GBP') ? 12.50 : 15.00;
+
+    if (ticketsLeft > 0) {
+      $('.paypal_holder').find('button.paypal-button').text('Buy remaining ' + ticketsLeft + ' ticket(s)');
+      $('.paypal_holder').find('input[name=amount]').val(amount);
+      $('.paypal_holder').find('input[name=item_name]').val(name);
+
+      //remove first to avoid duplicates
+      $('.paypal_holder').find('input[name="currency_code"]').remove();
+
+      $('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
+    } else {
+      $('.paypal_holder').find('button.paypal-button').text('Buy extra ticket(s)');
+      $('.paypal_holder').find('input[name=amount]').val(amount);
+      $('.paypal_holder').find('input[name=item_name]').val(name);
+
+      //remove to prevent duplicates
+      $('.extra_ticket').remove();
+      $('.paypal_holder').find('input[name="currency_code"]').remove();
+
+      $('<input name=quantity value="" placeholder="1" class="extra_ticket" />').insertBefore('button.paypal-button');
+      $('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
+    }
+
+  },
+
   ticketsTracker: function() {
     if (window.hasOwnProperty('user_event')) {
 
       var className = $('body').attr('id').toLowerCase();
       var quantity = 0;
-      var event = (numberOfEvents === 1) ? user_event : user_event.split(',')[0];
       var salesRow = [];
 
-      $.getJSON('/artist_orders', {
-        event: event
-      }, function(json) {
-        var thisUser = _.filter(json.attendees, function(user) {
-          return user.attendee.affiliate == className;
+      CONCEPTION.getLiveEvents(function(eventsLive) {
+
+        var eventsArray = eventsLive.events;
+
+        eventsArray.forEach(function(event) {
+
+          var eventId = event.event.id;
+
+          CONCEPTION.getAttendees(eventId, function(event) {
+
+            var thisUser = _.filter(event.attendees, function(user) {
+              return user.attendee.affiliate == className;
+            });
+
+            //if (thisUser.length === 0) $('a[data-reveal-id="tickets_tracker"]').hide();
+
+            thisUser.forEach(function(e) {
+            //  $('a[data-reveal-id="tickets_tracker"]').show();
+              quantity += e.attendee.quantity;
+              var remaining = 15 - quantity;
+              var remainTickets = (remaining >= 0) ? remaining : 0;
+              var eventName = CONCEPTION.eventsMap(e.attendee.event_id);
+              $('.sales-data').append('<tr><td>' + e.attendee.first_name + ' ' + e.attendee.last_name + '</td><td>' + e.attendee.amount_paid + ' ' + e.attendee.currency + '</td><td>' + e.attendee.quantity + '</td><td>' + e.attendee.email + '</td><td>' + eventName + '</td></tr>');
+              $('.ticket-sold').find('i').text(quantity);
+              $('.ticket-left').find('i').text(remainTickets);
+              CONCEPTION.payPalBtnController(remainTickets, eventName, e.attendee.currency);
+            });
+
+          });
+
         });
-
-        thisUser.forEach(function(e) {
-          quantity += e.attendee.quantity;
-          salesRow.push('<tr><td>' + e.attendee.first_name + ' ' + e.attendee.last_name + '</td><td>' + e.attendee.amount_paid + ' ' + e.attendee.currency + '</td><td>' + e.attendee.quantity + '</td><td>' + e.attendee.email + '</td></tr>');
-
-        });
-
-
-
-        var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com', 'pbandjesse@gmail.com'];
-
-        if (gangOfEight.indexOf(userEmail) != -1) {
-          quantity += 2;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>2</td><td>N/A</td></tr>');
-          console.log('first');
-        }
-
-
-        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
-
-        if (specialSales.indexOf(userEmail) != -1 && userEmail == 'markelfman@hotmail.com') {
-          quantity += 3;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>3</td><td>N/A</td></tr>');
-        }
-
-        if (specialSales.indexOf(userEmail) != -1 && userEmail == 'brianalessandro@gmail.com') {
-          quantity += 2;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>2</td><td>N/A</td></tr>');
-        }
-
-        if (specialSales.indexOf(userEmail) != -1 && userEmail == 'yaiel734@yahoo.co.uk') {
-          quantity += 1;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
-        }
-
-        if (userEmail == 'ebbowman@msn.com') {
-          quantity += 8;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>8</td><td>N/A</td></tr>');
-        }
-
-
-        if (userEmail == 'johnkolbek@gmail.com') {
-          quantity += 1;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
-        }
-
-        if (userEmail == 'aaronasis@gmail.com') {
-          quantity += 1;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>1</td><td>N/A</td></tr>');
-        }
-
-
-        if (userEmail == 'mikewolf.nyc@gmail.com') {
-          quantity -= 9;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>-9</td><td>N/A</td></tr>');
-        }
-
-
-        if (userEmail == 'stephencrete@live.co.uk' || userEmail == 'debbie.diamond@ymail.com') {
-          quantity = 15;
-          salesRow.push('<tr><td>other sales</td><td>N/A</td><td>15</td><td>N/A</td></tr>');
-        }
-
-
-
-
-        document.querySelector('.sales-data').innerHTML = salesRow.join('');
-
-        $('.ticket-sold').find('i').text(quantity);
-        var ticketsLeft = 15 - quantity;
-
-        if (ticketsLeft < 0) ticketsLeft = 0;
-
-        $('.ticket-left').find('i').text(ticketsLeft);
-        $('.reserve-link').find('i').text(ticketsLeft);
-
-        var outstanding = $('.ticket-left').find('i').text();
-        var amount;
-        var name;
-        var currency;
-
-        if (user_event == 12420440873) {
-          amount = 15 * outstanding; //new york
-          name = "Conception NYC Tickets";
-          currency = "USD";
-
-        } else if (user_event == 12423951373) {
-          amount = 12.15 * outstanding; //liverpool
-          name = "Conception Liverpool Tickets";
-          currency = "GBP";
-
-        } else if (user_event == 12423943349) {
-          amount = 15 * outstanding; //philly
-          name = "Conception Philadephia Tickets";
-          currency = "USD";
-
-        } else {
-          amount = 15 * outstanding; //new york
-          name = "Conception NYC Tickets";
-          currency = "USD";
-        }
-
-        console.log(outstanding);
-
-        document.querySelector('.sales-name').innerHTML = name;
-
-        if (ticketsLeft !== 0) {
-          $('.paypal_holder').find('button.paypal-button').text('Buy remaining ' + outstanding + ' ticket(s)');
-          $('.paypal_holder').find('input[name=amount]').val(amount);
-          $('.paypal_holder').find('input[name=item_name]').val(name);
-          $('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
-        } else {
-          //$('.paypal_holder').hide();
-          amount = 12.50;
-					$('.paypal_holder').find('button.paypal-button').text('Buy extra ticket(s)');
-					$('.paypal_holder').find('input[name=amount]').val(amount);
-					$('.paypal_holder').find('input[name=item_name]').val(name);
-					$('<input name=quantity value="" placeholder="1" class="extra_ticket" />').insertBefore('button.paypal-button');
-					$('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
-        }
 
       });
 
     }
 
   },
+
+  getLiveEvents: function(callback) {
+    $.getJSON('/oneventbrites', {}, function(json) {
+      callback(json);
+    });
+  },
+
+  getAttendees: function(event, callback) {
+    $.getJSON('/artist_orders', {
+      event: event
+    }, function(json) {
+      callback(json);
+    });
+  },
+
 
   generalTicketSale: function() {
 

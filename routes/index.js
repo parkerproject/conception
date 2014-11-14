@@ -32,6 +32,7 @@ function ensureAuthenticated(req, res, next) {
 
 
 router.get('/', function(req, res) {
+	var data = [];
 
   db.events.find({
     $query: {},
@@ -42,10 +43,20 @@ router.get('/', function(req, res) {
     if (err || !events) {
       console.log(err);
     } else {
-      res.render('index', {
+			var count = 0;
+			events.forEach(function(event){
+				delete event.artists;
+				delete event._id;
+				count += 1;
+			});
+			if(count == events.length){
+				res.render('index', {
         title: 'conception events',
         data: JSON.stringify(events)
       });
+				
+			}
+
     }
   });
 });

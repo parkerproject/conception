@@ -2,6 +2,7 @@ var randtoken = require('rand-token');
 var email = require('../email');
 var fs = require('fs');
 var getOrders = require('../models/get_orders');
+var getEventsOnEventbrite = require('../models/get_events');
 var getArtist_ticket = require('../models/get_artist_sold_all');
 var _ = require('underscore');
 
@@ -20,10 +21,10 @@ function deleteFile(file) {
 }
 
 function addhttp(url) {
-    if (!/^(?:f|ht)tps?\:\/\//.test(url)){
-        url = "http://" + url;
-    }
-    return url;
+  if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+    url = "http://" + url;
+  }
+  return url;
 }
 
 
@@ -40,24 +41,16 @@ module.exports = function(router, db) {
         res.redirect('/');
       } else {
         var eventlist = [],
-						turnOnTicketButton;
+          turnOnTicketButton = false,
           option = '<option value="">Select event to attend</option>';
         user.events.forEach(function(event) {
 
-          if (event === 12420440873) {
-            option += '<option value="12420440873">Conception New York City</option>';
-						turnOnTicketButton = false;
+
+          if (event === 14251206743) {
+            option += '<option value="14251206743">Conception New York City</option>';
+            turnOnTicketButton = true;
           }
 
-          if (event === 12423943349) {
-            option += '<option value="12423943349">Conception Philadelphia</option>';
-						turnOnTicketButton = true;
-          }
-
-          if (event === 12423951373) {
-            option += '<option value="12423951373">Conception Liverpool</option>';
-						turnOnTicketButton = true;
-          }
 
         });
 
@@ -65,8 +58,8 @@ module.exports = function(router, db) {
           title: 'conception events',
           data: user,
           events: option,
-					user_url: addhttp(user.url),
-					turnOnTicketButton: turnOnTicketButton
+          user_url: addhttp(user.url),
+          turnOnTicketButton: turnOnTicketButton
         });
       }
     });
@@ -93,6 +86,47 @@ module.exports = function(router, db) {
 
   });
 
+  router.get('/oneventbrites', function(req, res) {
+
+    getEventsOnEventbrite(function(events) {
+      res.send(events);
+
+    });
+
+  });
+
+
+  router.post('/artist_attendingevent', function(req, res) {
+
+    if (req.session.authenticated) {
+      db.artists.update({
+        user_token: req.body.user
+      }, {
+        $addToSet: {
+          events: parseInt(req.body.event_id, 10)
+        }
+      }, function(err, updateduser) {
+        console.log(updateduser);
+      });
+    }
+  });
+
+  router.post('/artist_not_attendingevent', function(req, res) {
+
+    if (req.session.authenticated) {
+      db.artists.update({
+        user_token: req.body.user
+      }, {
+        $pull: {
+          events: parseInt(req.body.event_id, 10)
+        }
+      }, function(err, updateduser) {
+        console.log(updateduser);
+      });
+    }
+
+  });
+
 
 
   router.post('/login', function(req, res) {
@@ -107,8 +141,10 @@ module.exports = function(router, db) {
         res.redirect('/login?error=unknown user');
       } else {
 
+
         var totalTickets = (user.tickets !== 0 && user.approved === true) ? true : false;
         var soldAll = (user.tickets === 0) ? true : false;
+
 
         req.session.authenticated = true;
         res.render('edit_profile', {
@@ -118,6 +154,7 @@ module.exports = function(router, db) {
           soldAll: soldAll,
           numberOfEvents: user.events.length
         });
+
       }
 
     });
@@ -193,7 +230,7 @@ module.exports = function(router, db) {
 
       });
     } else {
-      res.redirect('/event/12420440873');
+      res.redirect('/');
     }
 
 
@@ -298,14 +335,14 @@ module.exports = function(router, db) {
   });
 
   router.get('/get_artist_ticket', function(req, res) {
-		
-		console.log(req.query.user_token);
-		
+
+    console.log(req.query.user_token);
+
     getArtist_ticket(req.query.user_token, function(user) {
-		
-			console.log(user.tickets);
-			
-        res.json(user.tickets);
+
+      console.log(user.tickets);
+
+      res.json(user.tickets);
     });
   });
 
