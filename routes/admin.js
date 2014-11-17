@@ -13,6 +13,7 @@ var _ = require('underscore');
 
 
 function ensureAuthenticated(req, res, next) {
+	console.log(req.session.admin_authenticated);
   if (req.session && req.session.admin_authenticated) {
     return next();
   }
@@ -180,6 +181,7 @@ module.exports = function(router, passport, db) {
 
   router.get('/admin/logout', function(req, res) {
     req.session.authenticated = false;
+		req.session.admin_authenticated = false;
     req.logout();
     res.redirect('/admin');
   });
