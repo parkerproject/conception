@@ -36,7 +36,7 @@ var CONCEPTION = (function() {
       if (artwork_2 !== '') artworks.push('<a href="/artists_images/' + artwork_2 + '" target="_blank">Artwork 2</a>');
       if (artwork_3 !== '') artworks.push('<a href="/artists_images/' + artwork_3 + '" target="_blank">Artwork 3</a>');
 
-      if (events == '12420440873') events_title = 'Conception New York City';
+      if (events == '12420440873' || events == '14251206743') events_title = 'Conception New York City';
       if (events == '12423943349') events_title = 'Conception Philadelphia';
       if (events == '12423951373') events_title = 'Conception Liverpool';
 
