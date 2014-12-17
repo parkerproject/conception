@@ -460,6 +460,10 @@ var CONCEPTION = {
       var className = $('body').attr('id').toLowerCase();
       var quantity = 0;
       var salesRow = [];
+			
+			if(window.hasOwnProperty('userEmail') && window.userEmail == 'janiferonline@gmail.com') quantity +=2;
+			if(window.hasOwnProperty('userEmail') && window.userEmail == 'andreasaenz529@gmail.com') quantity +=2;
+			
 
       CONCEPTION.getLiveEvents(function(eventsLive) {
 
