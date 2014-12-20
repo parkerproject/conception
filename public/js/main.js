@@ -463,6 +463,8 @@ var CONCEPTION = {
 			
 			if(window.hasOwnProperty('userEmail') && window.userEmail == 'janiferonline@gmail.com') quantity +=2;
 			if(window.hasOwnProperty('userEmail') && window.userEmail == 'andreasaenz529@gmail.com') quantity +=2;
+			if(window.hasOwnProperty('userEmail') && window.userEmail == 'christina.duarte@student.nyaa.edu') quantity +=4;
+			
 			
 
       CONCEPTION.getLiveEvents(function(eventsLive) {
