@@ -484,6 +484,8 @@ var CONCEPTION = {
             thisUser.forEach(function(e) {
             //  $('a[data-reveal-id="tickets_tracker"]').show();
               quantity += e.attendee.quantity;
+							
+							if(window.hasOwnProperty('userEmail') && window.userEmail == 'esantosstudios@yahoo.com') quantity = 15;
               var remaining = 15 - quantity;
               var remainTickets = (remaining >= 0) ? remaining : 0;
               var eventName = CONCEPTION.eventsMap(e.attendee.event_id);
