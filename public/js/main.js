@@ -301,6 +301,10 @@ var CONCEPTION = {
       for (var k = 0; k < pastEvents.length; k++) {
         pastContent.push(this.pastEventTemplate(pastEvents[k]));
       }
+			
+			if (upcomingContent.length === 0) {
+				document.querySelector('.upcoming-event').innerHTML = 'Check back for upcoming events';
+			}
 
       document.querySelector('.upcoming-event').innerHTML = upcomingContent.join('');
       $('.past-event').prepend(pastContent.join(''));
