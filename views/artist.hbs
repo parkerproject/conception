@@ -86,8 +86,15 @@
               <a class="artist-url" href="{{user_url}}">{{data.url}}</a>
 						  {{/if}}
 						
+           
 						{{#if turnOnTicketButton}}
-              <button data-artist="{{data.user_token}}" class="artist-submit" data-events="{{data.events}}"><i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></button>
+						<button>
+							<a style="color:white;" href="http://www.eventbrite.com/e/conception-new-york-city-tickets-16188098037?aff={{data.user_token}}" class="">
+								<i class="icon-ticket"></i>
+								BUY TICKETS<span>To see this artist!</span>
+							</a>
+							
+						</button>
             {{/if}}
 				</div>
 
