@@ -536,7 +536,9 @@ var CONCEPTION = {
         e.preventDefault();
 
         var artist = $('.ticket_type').val();
-        window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
+        //window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
+				window.location.href = 'http://www.eventbrite.com/e/conception-new-york-city-tickets-16188098037?aff='+artist;
+				
 
       });
     }
