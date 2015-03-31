@@ -99,7 +99,7 @@ var CONCEPTION = {
   eventsMap: function(eventNum) {
 
     var eventsMap = {
-      '14251206743': 'Conception NYC Tickets'
+      '16188098037': 'Conception NYC Tickets'
     };
 
     if (eventsMap.hasOwnProperty(eventNum)) {
@@ -461,25 +461,22 @@ var CONCEPTION = {
   ticketsTracker: function() {
     if (window.hasOwnProperty('user_event')) {
 
-      var className = $('body').attr('id').toLowerCase();
+      var className = $('body').attr('id');
       var quantity = 0;
       var salesRow = [];
 			
-			if(window.hasOwnProperty('userEmail') && window.userEmail == 'janiferonline@gmail.com') quantity +=2;
-			if(window.hasOwnProperty('userEmail') && window.userEmail == 'andreasaenz529@gmail.com') quantity +=2;
-			if(window.hasOwnProperty('userEmail') && window.userEmail == 'christina.duarte@student.nyaa.edu') quantity +=4;
-			
-			
-
+		
       CONCEPTION.getLiveEvents(function(eventsLive) {
 
         var eventsArray = eventsLive.events;
+			
 
         eventsArray.forEach(function(event) {
 
           var eventId = event.event.id;
 
           CONCEPTION.getAttendees(eventId, function(event) {
+						
 
             var thisUser = _.filter(event.attendees, function(user) {
               return user.attendee.affiliate == className;
@@ -491,7 +488,6 @@ var CONCEPTION = {
             //  $('a[data-reveal-id="tickets_tracker"]').show();
               quantity += e.attendee.quantity;
 							
-							if(window.hasOwnProperty('userEmail') && window.userEmail == 'esantosstudios@yahoo.com') quantity = 15;
               var remaining = 15 - quantity;
               var remainTickets = (remaining >= 0) ? remaining : 0;
               var eventName = CONCEPTION.eventsMap(e.attendee.event_id);
