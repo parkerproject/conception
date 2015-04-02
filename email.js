@@ -1,20 +1,11 @@
 #!/bin/env node
 
-var nodemailer = require('nodemailer');
+require('dotenv').load();
+//var nodemailer = require('nodemailer');
+var mandrill = require('node-mandrill')(process.env.MANDRILL_KEY);
 
 
-// create reusable transporter object using SMTP transport
-var transporter = nodemailer.createTransport({
-  service: 'mailgun',
-  auth: {
-    user: 'postmaster@mg.conceptionevents.com',
-    pass: process.env.MAIL_GUN_PASS
-  }
-});
-
-
-
-function sendEmail(toEmail, name, link) {
+function sendEmail(email, name, link) {
 
   var emailHtml = 'Hi <b>' + name + '</b><br /><br />' +
     '<i>Welcome to Conception Events</i>!<br />' +
@@ -22,16 +13,23 @@ function sendEmail(toEmail, name, link) {
     '<br /><br />Have a great day' +
     '<br />Conception Team';
 
-  transporter.sendMail({
-    from: 'noreply@conceptionevents.com',
-    to: toEmail,
-    subject: 'Conception Events: Activate your account',
-    html: emailHtml
-  }, function(err, status) {
-    if (err) console.log(err);
-    if (status) console.log('email sent');
-  });
+  mandrill('/messages/send', {
+    message: {
+      to: [{
+        email: email
+      }],
+      from_email: 'noreply@conceptionevents.com',
+      from_name: 'Conception Events',
+      subject: 'Conception Events: Activate your account',
+      html: emailHtml
+    }
+  }, function(error, response) {
+    //uh oh, there was an error
+    if (error) console.log(JSON.stringify(error));
 
+    //everything's good, lets see what mandrill said
+    else console.log(response);
+  });
 }
 
 
@@ -44,16 +42,23 @@ function sendPasswordEmail(toEmail, name, password) {
     '<br /><br />Have a great day' +
     '<br />Conception Team';
 
-  transporter.sendMail({
-    from: 'noreply@conceptionevents.com',
-    to: toEmail,
-    subject: 'Conception Events: Login details',
-    html: emailHtml
-  }, function(err, status) {
-    if (err) console.log(err);
-    if (status) console.log('login email sent');
-  });
+  mandrill('/messages/send', {
+    message: {
+      to: [{
+        email: toEmail
+      }],
+      from_email: 'noreply@conceptionevents.com',
+      from_name: 'Conception Events',
+      subject: 'Conception Events: Login details',
+      html: emailHtml
+    }
+  }, function(error, response) {
+    //uh oh, there was an error
+    if (error) console.log(JSON.stringify(error));
 
+    //everything's good, lets see what mandrill said
+    else console.log(response);
+  });
 }
 
 function sendNewPasswordEmail(toEmail, name, password) {
@@ -63,38 +68,52 @@ function sendNewPasswordEmail(toEmail, name, password) {
     '<br /><br />Have a great day' +
     '<br />Conception Team';
 
-  transporter.sendMail({
-    from: 'noreply@conceptionevents.com',
-    to: toEmail,
-    subject: 'Conception Events: New Password',
-    html: emailHtml
-  }, function(err, status) {
-    if (err) console.log(err);
-    if (status) console.log('login email sent');
-  });
+  mandrill('/messages/send', {
+    message: {
+      to: [{
+        email: toEmail
+      }],
+      from_email: 'noreply@conceptionevents.com',
+      from_name: 'Conception Events',
+      subject: 'Conception Events: New Password',
+      html: emailHtml
+    }
+  }, function(error, response) {
+    //uh oh, there was an error
+    if (error) console.log(JSON.stringify(error));
 
+    //everything's good, lets see what mandrill said
+    else console.log(response);
+  });
 }
 
 
 function sendAdminEmail() {
 
   var body = 'Hey buddy!<br /><br /> A new artist has just joined Conception Events.' +
-    '<a href="http://conception-mypinly.rhcloud.com/conception"> Login to approve</a>' +
+    '<a href="http://www.conceptionevents.com/admin"> Login to approve</a>' +
     '<br /><br />Have a great day' +
     '<br />Conception Robot';
 
-  transporter.sendMail({
-    from: 'noreply@conceptionevents.com',
-    to: 'info@conceptionevents.com',
-    subject: 'Conception Events: New Artist',
-    html: body
-  }, function(err, status) {
-    if (err) console.log(err);
-    if (status) console.log('email sent');
+  mandrill('/messages/send', {
+    message: {
+      to: [{
+        email: 'info@conceptionevents.com'
+      }],
+      from_email: 'noreply@conceptionevents.com',
+      from_name: 'Conception Events',
+      subject: 'Conception Events: New Artist',
+      html: body
+    }
+  }, function(error, response) {
+    //uh oh, there was an error
+    if (error) console.log(JSON.stringify(error));
+
+    //everything's good, lets see what mandrill said
+    else console.log(response);
   });
-
-
 }
+
 
 module.exports.sendAdminEmail = sendAdminEmail;
 module.exports.sendPasswordEmail = sendPasswordEmail;
