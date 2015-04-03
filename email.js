@@ -2,7 +2,7 @@
 
 require('dotenv').load();
 //var nodemailer = require('nodemailer');
-var mandrill = require('node-mandrill')(process.env.MANDRILL_KEY);
+var mandrill = require('node-mandrill')('tj_vWDhh5LzZfsf2wPF6-w');
 
 
 function sendEmail(email, name, link) {
