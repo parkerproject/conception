@@ -1,8 +1,31 @@
 #!/bin/env node
 
 require('dotenv').load();
-//var nodemailer = require('nodemailer');
-var mandrill = require('node-mandrill')('tj_vWDhh5LzZfsf2wPF6-w');
+var nodemailer = require('nodemailer');
+//var mandrill = require('node-mandrill')(process.env.MANDRILL_KEY);
+
+// create reusable transporter object using SMTP transport 
+var transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'conceptionevents00@gmail.com',
+    pass: 'conceptionevents123'
+  }
+});
+
+
+function mailOptions(email, title, body) {
+  var options = {
+    from: 'noreply@conceptionevents.com', // sender address 
+    to: email,
+    subject: title,
+    //text: body
+    html: body
+  };
+
+  return options;
+}
+
 
 
 function sendEmail(email, name, link) {
@@ -13,23 +36,35 @@ function sendEmail(email, name, link) {
     '<br /><br />Have a great day' +
     '<br />Conception Team';
 
-  mandrill('/messages/send', {
-    message: {
-      to: [{
-        email: email
-      }],
-      from_email: 'noreply@conceptionevents.com',
-      from_name: 'Conception Events',
-      subject: 'Conception Events: Activate your account',
-      html: emailHtml
-    }
-  }, function(error, response) {
-    //uh oh, there was an error
-    if (error) console.log(JSON.stringify(error));
+  var title = 'Conception Events: Activate your account';
 
-    //everything's good, lets see what mandrill said
-    else console.log(response);
+  var _options = mailOptions(email, title, emailHtml);
+
+  transporter.sendMail(_options, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Message sent: ' + info.response);
+    }
   });
+
+  //   mandrill('/messages/send', {
+  //     message: {
+  //       to: [{
+  //         email: email
+  //       }],
+  //       from_email: 'noreply@conceptionevents.com',
+  //       from_name: 'Conception Events',
+  //       subject: 'Conception Events: Activate your account',
+  //       html: emailHtml
+  //     }
+  //   }, function(error, response) {
+  //     //uh oh, there was an error
+  //     if (error) console.log(JSON.stringify(error));
+
+  //     //everything's good, lets see what mandrill said
+  //     else console.log(response);
+  //   });
 }
 
 
@@ -42,23 +77,35 @@ function sendPasswordEmail(toEmail, name, password) {
     '<br /><br />Have a great day' +
     '<br />Conception Team';
 
-  mandrill('/messages/send', {
-    message: {
-      to: [{
-        email: toEmail
-      }],
-      from_email: 'noreply@conceptionevents.com',
-      from_name: 'Conception Events',
-      subject: 'Conception Events: Login details',
-      html: emailHtml
-    }
-  }, function(error, response) {
-    //uh oh, there was an error
-    if (error) console.log(JSON.stringify(error));
+  var title = 'Conception Events: Login details';
 
-    //everything's good, lets see what mandrill said
-    else console.log(response);
+  var _options = mailOptions(toEmail, title, emailHtml);
+
+  transporter.sendMail(_options, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Message sent: ' + info.response);
+    }
   });
+
+  //   mandrill('/messages/send', {
+  //     message: {
+  //       to: [{
+  //         email: toEmail
+  //       }],
+  //       from_email: 'noreply@conceptionevents.com',
+  //       from_name: 'Conception Events',
+  //       subject: 'Conception Events: Login details',
+  //       html: emailHtml
+  //     }
+  //   }, function(error, response) {
+  //     //uh oh, there was an error
+  //     if (error) console.log(JSON.stringify(error));
+
+  //     //everything's good, lets see what mandrill said
+  //     else console.log(response);
+  //   });
 }
 
 function sendNewPasswordEmail(toEmail, name, password) {
@@ -68,23 +115,35 @@ function sendNewPasswordEmail(toEmail, name, password) {
     '<br /><br />Have a great day' +
     '<br />Conception Team';
 
-  mandrill('/messages/send', {
-    message: {
-      to: [{
-        email: toEmail
-      }],
-      from_email: 'noreply@conceptionevents.com',
-      from_name: 'Conception Events',
-      subject: 'Conception Events: New Password',
-      html: emailHtml
-    }
-  }, function(error, response) {
-    //uh oh, there was an error
-    if (error) console.log(JSON.stringify(error));
+  var title = 'Conception Events: New Password';
 
-    //everything's good, lets see what mandrill said
-    else console.log(response);
+  var _options = mailOptions(toEmail, title, emailHtml);
+
+  transporter.sendMail(_options, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Message sent: ' + info.response);
+    }
   });
+
+  //   mandrill('/messages/send', {
+  //     message: {
+  //       to: [{
+  //         email: toEmail
+  //       }],
+  //       from_email: 'noreply@conceptionevents.com',
+  //       from_name: 'Conception Events',
+  //       subject: 'Conception Events: New Password',
+  //       html: emailHtml
+  //     }
+  //   }, function(error, response) {
+  //     //uh oh, there was an error
+  //     if (error) console.log(JSON.stringify(error));
+
+  //     //everything's good, lets see what mandrill said
+  //     else console.log(response);
+  //   });
 }
 
 
@@ -95,23 +154,36 @@ function sendAdminEmail() {
     '<br /><br />Have a great day' +
     '<br />Conception Robot';
 
-  mandrill('/messages/send', {
-    message: {
-      to: [{
-        email: 'info@conceptionevents.com'
-      }],
-      from_email: 'noreply@conceptionevents.com',
-      from_name: 'Conception Events',
-      subject: 'Conception Events: New Artist',
-      html: body
-    }
-  }, function(error, response) {
-    //uh oh, there was an error
-    if (error) console.log(JSON.stringify(error));
+  var title = 'Conception Events: New Artist';
+  var toEmail = 'info@conceptionevents.com';
 
-    //everything's good, lets see what mandrill said
-    else console.log(response);
+  var _options = mailOptions(toEmail, title, body);
+
+  transporter.sendMail(_options, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Message sent: ' + info.response);
+    }
   });
+
+  //   mandrill('/messages/send', {
+  //     message: {
+  //       to: [{
+  //         email: 'info@conceptionevents.com'
+  //       }],
+  //       from_email: 'noreply@conceptionevents.com',
+  //       from_name: 'Conception Events',
+  //       subject: 'Conception Events: New Artist',
+  //       html: body
+  //     }
+  //   }, function(error, response) {
+  //     //uh oh, there was an error
+  //     if (error) console.log(JSON.stringify(error));
+
+  //     //everything's good, lets see what mandrill said
+  //     else console.log(response);
+  //   });
 }
 
 
