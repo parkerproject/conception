@@ -138,8 +138,15 @@ var CONCEPTION = {
         photo: {
           required: true,
           accept: "image/jpeg, image/pjpeg, image/png, image/gif"
+        },
+
+        captcha: {
+          required: true,
+          accept: 5
         }
       }
+
+
 
 
     });
@@ -301,10 +308,10 @@ var CONCEPTION = {
       for (var k = 0; k < pastEvents.length; k++) {
         pastContent.push(this.pastEventTemplate(pastEvents[k]));
       }
-			
-			if (upcomingContent.length === 0) {
-				document.querySelector('.upcoming-event').innerHTML = 'Check back for upcoming events';
-			}
+
+      if (upcomingContent.length === 0) {
+        document.querySelector('.upcoming-event').innerHTML = 'Check back for upcoming events';
+      }
 
       document.querySelector('.upcoming-event').innerHTML = upcomingContent.join('');
       $('.past-event').prepend(pastContent.join(''));
@@ -452,7 +459,7 @@ var CONCEPTION = {
       $('.extra_ticket').remove();
       $('.paypal_holder').find('input[name="currency_code"]').remove();
 
-      $('<input name=quantity value="" placeholder="1" class="extra_ticket" />').insertBefore('button.paypal-button');
+      $('<input name=quantity value="" placeholder="enter any number" class="extra_ticket" />').insertBefore('button.paypal-button');
       $('.paypal_holder').find('form').append('<input name="currency_code" type="hidden" value="' + currency + '"/>');
     }
 
@@ -464,19 +471,19 @@ var CONCEPTION = {
       var className = $('body').attr('id');
       var quantity = 0;
       var salesRow = [];
-			
-		
+
+
       CONCEPTION.getLiveEvents(function(eventsLive) {
 
         var eventsArray = eventsLive.events;
-			
+
 
         eventsArray.forEach(function(event) {
 
           var eventId = event.event.id;
 
           CONCEPTION.getAttendees(eventId, function(event) {
-						
+
 
             var thisUser = _.filter(event.attendees, function(user) {
               return user.attendee.affiliate == className;
@@ -485,9 +492,9 @@ var CONCEPTION = {
             //if (thisUser.length === 0) $('a[data-reveal-id="tickets_tracker"]').hide();
 
             thisUser.forEach(function(e) {
-            //  $('a[data-reveal-id="tickets_tracker"]').show();
+              //  $('a[data-reveal-id="tickets_tracker"]').show();
               quantity += e.attendee.quantity;
-							
+
               var remaining = 15 - quantity;
               var remainTickets = (remaining >= 0) ? remaining : 0;
               var eventName = CONCEPTION.eventsMap(e.attendee.event_id);
@@ -533,8 +540,8 @@ var CONCEPTION = {
 
         var artist = $('.ticket_type').val();
         //window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
-				window.location.href = 'http://www.eventbrite.com/e/conception-new-york-city-tickets-16188098037?aff='+artist;
-				
+        window.location.href = 'http://www.eventbrite.com/e/conception-new-york-city-tickets-16188098037?aff=' + artist;
+
 
       });
     }
