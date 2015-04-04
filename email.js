@@ -1,17 +1,10 @@
 #!/bin/env node
 
 require('dotenv').load();
-var nodemailer = require('nodemailer');
+//var nodemailer = require('nodemailer');
 //var mandrill = require('node-mandrill')(process.env.MANDRILL_KEY);
-
-// create reusable transporter object using SMTP transport 
-var transporter = nodemailer.createTransport({
-  service: 'mailgun',
-  auth: {
-    user: 'postmaster@mg.conceptionevents.com',
-    pass: 'wIFHWb2lw8IRA79 '
-  }
-});
+var Mailgun = require('mailgun').Mailgun;
+var mg = new Mailgun('key-97a7f5bf665273923e9755932a209d03');
 
 
 function mailOptions(email, title, body) {
@@ -22,6 +15,16 @@ function mailOptions(email, title, body) {
     //text: body
     html: body
   };
+	
+	mg.sendRaw('noreply@conceptionevents.com', [email],
+  'From: noreply@conceptionevents.com' +
+  '\nTo: ' + email +
+  '\nContent-Type: text/html; charset=utf-8' +
+  '\nSubject: '+ email +
+  '\n\n' + body,
+  function(err) {
+    //err && console.log(err)
+  });
 
   return options;
 }
@@ -38,33 +41,16 @@ function sendEmail(email, name, link) {
 
   var title = 'Conception Events: Activate your account';
 
-  var _options = mailOptions(email, title, emailHtml);
-
-  transporter.sendMail(_options, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Message sent: ' + info.response);
-    }
+	mg.sendRaw('noreply@conceptionevents.com', [email],
+  'From: noreply@conceptionevents.com' +
+  '\nTo: ' + email +
+  '\nContent-Type: text/html; charset=utf-8' +
+  '\nSubject: '+ title +
+  '\n\n' + emailHtml,
+  function(err) {
+    if (err) console.log(err);
   });
 
-  //   mandrill('/messages/send', {
-  //     message: {
-  //       to: [{
-  //         email: email
-  //       }],
-  //       from_email: 'noreply@conceptionevents.com',
-  //       from_name: 'Conception Events',
-  //       subject: 'Conception Events: Activate your account',
-  //       html: emailHtml
-  //     }
-  //   }, function(error, response) {
-  //     //uh oh, there was an error
-  //     if (error) console.log(JSON.stringify(error));
-
-  //     //everything's good, lets see what mandrill said
-  //     else console.log(response);
-  //   });
 }
 
 
@@ -79,33 +65,16 @@ function sendPasswordEmail(toEmail, name, password) {
 
   var title = 'Conception Events: Login details';
 
-  var _options = mailOptions(toEmail, title, emailHtml);
 
-  transporter.sendMail(_options, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Message sent: ' + info.response);
-    }
+  mg.sendRaw('noreply@conceptionevents.com', [toEmail],
+  'From: noreply@conceptionevents.com' +
+  '\nTo: ' + toEmail +
+  '\nContent-Type: text/html; charset=utf-8' +
+  '\nSubject: '+ title +
+  '\n\n' + emailHtml,
+  function(err) {
+    if (err) console.log(err);
   });
-
-  //   mandrill('/messages/send', {
-  //     message: {
-  //       to: [{
-  //         email: toEmail
-  //       }],
-  //       from_email: 'noreply@conceptionevents.com',
-  //       from_name: 'Conception Events',
-  //       subject: 'Conception Events: Login details',
-  //       html: emailHtml
-  //     }
-  //   }, function(error, response) {
-  //     //uh oh, there was an error
-  //     if (error) console.log(JSON.stringify(error));
-
-  //     //everything's good, lets see what mandrill said
-  //     else console.log(response);
-  //   });
 }
 
 function sendNewPasswordEmail(toEmail, name, password) {
@@ -117,33 +86,18 @@ function sendNewPasswordEmail(toEmail, name, password) {
 
   var title = 'Conception Events: New Password';
 
-  var _options = mailOptions(toEmail, title, emailHtml);
-
-  transporter.sendMail(_options, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Message sent: ' + info.response);
-    }
+  mg.sendRaw('noreply@conceptionevents.com', [toEmail],
+  'From: noreply@conceptionevents.com' +
+  '\nTo: ' + toEmail +
+  '\nContent-Type: text/html; charset=utf-8' +
+  '\nSubject: '+ title +
+  '\n\n' + emailHtml,
+  function(err) {
+    if (err) console.log(err);
   });
 
-  //   mandrill('/messages/send', {
-  //     message: {
-  //       to: [{
-  //         email: toEmail
-  //       }],
-  //       from_email: 'noreply@conceptionevents.com',
-  //       from_name: 'Conception Events',
-  //       subject: 'Conception Events: New Password',
-  //       html: emailHtml
-  //     }
-  //   }, function(error, response) {
-  //     //uh oh, there was an error
-  //     if (error) console.log(JSON.stringify(error));
 
-  //     //everything's good, lets see what mandrill said
-  //     else console.log(response);
-  //   });
+
 }
 
 
@@ -157,33 +111,17 @@ function sendAdminEmail() {
   var title = 'Conception Events: New Artist';
   var toEmail = 'info@conceptionevents.com';
 
-  var _options = mailOptions(toEmail, title, body);
-
-  transporter.sendMail(_options, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Message sent: ' + info.response);
-    }
+  mg.sendRaw('noreply@conceptionevents.com', [toEmail],
+  'From: noreply@conceptionevents.com' +
+  '\nTo: ' + toEmail +
+  '\nContent-Type: text/html; charset=utf-8' +
+  '\nSubject: '+ title +
+  '\n\n' + body,
+  function(err) {
+    if (err) console.log(err);
   });
 
-  //   mandrill('/messages/send', {
-  //     message: {
-  //       to: [{
-  //         email: 'info@conceptionevents.com'
-  //       }],
-  //       from_email: 'noreply@conceptionevents.com',
-  //       from_name: 'Conception Events',
-  //       subject: 'Conception Events: New Artist',
-  //       html: body
-  //     }
-  //   }, function(error, response) {
-  //     //uh oh, there was an error
-  //     if (error) console.log(JSON.stringify(error));
 
-  //     //everything's good, lets see what mandrill said
-  //     else console.log(response);
-  //   });
 }
 
 
