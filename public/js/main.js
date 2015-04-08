@@ -472,7 +472,7 @@ var CONCEPTION = {
       var quantity = 0;
       var salesRow = [];
 			
-			if(window.hasOwnProperty('userEmail') && window.hasOwnProperty('userEmail') == 'winkawink327@gmail.com'){
+			if(window.hasOwnProperty('userEmail') && window.userEmail == 'winkawink327@gmail.com'){
 				quantity = quantity + 1;  // for Christina Michelle Graham
 			}
 
@@ -494,6 +494,7 @@ var CONCEPTION = {
             });
 
             //if (thisUser.length === 0) $('a[data-reveal-id="tickets_tracker"]').hide();
+            console.log(quantity);
 
             thisUser.forEach(function(e) {
               //  $('a[data-reveal-id="tickets_tracker"]').show();
