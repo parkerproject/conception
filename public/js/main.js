@@ -471,6 +471,10 @@ var CONCEPTION = {
       var className = $('body').attr('id');
       var quantity = 0;
       var salesRow = [];
+			
+			if(className == 'cbqGUwHrxG'){
+				quantity = 1;  // for Christina Michelle Graham
+			}
 
 
       CONCEPTION.getLiveEvents(function(eventsLive) {
