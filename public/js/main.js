@@ -471,10 +471,6 @@ var CONCEPTION = {
       var className = $('body').attr('id');
       var quantity = 0;
       var salesRow = [];
-			
-			if(className == 'cbqGUwHrxG'){
-				quantity = 1;  // for Christina Michelle Graham
-			}
 
 
       CONCEPTION.getLiveEvents(function(eventsLive) {
@@ -498,6 +494,11 @@ var CONCEPTION = {
             thisUser.forEach(function(e) {
               //  $('a[data-reveal-id="tickets_tracker"]').show();
               quantity += e.attendee.quantity;
+
+              if (className == 'cbqGUwHrxG') {
+                quantity = quantity + 1; // for Christina Michelle Graham
+              }
+
 
               var remaining = 15 - quantity;
               var remainTickets = (remaining >= 0) ? remaining : 0;
