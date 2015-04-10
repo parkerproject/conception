@@ -508,7 +508,7 @@ var CONCEPTION = {
               $('.sales-data').append('<tr><td>' + e.attendee.first_name + ' ' + e.attendee.last_name + '</td><td>' + e.attendee.amount_paid + ' ' + e.attendee.currency + '</td><td>' + e.attendee.quantity + '</td><td>' + e.attendee.email + '</td><td>' + eventName + '</td></tr>');
               $('.ticket-sold').find('i').text(quantity);
               $('.ticket-left').find('i').text(remainTickets);
-              CONCEPTION.payPalBtnController(remainTickets, eventName, e.attendee.currency);
+             // CONCEPTION.payPalBtnController(remainTickets, eventName, e.attendee.currency);
             });
 
           });
