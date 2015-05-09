@@ -84,47 +84,6 @@ var CONCEPTION = (function() {
         });
 
 
-        var gangOfEight = ['shermaa@optonline.net', 'info@crespowulf.com', 'brianalessandro@gmail.com', 'artishurt@gmail.com', 'ebbowman@msn.com', 'manicprice@gmail.com', 'andrea@andreamckenna.com', 'info@artofkason.com', 'joey@kilrain.com', 'pbandjesse@gmail.com'];
-
-        if (gangOfEight.indexOf(email) != -1) {
-          quantity += 2;
-
-        }
-
-        var specialSales = ['markelfman@hotmail.com', 'brianalessandro@gmail.com', 'yaiel734@yahoo.co.uk'];
-
-        if (specialSales.indexOf(email) != -1 && email == 'markelfman@hotmail.com') {
-          quantity += 3;
-        }
-
-        if (specialSales.indexOf(email) != -1 && email == 'brianalessandro@gmail.com') {
-          quantity += 2;
-        }
-
-        if (specialSales.indexOf(email) != -1 && email == 'yaiel734@yahoo.co.uk') {
-          quantity += 1;
-        }
-
-        if (email == 'ebbowman@msn.com') {
-          quantity += 8;
-        }
-
-        if (email == 'johnkolbek@gmail.com') {
-          quantity += 1;
-        }
-
-        if (email == 'mikewolf.nyc@gmail.com') {
-          quantity -= 9;
-        }
-
-        if (email == 'aaronasis@gmail.com') {
-          quantity += 1;
-        }
-
-        if (email == 'stephencrete@live.co.uk' || email == 'debbie.diamond@ymail.com') {
-          quantity = 15;
-        }
-
 
         var ticketsLeft = 15 - quantity;
 
@@ -173,6 +132,13 @@ var CONCEPTION = (function() {
     });
 
 
+  }
+	
+	
+function getLiveEvents(callback) {
+    $.getJSON('/oneventbrites', {}, function(json) {
+      callback(json);
+    });
   }
 
 
