@@ -46,8 +46,8 @@ module.exports = function(router, db) {
         user.events.forEach(function(event) {
 
 
-          if (event === 16188098037) {
-            option += '<option value="16188098037">Conception New York City</option>';
+          if (event === 16926704228) {
+            option += '<option value="16926704228">PRIDE Art and Film Festival</option>';
             turnOnTicketButton = true;
           }
 

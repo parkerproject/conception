@@ -11,7 +11,7 @@ var CONCEPTION = {
     this.validate();
     this.validateUpload();
     this.validateAge();
-    this.eventListHomepage();
+    //this.eventListHomepage();
     this.eventSinglePage();
     this.eventsPage();
     this.slider();
