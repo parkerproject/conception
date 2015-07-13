@@ -99,7 +99,7 @@ var CONCEPTION = {
   eventsMap: function(eventNum) {
 
     var eventsMap = {
-      '16188098037': 'Conception NYC Tickets'
+      '17622204488': 'Conception NYC Tickets'
     };
 
     if (eventsMap.hasOwnProperty(eventNum)) {
@@ -547,7 +547,7 @@ var CONCEPTION = {
 
         var artist = $('.ticket_type').val();
         //window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
-        window.location.href = 'https://www.eventbrite.com/e/pride-art-and-film-festival-tickets-16926704228?aff=' + artist;
+        window.location.href = 'https://www.eventbrite.com/e/conception-tribeca-tickets-17622204488?aff=' + artist;
 
 
       });

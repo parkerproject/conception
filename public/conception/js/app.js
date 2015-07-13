@@ -55,6 +55,10 @@ var CONCEPTION = (function() {
       if (eventsArray.indexOf('14251206743') !== -1) {
         events_title = 'Conception New York City';
       }
+			
+			if (eventsArray.indexOf('17622204488') !== -1) {
+        events_title = 'CONCEPTION TRIBECA';
+      }
 
       if (photo !== '') {
         photoImage = 'http://www.conceptionevents.com/artists_images/' + photo;

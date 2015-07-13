@@ -192,6 +192,8 @@ module.exports = function(router, passport, db) {
     if (req.session.admin_authenticated) {
 
       var status = (req.body.approved === 'true') ? true : false;
+			
+			// make sure to only approve current event, 
 
       db.artists.findAndModify({
         query: {
