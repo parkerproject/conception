@@ -13,9 +13,25 @@
 </head>
 
 <body id="campus">
-	  <div class="row">
+<div class="top-header-bar" style="height: 77px;">
+    <div class="row">
+      <a href="/" class="large-7 columns logo">conception events</a>
+      <a href="/login" class="large-1 columns login">Login</a>
+      <div class="large-4 columns">
+        <a href="/register">
+            <button class="small-12"><span class="ti-plus"></span>
+          <span class="text">Submit Your Work</span>
+        </button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
     <div class="large-12 columns clearfix">
-      <nav class="top-bar" data-topbar>
+      <nav class="top-bar" data-topbar style="overflow:hidden">
         <ul class="title-area">
           <li class="name">
             <!-- <h1><a href="#">My Site</a></h1> -->
@@ -26,17 +42,19 @@
         </ul>
 
         <section class="top-bar-section">
-				
           <!-- Left Nav Section -->
           <ul class="left">
-						<li class=""><a href="/">home</a></li>
-            <li class="events"><a href="/events">events</a></li>
-            <li class="about_us"><a href="/about">about us</a></li>
-            <li class="press"><a href="/press">press</a></li>
-            <li class="gallery"><a href="/gallery">gallery</a></li>
-            <li class="campus"><a href="/campus">campus</a></li>
-            <li class="whats_new"><a href="/what-new">what's new</a></li>
+            <li><a href="/events">events</a></li>
+            <li><a href="/about">about us</a></li>
+            <li><a href="/press">press</a></li>
+            <li><a href="/gallery">gallery</a></li>
+            <li><a href="/campus">campus</a></li>
+            <li><a href="/what-new">what's new</a></li>
           </ul>
+					<form action="/artist_search" method="post" class="search_artist_form">
+						<div id="prefetch"><input name="query" class="text typeahead" placeholder="Search for artist..."/></div>
+						<button type="submit" class="search icon-search"></button>
+					</form>
         </section>
       </nav>
     </div>
