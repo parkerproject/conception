@@ -114,7 +114,9 @@ var CONCEPTION = {
   enableSubmit: function() {
     $('#terms_checkbox').on('change', function() {
       var self = $(this);
-      if (self.is(':checked')) {
+			var moreThan21 = $('input[name=age]:checked').val();
+			console.log(moreThan21);
+      if (self.is(':checked') && moreThan21 == 'yes') {
         $('.register-submit').removeAttr('disabled');
       } else {
         document.querySelector('.register-submit').disabled = 'disabled';
@@ -168,24 +170,19 @@ var CONCEPTION = {
   },
 
   validateAge: function() {
-    $('#birth-year').on('change', function() {
+    $('.age input').on('change', function() {
 
-      var today = new Date();
-      var month = document.querySelector('.birth-month').value;
-      var day = document.querySelector('.birth-day').value;
-      var year = document.querySelector('.birth-year').value;
+      var moreThan21 = $('input[name=age]:checked').val();
+			var terms = $('#terms_checkbox');
 
-      month = (month !== '') ? month : '01';
-      day = (day !== '') ? day : '01';
-      year = (year !== '') ? year : new Date().getFullYear();
-
-
-      var dob = new Date(month + '/' + day + '/' + year);
-      var age = today.getFullYear() - dob.getFullYear();
-
-      if (age < 21) {
+      if (moreThan21 === 'no') {
         alert('You must be at least 21yrs to register');
+				document.querySelector('.register-submit').disabled = 'disabled';
       }
+			
+			if(moreThan21 === 'yes' && terms.is(':checked') ){
+				 $('.register-submit').removeAttr('disabled');
+			}
     });
 
   },
