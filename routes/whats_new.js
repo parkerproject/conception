@@ -11,8 +11,6 @@ module.exports = function(router) {
       .then(function(response) {
 			
 			var blogs = JSON.parse(response);
-			
-			
 
         res.render('whats_new', {
           blogs: blogs.items
