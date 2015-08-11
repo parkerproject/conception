@@ -62,15 +62,16 @@
 
 
 <section class="wrapper">
-
-      <div class="row press-list">
+ {{#each blogs}}
+  <div class="row press-list">
     <div class="large-12 columns">
-        <h2><a href="">A new gallery</a></h2>
-        <span class="date">apr 06</span><span class="author"><i>by</i> peter griffin</span><span class="genre">design</span>
+        <h2><a href="{{url}}" target="_blank">{{title}}</a></h2>
+        <span class="date">{{formatDate published}}</span><span class="author"><i>by</i> {{author.displayName}}</span><!--span class="genre">design</span-->
     </div>
   </div>
+  {{/each}}
 
-    <div class="row press-list">
+<!--     <div class="row press-list">
     <div class="large-12 columns">
         <h2><a href="">Building a new team</a></h2>
         <span class="date">apr 06</span><span class="author"><i>by</i> peter griffin</span><span class="genre">design</span>
@@ -82,7 +83,7 @@
         <h2><a href="">New funding</a></h2>
         <span class="date">apr 06</span><span class="author"><i>by</i> peter griffin</span><span class="genre">design</span>
     </div>
-  </div>
+  </div> -->
 
 </section>
 
