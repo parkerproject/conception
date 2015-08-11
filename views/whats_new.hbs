@@ -10,6 +10,19 @@
   <link rel="stylesheet" href="vendor/slick-carousel/slick/slick.css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="css/app.css" />
   <script src="vendor/modernizr/modernizr.js"></script>
+	
+	<style>
+
+		.wrapper{
+			height: 260em;
+		}
+		
+		iframe{
+			height: 100%;
+			width: 100%;
+		}
+	
+	</style>
 </head>
 
 <body id="whats_new">
@@ -62,14 +75,17 @@
 
 
 <section class="wrapper">
+	<iframe src="http://www.hiconceptmag.com/" scrolling="no" seamless></iframe>
+<!--
  {{#each blogs}}
   <div class="row press-list">
     <div class="large-12 columns">
         <h2><a href="{{url}}" target="_blank">{{title}}</a></h2>
-        <span class="date">{{formatDate published}}</span><span class="author"><i>by</i> {{author.displayName}}</span><!--span class="genre">design</span-->
+        <span class="date">{{formatDate published}}</span><span class="author"><i>by</i> {{author.displayName}}</span>
     </div>
   </div>
   {{/each}}
+-->
 
 <!--     <div class="row press-list">
     <div class="large-12 columns">
@@ -126,6 +142,15 @@
    <script src="/js/jquery.validate.js"></script>
 	 <script src="/js/typeahead.js"></script>
   <script src="/js/main.js"></script>
+	
+	<script>
+		//$("iframe").contents().find("#b-navbar").hide();
+		$('iframe').load( function() {
+		
+    $('iframe').contents().find("head")
+      .append($("<style type='text/css'>  #b-navbar{display:none;}  </style>"));
+});
+	</script>
 </body>
 
 </html>
