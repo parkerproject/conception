@@ -384,9 +384,9 @@ var CONCEPTION = {
       autoplay: true,
       autoplaySpeed: 9000,
       onAfterChange: function(e) {
-        var idx = e.currentSlide;
-        document.querySelector('.caption').style.display = 'none';
-        document.querySelector('.home-slider').querySelector('.index-' + idx).style.display = 'block';
+        //var idx = e.currentSlide;
+        //document.querySelector('.caption').style.display = 'none';
+        //document.querySelector('.home-slider').querySelector('.index-' + idx).style.display = 'block';
       }
 
     });
