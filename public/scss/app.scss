@@ -1552,6 +1552,10 @@ div.switch.tiny input:checked+label:after{
 .slick-slide img{
 	width: 960px;
 	height: 376px;
+	@media #{$small-only}{
+		width: 100%;
+		height: auto;
+	}
 }
 
 
