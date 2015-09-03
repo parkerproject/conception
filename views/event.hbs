@@ -174,7 +174,7 @@
 				<h2 class="event-title"></h2>
 				<label for="">Pick the artist you are supporting!</label>
 				<select name="ticket_type" class="ticket_type">
-					<option value="general">General Admission</option>
+					<option value="{{buyUrl}}?aff=general">General Admission</option>
 					{{#each sortedArtists}}
 					<option value="{{../buyUrl}}?aff={{user_token}}">{{full_name}}</option>
 					{{/each}}
