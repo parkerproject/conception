@@ -44,7 +44,7 @@
         <section class="top-bar-section">
           <!-- Left Nav Section -->
           <ul class="left">
-            <li class="events"><a href="/events">events</a></li>
+<!--             <li class="events"><a href="/events">events</a></li> -->
             <li class="about_us"><a href="/about">about us</a></li>
             <li class="press"><a href="/press">press</a></li>
             <li class="gallery"><a href="/gallery">gallery</a></li>
@@ -89,11 +89,10 @@
            
 						{{#if turnOnTicketButton}}
 						<button>
-							<a style="color:white;" href="https://www.eventbrite.com/e/conception-tribeca-tickets-17622204488?aff={{data.user_token}}" class="">
+							<a style="color:white;" href="{{buyUrl}}">
 								<i class="icon-ticket"></i>
 								BUY TICKETS<span>To see this artist!</span>
 							</a>
-							
 						</button>
             {{/if}}
 				</div>
@@ -148,19 +147,20 @@
 
   <div class="row">
     <large-12 class="cloumns copyright">
-      <p class="text-center">Copyright &copy; 2014 Conception</p>
+      <p class="text-center">Copyright &copy; 2015 Conception</p>
     </large-12>
   </div>
 	
 	
-	        <div id="request_event" class="reveal-modal" data-reveal>
+<!-- 	        <div id="request_event" class="reveal-modal" data-reveal>
 					<form>
 						 <select name="city" class="city" required>
 							{{{events}}}
              </select>
 						
 				  </form>
-         </div>
+						<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+         </div> -->
 
     <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/foundation/js/foundation.min.js"></script>

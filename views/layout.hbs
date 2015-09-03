@@ -42,7 +42,7 @@
         <section class="top-bar-section">
           <!-- Left Nav Section -->
           <ul class="left">
-            <li><a href="/events">events</a></li>
+<!--             <li><a href="/events">events</a></li> -->
             <li><a href="/about">about us</a></li>
             <li><a href="/press">press</a></li>
             <li><a href="/gallery">gallery</a></li>
@@ -133,22 +133,12 @@
 				<li class="list-title">
 					upcoming shows
 				</li>
-				<li class="first">
+<!-- 				<li class="first">
 					<a href="http://www.conceptionevents.com/event/17622204488"><img src="/images/img_17622204488.png">
 					<span class="event-date"><span><i class="month">Aug</i><i class="day">19</i></span></span>
 					</a>
-				</li>
-				<!--li>
-					<div class="left">
-						<span class="dates">4/09</span>
-						<span class="box-office">box office</span>
-					</div>
-					<div class="right">
-						<span class="title">RAW: Newcastle</span>
-						<span class="theme">EXPOSURE // 7.00PM - 11.30PM</span>
-						<span class="venue">The Great Northern Hotel</span>
-					</div>
-				</li-->
+				</li> -->
+				{{{html}}}
 			</ul>
 			
 		</div>
@@ -206,18 +196,6 @@
 <script src="/js/jquery.cookie.js"></script>
   <script src="js/main.js"></script>
 
-<script>
-  window.eventList = {{{data}}}
-  </script>
-	
-	<script>
-		$(function(){
-			$(document).on('click', '.buy-tickets', function(){
-				$.cookie('conception_general_sale', 'yes', {path: '/'});
-			});
-		});
 
-		
-	</script>
 </body>
 </html>

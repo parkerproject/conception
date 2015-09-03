@@ -3,6 +3,7 @@ var email = require('../email');
 var fs = require('fs');
 var getOrders = require('../models/get_orders');
 var getEventsOnEventbrite = require('../models/get_events');
+var getEventOnEventbrite = require('../models/get_event');
 var getArtist_ticket = require('../models/get_artist_sold_all');
 var _ = require('underscore');
 
@@ -28,6 +29,13 @@ function addhttp(url) {
 }
 
 
+function button(url) {
+  var btn = [
+    '<button><a style="color:white;" href="">',
+    '<i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></a></button>'
+  ].join('');
+}
+
 module.exports = function(router, db) {
 
   // view user profile ==============================
@@ -42,25 +50,31 @@ module.exports = function(router, db) {
       } else {
         var eventlist = [],
           turnOnTicketButton = false,
-          option = '<option value="">Select event to attend</option>';
-        user.events.forEach(function(event) {
+          buyUrl;
+        getEventsOnEventbrite(function(events) {
+          var eventsObject = JSON.parse(events);
+          var liveEvents = eventsObject.events;
 
+          liveEvents.forEach(function(liveEvent) {
 
-          if (event === 17622204488) {
-            option += '<option value="17622204488">CONCEPTION TRIBECA</option>';
-            turnOnTicketButton = true;
-          }
+            if (user.events.indexOf(liveEvent.event.id) !== -1) {
+              buyUrl = liveEvent.event.url;
+              buyUrl = buyUrl.split('?')[0];
+              buyUrl = buyUrl + '?aff=' + req.params.user_token;
+              turnOnTicketButton = true;
+            }
 
+          });
 
+          res.render('artist', {
+            title: 'conception events',
+            data: user,
+            user_url: addhttp(user.url),
+            turnOnTicketButton: turnOnTicketButton,
+            buyUrl: buyUrl
+          });
         });
 
-        res.render('artist', {
-          title: 'conception events',
-          data: user,
-          events: option,
-          user_url: addhttp(user.url),
-          turnOnTicketButton: turnOnTicketButton
-        });
       }
     });
 
@@ -89,7 +103,9 @@ module.exports = function(router, db) {
   router.get('/oneventbrites', function(req, res) {
 
     getEventsOnEventbrite(function(events) {
-      res.send(events);
+      var eventsObject = JSON.parse(events);
+      console.log(eventsObject.events);
+      res.send(eventsObject.events);
 
     });
 

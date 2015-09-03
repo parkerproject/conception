@@ -30,35 +30,56 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
+function buildHtml(obj) {
+  var dateObj = new Date(obj.start_date);
+  var month = dateObj.getUTCMonth() + 1; //months from 1-12
+  var day = dateObj.getUTCDate();
+	
+	var monthNames = [];
+	monthNames[1] = 'Jan';
+	monthNames[2] = 'Feb';
+	monthNames[3] = 'Mar';
+	monthNames[4] = 'Apr';
+	monthNames[5] = 'May';
+	monthNames[6] = 'Jun';
+	monthNames[7] = 'Jul';
+	monthNames[8] = 'Aug';
+	monthNames[9] = 'Sep';
+	monthNames[10] = 'Oct';
+	monthNames[11] = 'Nov';
+	monthNames[12] = 'Dec';
+
+  var html = [
+    '<li class="first"><a href="/event/' + obj.id + '">',
+    '<img src="' + obj.logo + '">',
+    '<span class="event-date"><span><i class="month">' + monthNames[month] + '</i><i class="day">' + day + '</i></span></span></a></li>'
+  ].join('');
+
+  return html;
+}
+
 
 router.get('/', function(req, res) {
-	var data = [];
 
-  db.events.find({
-    $query: {},
-    $orderby: {
-      _id: 1
-    }
-  }, function(err, events) {
-    if (err || !events) {
-      console.log(err);
-    } else {
-			var count = 0;
-			events.forEach(function(event){
-				delete event.artists;
-				delete event._id;
-				count += 1;
-			});
-			if(count == events.length){
-				res.render('index', {
-        title: 'conception events',
-        data: JSON.stringify(events)
-      });
-				
-			}
+  var listHtml = '';
 
-    }
+  getEvents(function(events) {
+    var liveEvents = JSON.parse(events);
+    liveEvents = liveEvents.events;
+
+    liveEvents.forEach(function(event) {
+      listHtml += buildHtml(event.event);
+    });
+
+    res.render('index', {
+      title: 'conception events',
+      html: listHtml
+    });
+
   });
+
+
+
 });
 
 
@@ -103,9 +124,9 @@ router.get('/payment/:eid/:oid', function(req, res) {
         res.redirect('/thank_you?data=' + string);
       }
     });
-  }else{
-		res.send('Sorry no direct access to this page');
-	}
+  } else {
+    res.send('Sorry no direct access to this page');
+  }
 
 
 

@@ -45,7 +45,7 @@
         <section class="top-bar-section">
           <!-- Left Nav Section -->
           <ul class="left">
-            <li class="events"><a href="/events">events</a></li>
+<!--             <li class="events"><a href="/events">events</a></li> -->
             <li class="about_us"><a href="/about">about us</a></li>
             <li class="press"><a href="/press">press</a></li>
             <li class="gallery"><a href="/gallery">gallery</a></li>
@@ -63,27 +63,29 @@
   </div>
 
 <div class="event-bg">
-  <img src="" alt="" class="event-img">
+  <img src="/images/new_york_big.png" alt="" class="event-img">
 
   <div class="row event-header">
     <div class="large-12 columns">
         <div class="inner-details">
         <span class="event-tag">conception <i>emerging artists</i></span>
-        <h1 class="event-title"></h1>
+        <h1 class="event-title">{{liveEvent.title}}</h1>
         <div class="row">
             <div class="large-3 columns month-day">
                 <span>
-                <i class="month">sep</i>
-                <i class="day">19</i>
+                <i class="month">{{month}}</i>
+                <i class="day">{{day}}</i>
                 </span>
 
             </div>
-            <div class="large-5 columns left when-where"></div>
+            <div class="large-5 columns left when-where"><span>{{liveEvent.venue.address}} // {{start_time}} - {{end_time}}</span>
+							<span class="event-location">{{liveEvent.venue.name}}</span>
+					</div>
         </div>
 
         <div class="row">
             <div class="large-12 event-blurb">
-                <p></p>
+                <p>{{{liveEvent.description}}}</p>
 							<!--a href="http://www.eventbrite.com/e/conception-new-york-city-tickets-16188098037?aff=public" class="button alert  general" data-reveal-id="generalTicketModal">Buy Tickets</a-->
             <a href="#" class="button alert general" data-reveal-id="generalTicketModal">Buy Tickets</a>
 					</div>
@@ -93,7 +95,6 @@
 </div>
 </div>
 	
- {{#ifvalue event_id value=17622204488}}
 
 	<!--div class="row body-content">
     <div class="large-12 columns organizer-row">
@@ -112,7 +113,7 @@
     </div>
     </div>
   </div-->
-	 {{/ifvalue}}
+	
 
   <!-- featured artist section -->
     <div class="row body-content">
@@ -175,7 +176,7 @@
 				<select name="ticket_type" class="ticket_type">
 					<option value="general">General Admission</option>
 					{{#each sortedArtists}}
-					<option value="{{user_token}}">{{full_name}}</option>
+					<option value="{{../buyUrl}}?aff={{user_token}}">{{full_name}}</option>
 					{{/each}}
 				</select>
 				

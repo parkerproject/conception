@@ -34,6 +34,7 @@
                 $.cookie('conception_event', sEvent, {
                     path: '/'
                 });
+							console.log(sEvent);
                 window.location.href = 'http://www.eventbrite.com/event/' + sEvent + '?ref=' + user;
 
             });

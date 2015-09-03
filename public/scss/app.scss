@@ -136,10 +136,13 @@
           padding: 10px;
 					background-color: #1d1d1d;
 					float: left;
-					margin: 5px 0 0 0;
-					&.first{
-						margin: 0;
-						padding-top: 0;
+					margin: 5px 0 8px 0;
+					img{
+						width: 246px;
+					}
+					&:first-child{
+						//margin: 0;
+						//padding-top: 0;
 					}
 					.left{
 						span{
@@ -169,6 +172,7 @@
 					color: #daec11;
 					text-transform: uppercase;
           font-size: 16px;
+					text-align: center;
 				}
         .buy-tickets{
             display: block;

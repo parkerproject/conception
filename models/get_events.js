@@ -8,7 +8,7 @@ var ebClient = Eventbrite({
 module.exports = exports = function(callback) {
     var only_display = 'id,title,description,status,start_date,end_date,tickets,venue';
     ebClient.user_list_events({
-        only_display: only_display,
+       // only_display: only_display,
 			event_statuses: 'live'
     }, function(err, data) {
         if (err) {

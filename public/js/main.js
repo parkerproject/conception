@@ -12,7 +12,7 @@ var CONCEPTION = {
     this.validateUpload();
     this.validateAge();
     //this.eventListHomepage();
-    this.eventSinglePage();
+   // this.eventSinglePage();
     this.eventsPage();
     this.slider();
     this.scroll();
@@ -224,137 +224,12 @@ var CONCEPTION = {
     return html;
   },
 
-  upcomingEventTemplate: function(data) {
-    var day = moment(data.start_date).format("MMM-DD").split('-')[1];
-    var month = moment(data.start_date).format("MMM-DD").split('-')[0];
-    var start_time = moment(data.start_date).format("h:mmA");
-    var end_time = moment(data.end_date).format("h:mmA");
-
-    var img = 'img_' + data.event_id + '.jpg';
-
-    var html = [
-      '<div class="row event-row">',
-      '<div class="large-4 columns event-image">',
-      '<a href="event/' + data.event_id + '"><img src="/images/' + img + '" /></a>',
-      '<span class="event-date">',
-      '<span>',
-      '<i class="month">' + month + '</i><i class="day">' + day + '</i>',
-      ' </span>',
-      '<a href="http://www.eventbrite.com/event/' + data.event_id + '" class="buy-tickets">buy tickets<i class="icon-angle-double-right"></i></a>',
-      '</span>',
-      ' </div>',
-      '<div class="large-8 columns event-meta">',
-      ' <span class="letter-space event-type">artists</span>',
-      '<span class="letter-space event-title"><a href="event/' + data.event_id + '">' + data.title + '</a></span>',
-      '<span class="event-location">' + data.venue.address + '</span><span class="event-time">' + start_time + ' - ' + end_time + '</span>,<span class="event-venue">' + data.venue.name + '</span>',
-      ' </div>',
-      '</div>'
-    ].join('');
-
-    return html;
-
-  },
-
-  pastEventTemplate: function(data) {
-    var year = moment(data.start_date).format("YYYY");
-    var day = moment(data.start_date).format("MMM-DD").split('-')[1];
-    var month = moment(data.start_date).format("MMM-DD").split('-')[0];
-    var start_time = moment(data.start_date).format("h:mmA");
-    var end_time = moment(data.end_date).format("h:mmA");
-
-    var img = 'img_' + data.event_id + '.jpg';
-
-    var html = ['<div class="row event-row">',
-      '<div class="large-4 columns event-image">',
-      '<a href="event/' + data.event_id + '"><img src="/images/' + img + '" /></a>',
-      '</div>',
-      '<div class="large-8 columns event-meta">',
-      '<span class="letter-space event-type">artist</span>',
-      '<span class="letter-space event-title"><a href="event/' + data.event_id + '">' + data.title + '</a></span>',
-      '<span class="event-location">' + data.venue.address + '</span>',
-      '<span class="event-time">' + start_time + ' - ' + end_time + '</span>',
-      '<span class="event-venue">' + data.venue.name + '</span>',
-      '<div class="past-date"><i>' + month + ' ' + day + ' ' + year + '</i></div></div></div>'
-    ].join('');
-    return html;
-
-  },
-
-  eventListHomepage: function() {
-    if (window.hasOwnProperty('eventList') && !eventList.hasOwnProperty('error_type')) {
-      var events = eventList,
-        upcomingContent = [],
-        pastContent = [],
-        allContent = [];
-
-      var upcomingEvents = events.filter(function(list) {
-        return list.start_date > moment().format("YYYY-MM-DD HH:mm:ss");
-      });
-
-      var pastEvents = events.filter(function(list) {
-        return list.start_date < moment().format("YYYY-MM-DD HH:mm:ss");
-      });
-
-      for (var i = 0; i < upcomingEvents.length; i++) {
-        upcomingContent.push(this.upcomingEventTemplate(upcomingEvents[i]));
-      }
-
-      pastEvents = pastEvents.sort();
-      pastEvents = pastEvents.reverse();
-
-      for (var k = 0; k < pastEvents.length; k++) {
-        pastContent.push(this.pastEventTemplate(pastEvents[k]));
-      }
-
-      if (upcomingContent.length === 0) {
-        document.querySelector('.upcoming-event').innerHTML = 'Check back for upcoming events';
-      }
-
-      document.querySelector('.upcoming-event').innerHTML = upcomingContent.join('');
-      $('.past-event').prepend(pastContent.join(''));
-    }
-  },
 
 
-  eventSinglePage: function() {
-    if (window.hasOwnProperty('fullEvent') && !fullEvent.hasOwnProperty('error_type')) {
 
-      var day = moment(fullEvent.start_date).format("MMM-DD").split('-')[1];
-      var month = moment(fullEvent.start_date).format("MMM-DD").split('-')[0];
-      var start_time = moment(fullEvent.start_date).format("h:mmA");
-      var end_time = moment(fullEvent.end_date).format("h:mmA");
 
-      var images = ['philly_big.png', 'liverpool_big.png', 'new_york_big.png'],
-        img;
 
-      if (fullEvent.venue.city === 'New York') {
-        img = images[2];
-      } else if (fullEvent.venue.city === 'Liverpool') {
-        img = images[1];
-      } else if (fullEvent.venue.city === 'Philadelphia') {
-        img = images[0];
-      } else {}
 
-      var address = (fullEvent.venue.address !== "") ? fullEvent.venue.address : 'TBD';
-
-      var when_where = ['<span>' + address + ' // ' + start_time + ' - ' + end_time + '</span>',
-        '<span class="event-location">' + fullEvent.venue.name + '</span>'
-      ].join('');
-
-      document.querySelector('.event-title').textContent = fullEvent.title;
-      document.querySelector('.when-where').innerHTML = when_where;
-      document.querySelector('.event-blurb').querySelector('p').innerHTML = fullEvent.description;
-      $('.event-img').attr('src', '/images/' + img);
-      document.querySelector('.month').innerHTML = month;
-      document.querySelector('.day').innerHTML = day;
-
-      if (fullEvent.start_date < moment().format("YYYY-MM-DD HH:mm:ss")) {
-        $('.button').remove();
-      }
-
-    }
-
-  },
 
   eventsPage: function() {
     if (window.hasOwnProperty('eventsData') && !eventsData.hasOwnProperty('error_type')) {
@@ -486,13 +361,6 @@ var CONCEPTION = {
               return user.attendee.affiliate == className;
             });
 
-            //if (thisUser.length === 0) $('a[data-reveal-id="tickets_tracker"]').hide();
-            if (thisUser.length === 0) {
-              if (window.hasOwnProperty('userEmail') && window.userEmail == 'winkawink327@gmail.com') {
-                $('.ticket-sold').find('i').text(1);
-                $('.ticket-left').find('i').text(14);
-              }
-            }
 
             thisUser.forEach(function(e) {
               //  $('a[data-reveal-id="tickets_tracker"]').show();
@@ -542,9 +410,8 @@ var CONCEPTION = {
       $('.next_step').on('click', function(e) {
         e.preventDefault();
 
-        var artist = $('.ticket_type').val();
-        //window.location.href = 'http://www.eventbrite.com/event/' + conception_event + '?ref=' + artist;
-        window.location.href = 'https://www.eventbrite.com/e/conception-tribeca-tickets-17622204488?aff=' + artist;
+        var url= $('.ticket_type').val();
+        window.location.href = url;
 
 
       });
