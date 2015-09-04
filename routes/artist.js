@@ -36,6 +36,15 @@ function button(url) {
   ].join('');
 }
 
+function profileEventsTpl(date, eventid, status, title) {
+
+  var html = ['<span class="switch-title"><i>' + date + '</i>' + title + '</span>',
+    '<input id="' + eventid + 'CheckboxSwitch" type="checkbox" value=' + eventid + ' class="checkboxSwitch" ' + status + '>',
+    '<label for="' + eventid + 'CheckboxSwitch"></label>'
+  ].join('');
+  return html;
+}
+
 module.exports = function(router, db) {
 
   // view user profile ==============================
@@ -104,7 +113,6 @@ module.exports = function(router, db) {
 
     getEventsOnEventbrite(function(events) {
       var eventsObject = JSON.parse(events);
-      console.log(eventsObject.events);
       res.send(eventsObject.events);
 
     });
@@ -163,12 +171,31 @@ module.exports = function(router, db) {
 
 
         req.session.authenticated = true;
-        res.render('edit_profile', {
-          title: '',
-          data: user,
-          totalTickets: totalTickets,
-          soldAll: soldAll,
-          numberOfEvents: user.events.length
+
+
+        getEventsOnEventbrite(function(events) {
+          var eventsObject = JSON.parse(events);
+          var liveEvents = eventsObject.events;
+          var status = '';
+          var eventsHtml = '';
+
+          liveEvents.forEach(function(liveEvent) {
+
+            status = (user.events.indexOf(liveEvent.event.id) !== -1) ? 'checked' : '';
+           
+            eventsHtml += profileEventsTpl(liveEvent.event.start_date, liveEvent.event.id, status, liveEvent.event.title);
+
+          });
+					
+
+          res.render('edit_profile', {
+            title: '',
+            data: user,
+            totalTickets: totalTickets,
+            soldAll: soldAll,
+            numberOfEvents: user.events.length,
+            eventsHtml: eventsHtml
+          });
         });
 
       }

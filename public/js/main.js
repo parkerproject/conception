@@ -11,57 +11,14 @@ var CONCEPTION = {
     this.validate();
     this.validateUpload();
     this.validateAge();
-    //this.eventListHomepage();
-   // this.eventSinglePage();
-    this.eventsPage();
     this.slider();
     this.scroll();
     this.search();
     this.ticketsTracker();
     this.generalTicketSale();
     this.attendingEvents();
-    this.profileEventsController();
   },
 
-  profileEventsTpl: function(date, eventid, status, title) {
-
-    var html = ['<span class="switch-title"><i>' + date + '</i>' + title + '</span>',
-      '<input id="' + eventid + 'CheckboxSwitch" type="checkbox" value=' + eventid + ' class="checkboxSwitch" ' + status + '>',
-      '<label for="' + eventid + 'CheckboxSwitch"></label>'
-    ].join('');
-    return html;
-  },
-
-  profileEventsController: function() {
-
-    var userEvents = window.user_event.split(',');
-
-    CONCEPTION.getLiveEvents(function(events) {
-
-      var len = events.events.length;
-      for (var i = 0; i < len; i++) {
-
-        var item = events.events[i].event;
-        var html;
-        var _switch = $('.switch');
-        var date = item.start_date;
-        var id = item.id;
-        var status = '';
-        var title = item.title;
-
-        id = id.toString();
-
-        if (userEvents.indexOf(id) === -1) {
-          _switch.append(CONCEPTION.profileEventsTpl(date, id, status, title));
-        } else {
-          status = 'checked';
-          _switch.append(CONCEPTION.profileEventsTpl(date, id, status, title));
-        }
-
-      }
-    });
-
-  },
 
 
 
@@ -71,7 +28,6 @@ var CONCEPTION = {
 
       var event_id = $(this).val();
       var user = $('input[name=artist_token]').val();
-
 
       var checked = $(this).is(':checked');
       if (checked) {
@@ -187,68 +143,6 @@ var CONCEPTION = {
 
   },
 
-  eventsTemplate: function(data) {
-    var day = moment(data.start_date).format("MMM-DD").split('-')[1];
-    var month = moment(data.start_date).format("MMM-DD").split('-')[0];
-    var start_time = moment(data.start_date).format("h:mmA");
-    var end_time = moment(data.end_date).format("h:mmA");
-
-    var images = ['philly_eventslist.png', 'liverpool_eventslist.png', 'new_york_eventslist.jpg'],
-      img;
-
-    if (data.venue.city === 'New York') {
-      img = images[2];
-    } else if (data.venue.city === 'Liverpool') {
-      img = images[1];
-    } else if (data.venue.city === 'Philadelphia') {
-      img = images[0];
-    } else {}
-
-    var html = ['<li><img src="images/' + img + '" alt="" />',
-      '<div class="row event-listing-info">',
-      '<div class="large-4 columns event-listing-date-month">',
-      ' <i class="month">' + month + '</i>',
-      '<i class="day">' + day + '</i>',
-      '</div>',
-      '<div class="large-8 columns event-meta left">',
-      ' <span class="letter-space event-type">artist</span>',
-      ' <span class="letter-space event-title"><a href="/event/' + data.event_id + '">' + data.title + '</a></span>',
-      '<span class="event-location">' + data.venue.address + '</span> ',
-      ' //<span class="event-time">' + start_time + ' - ' + end_time + '</span>,',
-      ' //<span class="event-venue">' + data.venue.name + '</span>',
-      ' </div>',
-      '</div>',
-      '</li>'
-    ].join('');
-
-    return html;
-  },
-
-
-
-
-
-
-
-
-  eventsPage: function() {
-    if (window.hasOwnProperty('eventsData') && !eventsData.hasOwnProperty('error_type')) {
-      var events = eventsData;
-      var contents = [];
-
-      events = events.sort();
-      events = events.reverse();
-
-      for (var i = 0; i < events.length; i++) {
-        // if (events[i].start_date > moment().format("YYYY-MM-DD HH:mm:ss")) {
-        contents.push(this.eventsTemplate(events[i]));
-        // }
-      }
-
-      document.querySelector('.event-listing').innerHTML = contents.join('');
-
-    }
-  },
 
   slider: function() {
 
@@ -347,10 +241,10 @@ var CONCEPTION = {
 
       CONCEPTION.getLiveEvents(function(eventsLive) {
 
-        var eventsArray = eventsLive.events;
+        //var eventsArray = eventsLive.events;
 
 
-        eventsArray.forEach(function(event) {
+        eventsLive.forEach(function(event) {
 
           var eventId = event.event.id;
 
