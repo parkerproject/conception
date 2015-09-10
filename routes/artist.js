@@ -346,6 +346,7 @@ module.exports = function(router, db) {
       if (req.body.artist_instagram) objForUpdate.instagram = req.body.artist_instagram;
       if (req.body.artist_url) objForUpdate.url = req.body.artist_url;
       if (req.body.artist_music_url) objForUpdate.music_url = req.body.artist_music_url;
+			 if (req.body.artist_name) objForUpdate.full_name = req.body.artist_name;
 
 
       db.artists.findAndModify({
