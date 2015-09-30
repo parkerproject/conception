@@ -24,6 +24,12 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+			<style>
+		 .table-hover td{
+			font-size: 15px;
+			}
+			</style>
+
 		
     </head>
     <body class="skin-blue">
@@ -94,7 +100,7 @@
 							<div class="col-md-6">
 									<form role="form">
 										 <div class="form-group">
-										 <input type="text" id="search-artist" class="form-control" placeholder="Search for Artist ...">
+										 <input type="text" id="search-artist" class="form-control" placeholder="Search by artist name, email or event ...">
 											</div>
 								 </form>
 							</div>
@@ -123,6 +129,7 @@
                                         <tbody><tr>
 																					  <td>ID</td>
                                             <th>Name</th>
+																					  <th>Event</th>
                                             <th>Email</th>
                                             <th>Status</th>
                                             
@@ -145,6 +152,7 @@
 																									 data-user_token="{{user_token}}" 
 																									 data-user_password="{{password}}"
 																									 data-approved="{{approved}}">{{full_name}}</a></td>
+																					  <td>{{event_name}}</td>
                                             <td>{{email}}</td>
                                             <td>{{{label}}}</td>
                                             </tr>
@@ -163,6 +171,7 @@
                                         <tbody><tr>
 																					  <td>ID</td>
                                             <th>Name</th>
+																					  <th>Event</th>
                                             <th>Email</th>
                                             <th>Status</th>
                                             
@@ -185,6 +194,7 @@
 																									 data-user_token="{{user_token}}" 
 																									 data-user_password="{{password}}"
 																									 data-approved="{{approved}}">{{full_name}}</a></td>
+																					 <td>{{event_name}}</td>
                                             <td>{{email}}</td>
                                             <td>{{{label}}}</td>
                                             </tr>
@@ -220,7 +230,6 @@
                     <div class="user-pad">
                         <h3 class="name"></h3>
                         <h4 class="event"><i class="fa fa-check-circle-o" style="color: green;"></i> attending <em><strong></strong></em> </h4>
-                        <h4 class="age">Age: <strong></strong></h4>
 											<h4 class="email">Email: <strong></strong></h4>
 											<h4 class="">Password: <span class="password"></span></h4>
 											 <h4 class="genre">Genre: <strong></strong></h4>

@@ -38,27 +38,6 @@ var CONCEPTION = (function() {
 
       var eventsArray = events.toString().split(',');
 
-      if (eventsArray.indexOf('12420440873') !== -1) {
-        events_title = 'Conception New York City';
-      }
-
-
-      if (eventsArray.indexOf('12423943349') !== -1) {
-        events_title = 'Conception Philadelphia';
-      }
-
-      if (eventsArray.indexOf('12423951373') !== -1) {
-        events_title = 'Conception Liverpool';
-      }
-
-
-      if (eventsArray.indexOf('14251206743') !== -1) {
-        events_title = 'Conception New York City';
-      }
-			
-			if (eventsArray.indexOf('17622204488') !== -1) {
-        events_title = 'CONCEPTION TRIBECA';
-      }
 
       if (photo !== '') {
         photoImage = 'http://www.conceptionevents.com/artists_images/' + photo;
