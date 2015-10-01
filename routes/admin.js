@@ -111,7 +111,7 @@ module.exports = function(router, passport, db) {
           "events": {
             $in: eventsArr
           }
-        }, function(err, artists) {
+        }).sort({_id: -1}, function(err, artists) {
           if (err) console.log(err);
           if (artists) {
 
@@ -140,7 +140,7 @@ module.exports = function(router, passport, db) {
               monthNames[10] = 'Oct';
               monthNames[11] = 'Nov';
               monthNames[12] = 'Dec';
-
+							
 
               newObj.push({
                 artwork_1: d.artwork_1,
