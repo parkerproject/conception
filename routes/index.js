@@ -34,25 +34,29 @@ function buildHtml(obj) {
   var dateObj = new Date(obj.start_date);
   var month = dateObj.getUTCMonth() + 1; //months from 1-12
   var day = dateObj.getUTCDate();
-	
-	var monthNames = [];
-	monthNames[1] = 'Jan';
-	monthNames[2] = 'Feb';
-	monthNames[3] = 'Mar';
-	monthNames[4] = 'Apr';
-	monthNames[5] = 'May';
-	monthNames[6] = 'Jun';
-	monthNames[7] = 'Jul';
-	monthNames[8] = 'Aug';
-	monthNames[9] = 'Sep';
-	monthNames[10] = 'Oct';
-	monthNames[11] = 'Nov';
-	monthNames[12] = 'Dec';
 
-  var html = [
-    '<li class="first"><a href="/event/' + obj.id + '">',
-    '<img src="' + obj.logo + '">',
-    '<span class="event-date"><span><i class="month">' + monthNames[month] + '</i><i class="day">' + day + '</i></span></span></a></li>'
+  var monthNames = [];
+  monthNames[1] = 'Jan';
+  monthNames[2] = 'Feb';
+  monthNames[3] = 'Mar';
+  monthNames[4] = 'Apr';
+  monthNames[5] = 'May';
+  monthNames[6] = 'Jun';
+  monthNames[7] = 'Jul';
+  monthNames[8] = 'Aug';
+  monthNames[9] = 'Sep';
+  monthNames[10] = 'Oct';
+  monthNames[11] = 'Nov';
+  monthNames[12] = 'Dec';
+	
+	var address = (obj.hasOwnProperty('venue')) ? obj.venue.address : ''; 
+
+  var html = ['<div class="col-md-12 text-center post">',
+    '<div class="col-md-6 text-left post-text">',
+    '<h2><a href="/event/' + obj.id + '">' + obj.title + ' <i class="fa fa-long-arrow-right fah"></i></a></h2>',
+    '<span class="address-text">' + address + '</span>',
+    '<h3>' + day + ' <span>' + monthNames[month] + '</span></h3></div>',
+    '<div class="col-md-6 post-img"><a href="/event/' + obj.id + '"><img src="' + obj.logo + '"></a></div></div>'
   ].join('');
 
   return html;
@@ -78,16 +82,19 @@ router.get('/', function(req, res) {
 
   });
 
-
-
 });
 
 
 
 router.get('/about', function(req, res) {
-  //console.log(req.headers.referer);
-  res.render('about', {
+  res.render('new/about', {
     title: 'team'
+  });
+});
+
+router.get('/community', function(req, res) {
+  res.render('new/community', {
+    title: ''
   });
 });
 

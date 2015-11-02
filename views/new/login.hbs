@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login / Register - Conception Events</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/preloader.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+<script src="js/lte-ie7.js"></script>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+	<style>
+		label{
+			font-weight: normal
+		}
+		.login p{
+			color: #000;
+		}
+		.file-label{
+			top: 10px;
+			position: relative;
+		}
+		
+		.error{
+			color: red;
+		}
+	</style>
+</head>
+
+<body class="login">
+    <header class="container">
+        <a href="/" class=""><img src="images/logo2.png" class=""></a>
+    </header>
+    <section class="form_section">
+        <div class="main_form">
+            <div class="form">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href=".home" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
+                    <li class="disabled"><a href="#">or</a></li>
+                    <li role="presentation"><a href=".profile" aria-controls="profile" role="tab" data-toggle="tab">Artist Registration</a></li>                  
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active home">
+											<span style="color: red;">{{message}}</span>
+													<form id="loginForm" method="post" class="login" action="/login" novalidate="novalidate">
+														<input type="text" name="username" class="full text-center form-control text valid" placeholder="Email" required="">
+                            <input type="password" name="password" class="full text-center form-control password" placeholder="Password" required="">
+                            <input type="submit" value="LOGIN" class="submit text-center expand register-submit">
+                            <div class="login_p">
+                            <p for="" class="auto  text-center"><a href="/reset_password">Forgot password</a></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane profile">
+              <form id="artistForm" method="post" action="/register" enctype="multipart/form-data" novalidate="novalidate">
+							<div class="head">
+								<div class="col-xs-12">
+									<input class="input form-control" type="text" name="name" placeholder="Full name" required>
+									<input class="input form-control email" name="email" type="text" placeholder="Email Address" required>
+								</div>
+							</div>
+								
+							  <div class="col-xs-12 ">
+										<span class="file-label">Upload Photo</span>
+										<input type="file" name="photo" class="file" id="photo">
+								</div>
+                            <div class="age">
+                            <label class="">Are you 21 years of age or older?</label>
+															 <input type="radio" name="age" value="yes" checked> <span>Yes</span>
+															 <input type="radio" name="age" value="no"> <span>No</span>
+															</div>
+                            <div class="clear"></div>
+                            <div class="select fl">
+																<select name="genre" class="genre" required="">
+																	<option value="">Select genre of art</option>
+																	<option value="artist">Artist</option>
+																	<option value="photography">Photography</option>
+																	<option value="design">Design</option>
+																 <option value="film">Film</option>
+																	<option value="performaning art">Performing Art</option>
+																	<option value="dance">Dance</option>
+																	<option value="music">Music</option>
+																	<option value="other">Other</option>
+																 <option value="Pride Show">Pride Show</option>
+																 <option value="Writer">Writer</option>
+															 </select>
+													</div>
+                            <div class="select fr">
+														 <select name="city" class="city" required="">
+																 <option value="">Select event to attend</option>
+																 <option value="19278202623">Conception Dallas - December 11, 2015</option>
+																 <option value="19278227698">Conception New York City - January 21, 2016</option>
+																 <option value="19278159494">Conception Los Angeles - January 29, 2016</option>
+														 </select>
+                            </div>
+                            <input type="text" name="url" class="full text" placeholder="URL of your craft">
+                            <fieldset class="">
+<!--                                 <legend>Upload your art work (3 max)</legend>
+                                <div class="drag">
+                                    <p>Drag &amp; Drop files here</p>
+                                    <p>or browse files from your computer</p>
+                                </div> -->
+														 <legend>Upload your art work (3 max)</legend>
+														<div class="col-xs-12">
+																<span class="file-label">Artwork 1</span>
+																<input type="file" name="artwork_1" class="artwork file" id="artwork_1">
+														
+														</div>
+														<div class="col-xs-12">
+														
+																<span class="file-label">Artwork 2</span>
+																<input type="file" name="artwork_2" class="artwork file" id="artwork_2">
+															
+														</div>
+														<div class="col-xs-12">
+														
+																<span class="file-label">Artwork 3</span>
+																<input type="file" name="artwork_3" class="artwork file" id="artwork_3">
+														
+														</div>
+                            </fieldset>
+        
+													<input type="text" name="marketing" class="text full" placeholder="Where did you hear about conception?" required="">
+                            <label class="">I agree to your <a href="#" data-toggle="modal" data-target="#myModal">terms and conditions </a></label>
+													<input id="terms_checkbox" type="checkbox" name="terms_checkbox">
+                            <div class="clear"></div>
+                            <input type="submit" value="SUBMIT" class="expand register-submit submit" disabled>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container text">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xm-6 text-left">
+                    <p class="copyright">© 2015 Conception Events</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">TERMS AND CONDITIONS</h4>
+      </div>
+      <div class="modal-body">
+        <div class="terms_condition reveal-modal open" id="myTerms" data-reveal="" style="display: block; opacity: 1; visibility: visible; top: 850px;">
+	<p>
+		By submitting your work to Conception Events LLC. 
+		You the artist understand and acknowledge that the submission of your art to Conception Events LLC. 
+		does not guarantee you any right to display, promote, or sell your work at any of Conception Events LLC., 
+		Events, nor does it provide you any rights to display or sell your work on the Conception Events, LLC.
+		website.
+		</p>
+		<p>
+		The submission is solely for the purpose of providing an example of your work for the members of 
+		Conception Events LLC. to scout new talent for their upcoming events. You further understand that 
+		if you are selected as one of the artists entitled to display you work at a Conception Art Production, 
+		additional terms and condition may apply for your inclusion in the Production.
+		</p>
+    <p>
+    You further understand and acknowledge that by submitting your work to Conception Events LLC., 
+		for consideration in any of the conception productions, that you are granting Conception Events LLC. 
+		the right to utilize photographs, videos, audios or other images, or sounds, of you, and/or your work, 
+		for promotional purposes, of any kind, and in any manner, consistent with the goals and purposes of 
+		Conception Events LLC., without limitation.
+	</p>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+	
+    <script src="/js/new/js/jquery.min.js"></script>
+    <script src="/js/new/js/bootstrap.js"></script>
+    <script src="/js/new/js/jquery.nicescroll.js"></script>
+    <script src="/js/new/js/wow.js"></script>
+    <script src="/js/new/js/script.js"></script>
+	 <script src="/js/jquery.validate.js"></script>
+	 <script src="/js/typeahead.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

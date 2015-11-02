@@ -1,6 +1,6 @@
 $(function() {
   'use strict';
-  $(document).foundation();
+  //$(document).foundation();
   CONCEPTION.init();
 });
 
@@ -11,9 +11,9 @@ var CONCEPTION = {
     this.validate();
     this.validateUpload();
     this.validateAge();
-    this.slider();
+   // this.slider();
     this.scroll();
-    this.search();
+    //this.search();
     this.ticketsTracker();
     this.generalTicketSale();
     this.attendingEvents();
@@ -94,8 +94,8 @@ var CONCEPTION = {
           required: true
         },
         photo: {
-          required: true,
-          accept: "image/jpeg, image/pjpeg, image/png, image/gif"
+          required: true
+         // accept: "image/jpeg, image/jpg, image/png, image/gif"
         },
 
         captcha: {
@@ -181,6 +181,7 @@ var CONCEPTION = {
           url: '/artist_search',
 
           filter: function(list) {
+						console.log(list);
             return $.map(list, function(artist) {
               return {
                 name: artist

@@ -4,6 +4,7 @@ require('dotenv').load();
 var bcrypt = require('bcrypt');
 var randtoken = require('rand-token');
 var email = require('../email');
+var s3 = require('s3');
 
 
 
@@ -18,7 +19,7 @@ module.exports = function(router, db) {
 
   router.get('/thank_you', function(req, res) {
     var passedVariable = req.query.data;
-    res.render('thank_you', {
+    res.render('new/thank_you', {
       data: passedVariable
     });
   });
@@ -44,11 +45,6 @@ module.exports = function(router, db) {
       user_token: randtoken.generate(10),
       emailVerified: false,
       approved: false,
-      dateBirth: {
-        month: req.body.birthMonth,
-        day: req.body.birthDay,
-        year: req.body.birthYear
-      },
       genre: req.body.genre,
       url: req.body.url,
       artwork_1: artwork_1_name,

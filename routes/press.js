@@ -3,7 +3,7 @@ require('dotenv').load();
 module.exports = function(router) {
 
     router.get('/press', function(req, res) {
-        res.render('press', {
+        res.render('new/press', {
             data: 'parker'
         });
     });

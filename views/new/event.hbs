@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conception Events</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/preloader.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+<script src="js/lte-ie7.js"></script>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <header>
+        <div class="container logo-bar" id="Home">
+            <a class="navbar-brand" href="/"><img src="/images/logo2.png" alt=""></a>
+            <nav class="navbar navi">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login" class="log">LOGIN</a></li>
+                    <li><a href="/login" class="btn-primary">Submit your work</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="section_overlay">
+            <nav class="">
+                <div class="container non-border">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="">MAIN MENU</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/about">about us</a></li>
+                            <li><a href="/press">press</a></li>
+<!--                             <li><a href="/campus">campus</a></li> -->
+                            <li><a href="/what-new">what's new</a></li>
+                            <li><a href="/community">community</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right social">
+                            <li><a href="https://www.facebook.com/ConceptionEvents"><i class="fa fa-facebook"></i></a></li>
+                            <li class="twitt">
+                                <a href="https://twitter.com/ConceptionNYC"><i class="fa fa-twitter"></i></a>
+                            </li>
+											</ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="">
+        <div class="container text">
+					  <div class="row">
+                <div class="col-md-12">
+                    <img src="{{logo}}" alt="" style="margin:0 auto;display:block;">
+                </div>
+            </div>
+					<div class="row">
+					<div class="col-md-12 text-center underline">
+               <h1 class="event-title">{{liveEvent.title}}</h1>
+							<p><i class="month">{{month}}</i> <i class="day">{{day}}</i>
+								<span>{{liveEvent.venue.address}} // {{start_time}} - {{end_time}}</span>
+								<span class="event-location">{{liveEvent.venue.name}}</span>
+							</p>
+							 <p>{{{liveEvent.description}}}</p>
+							<a href="{{buyUrl}}" class="btn btn-success btn-lg alert general">Buy Tickets</a>
+            </div>
+					</div>
+
+<!--           {{{html}}}          -->
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container text">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xm-6 text-left">
+                    <p class="copyright">© 2015 Conception Events</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/new/js/jquery.min.js"></script>
+    <script src="/js/new/js/bootstrap.js"></script>
+    <script src="/js/new/js/jquery.nicescroll.js"></script>
+    <script src="/js/new/js/wow.js"></script>
+    <script src="/js/new/js/script.js"></script>
+	 <script src="/js/jquery.validate.js"></script>
+	 <script src="/js/typeahead.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

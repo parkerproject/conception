@@ -10,7 +10,7 @@ module.exports = function(router) {
       .get(url)
       .end(function(err, response) {
 
-        res.render('whats_new', {
+        res.render('new/whats_new', {
           blogs: response.body.items
         });
       });

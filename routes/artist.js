@@ -91,7 +91,7 @@ module.exports = function(router, db) {
 
   // processes the login for users=====================
   router.get('/login', function(req, res) {
-    res.render('artist_login', {
+    res.render('new/login', {
       title: 'artist',
       message: req.query.error
     });
@@ -206,7 +206,7 @@ module.exports = function(router, db) {
 
 
   router.get('/reset_password', function(req, res) {
-    res.render('reset_password', {
+    res.render('new/reset_password', {
       title: 'reset password'
     });
   });
@@ -303,7 +303,7 @@ module.exports = function(router, db) {
     });
 
     var passedVariable = 'Check your email for your new password!';
-    res.render('thank_you', {
+    res.render('new/thank_you', {
       data: passedVariable
     });
 

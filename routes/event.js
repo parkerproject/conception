@@ -44,6 +44,8 @@ module.exports = function(router) {
 					
 					var dateObj_endtime = new Date(liveEvent.end_date);
 					
+					console.log(liveEvent.url);
+					
 
           var monthNames = [];
           monthNames[1] = 'Jan';
@@ -60,7 +62,7 @@ module.exports = function(router) {
           monthNames[12] = 'Dec';
 				
 
-          res.render('event', {
+          res.render('new/event', {
             title: 'conception events',
             data: JSON.stringify(event),
             artists: artists,
@@ -72,6 +74,7 @@ module.exports = function(router) {
 						buyUrl: liveEvent.url.split('?')[0],
 						start_time: formatAMPM(dateObj),
 						end_time: formatAMPM(dateObj_endtime),
+						logo: liveEvent.logo
           });
         });
 
