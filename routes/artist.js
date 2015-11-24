@@ -75,7 +75,7 @@ module.exports = function(router, db) {
 
           });
 
-          res.render('artist', {
+          res.render('new/artist', {
             title: 'conception events',
             data: user,
             user_url: addhttp(user.url),

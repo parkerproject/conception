@@ -44,9 +44,7 @@ module.exports = function(router) {
 					
 					var dateObj_endtime = new Date(liveEvent.end_date);
 					
-					console.log(liveEvent.url);
 					
-
           var monthNames = [];
           monthNames[1] = 'Jan';
           monthNames[2] = 'Feb';
@@ -60,7 +58,7 @@ module.exports = function(router) {
           monthNames[10] = 'Oct';
           monthNames[11] = 'Nov';
           monthNames[12] = 'Dec';
-				
+					
 
           res.render('new/event', {
             title: 'conception events',
