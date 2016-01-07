@@ -91,10 +91,29 @@ module.exports = function(router, db) {
 
   // processes the login for users=====================
   router.get('/login', function(req, res) {
-    res.render('new/login', {
-      title: 'artist',
-      message: req.query.error
+
+    var listArr = "";
+
+
+    getEventsOnEventbrite(function(events) {
+      var eventsObject = JSON.parse(events);
+      var liveEvents = eventsObject.events;
+    
+      liveEvents.forEach(function(liveEvent) {
+
+        listArr +=("<option value='" + liveEvent.event.id + "'>" + liveEvent.event.title + " - " + liveEvent.event.start_date + "</option>");
+      });
+			
+
+
+      res.render('new/login', {
+        title: 'artist',
+        message: req.query.error,
+				options: listArr
+      });
+
     });
+
   });
 
 
@@ -182,11 +201,11 @@ module.exports = function(router, db) {
           liveEvents.forEach(function(liveEvent) {
 
             status = (user.events.indexOf(liveEvent.event.id) !== -1) ? 'checked' : '';
-           
+
             eventsHtml += profileEventsTpl(liveEvent.event.start_date, liveEvent.event.id, status, liveEvent.event.title);
 
           });
-					
+
 
           res.render('edit_profile', {
             title: '',
@@ -346,7 +365,7 @@ module.exports = function(router, db) {
       if (req.body.artist_instagram) objForUpdate.instagram = req.body.artist_instagram;
       if (req.body.artist_url) objForUpdate.url = req.body.artist_url;
       if (req.body.artist_music_url) objForUpdate.music_url = req.body.artist_music_url;
-			 if (req.body.artist_name) objForUpdate.full_name = req.body.artist_name;
+      if (req.body.artist_name) objForUpdate.full_name = req.body.artist_name;
 
 
       db.artists.findAndModify({

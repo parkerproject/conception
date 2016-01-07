@@ -78,7 +78,7 @@ img{max-width: 100%}
 @media (min-width: 1200px) {.ct {width: 1170px;}}
 
 .non-border{border-bottom: 0px solid #ffffff !important;}
-.header_image{margin-top: 10px;width: 100%}
+.header_image{margin: 10px auto;max-width: 100%;display:block;}
 
 .text-1 p{margin-bottom: 30px}
 
@@ -240,4 +240,18 @@ input.submit{padding: 10px 45px;color: #ffffff; background: #2890da;display: blo
 
 .navi{
 	float: right;
+}
+
+#bs-example-navbar-collapse-1{
+	border-bottom: 1px solid #337AB7;
+	margin-bottom: 20px;
+}
+
+.social .fa{
+	color: #337AB7;
+}
+
+.main_form .form{
+	  border: 3px solid #337AB7;
+    padding: 20px;
 }
