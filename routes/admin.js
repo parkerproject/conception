@@ -7,9 +7,11 @@
  */
 var getEvents = require('../models/get_events');
 var getArtist = require('../models/artists_list');
+var getArtistOrders = require('../models/get_orders');
 var db = require('../config/database.js');
 var _ = require('underscore');
 var getEventOnEventbrite = require('../models/get_event');
+var rp = require('request-promise');
 
 
 
@@ -72,7 +74,8 @@ module.exports = function(router, passport, db) {
 
       if (user) {
         req.session.admin_authenticated = true;
-        res.redirect('/conception');
+        //res.redirect('/conception');
+        res.redirect('/admin/conception_new/');
       }
 
 
@@ -111,7 +114,9 @@ module.exports = function(router, passport, db) {
           "events": {
             $in: eventsArr
           }
-        }).sort({_id: -1}, function(err, artists) {
+        }).sort({
+          _id: -1
+        }, function(err, artists) {
           if (err) console.log(err);
           if (artists) {
 
@@ -140,7 +145,7 @@ module.exports = function(router, passport, db) {
               monthNames[10] = 'Oct';
               monthNames[11] = 'Nov';
               monthNames[12] = 'Dec';
-							
+
 
               newObj.push({
                 artwork_1: d.artwork_1,
@@ -209,49 +214,6 @@ module.exports = function(router, passport, db) {
     });
 
   });
-
-  // ********************** new admin begins *************************
-  router.get('/admin/conception_new', ensureAuthenticated, function(req, res) {
-
-    var listHtml = '';
-
-    getEvents(function(events) {
-      var liveEvents = JSON.parse(events);
-      liveEvents = liveEvents.events;
-
-
-      res.render('admin/new_home', {
-        title: 'conception events',
-        html: liveEvents
-      });
-
-    });
-  });
-
-
-
-  router.get('/admin/event/:id', ensureAuthenticated, function(req, res) {
-
-    var event_id = req.params.id;
-
-    var listHtml = '';
-
-    getEvents(function(events) {
-      var liveEvents = JSON.parse(events);
-      liveEvents = liveEvents.events;
-
-
-      res.render('admin/event', {
-        title: 'conception events',
-        html: liveEvents
-      });
-
-    });
-  });
-
-
-  // **************************** new admin ends ******************************************	
-
 
 
   router.get('/admin/logout', function(req, res) {

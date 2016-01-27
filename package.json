@@ -47,7 +47,7 @@
     "multer": "~0.1.2",
     "kaiseki": "~0.5.4",
     "bcrypt": "~0.7.8",
-    "mongojs": "~0.13.0",
+    "mongojs": "~0.13.1",
     "mailgun": "~0.4.3",
     "moment": "~2.7.0",
     "nodemailer": "~1.0.4",

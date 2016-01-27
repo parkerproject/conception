@@ -51,23 +51,16 @@
         <section class="sidebar">
           <!-- Sidebar user panel -->
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
-						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li>
-						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
-						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
-						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li>
+<!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li> -->
+						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
+<!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
+						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li> -->
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -108,21 +101,21 @@
                       <tr>
                         <th>Artist_name</th>
                         <th>Genre</th>
-                        <th>Booker</th>
-                        <th>Status 1</th>
-												<th>Status 2</th>
-                        <th>Tix Sold</th>
+<!--                         <th>Booker</th> -->
+                        <th>Approved</th>
+<!-- 												<th>Status 2</th>
+												<th>Notes</th> -->
                       </tr>
                     </thead>
                     <tbody>
-                     {{#each artists}}
+                     {{#each sortedArtists}}
                       <tr>
-                        <td><a href="">{{full_name}}</a></td>
+                        <td><a href="/admin/{{../event_id}}/artist/{{user_token}}">{{full_name}}</a></td>
                         <td style="text-transform: capitalize;">{{genre}}</td>
-                        <td>{{booker}}</td>
-                        <td>{{status_1}}</td>
-                        <td>{{status_2}}</td>
-												<td>{{tix_sold}}</td>
+<!--                         <td>{{booker}}</td> -->
+                        <td>{{approved}}</td>
+<!--                         <td>{{status_2}}</td>
+												<td>{{notes}}</td> -->
                       </tr>
 										 {{/each}}
                     </tbody>

@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dashboard - Admin</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		
+		    <!-- DataTables -->
+    <link rel="stylesheet" href="/AdminLTE/plugins/datatables/dataTables.bootstrap.css">
+		
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/AdminLTE/dist/css/skins/_all-skins.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		
+		<style>
+			.badge{
+				font-size: 20px;
+				border-radius: 50%;
+			}
+		</style>
+		
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="/admin/conception_new" class="logo">
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Conception</b>Events</span>
+        </a>
+       
+      </header>
+
+      <!-- =============================================== -->
+
+      <!-- Left side column. contains the sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <!-- search form -->
+
+          <!-- /.search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+<!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li> -->
+						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
+<!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
+						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li> -->
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- =============================================== -->
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+					<h1>{{full_name}}</h1>
+					<p>
+						 <strong>Profile: <a target="_blank" href="http://www.conceptionevents.com/artist/{{user_token}}">http://www.conceptionevents.com/artist/{{user_token}}</a></strong>
+					<button onclick="goBack()" class="btn btn-success pull-right">&lt;&lt; Go Back</button>
+					</p>
+           
+         <p><img src="http://www.conceptionevents.com/artists_images/{{photo}}" class="img-responsive" width="200"></p> 
+					
+					<p>Genre: {{genre}}</p>
+					
+					<p>Artist login info: <i style="background-color: yellow">{{email}}</i> // <i style="background-color: yellow">{{pass}}</i></p>
+					
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+					
+					<div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Manage Artist</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="/admin/event/artist" method="post">
+									<input type="hidden" value="{{user_token}}" name="user_token" />
+									<input type="hidden" value="{{event}}" name="event_id" />
+                  <div class="box-body">
+                   <div style="font-size: 15px;">Tickets sold: <span class="badge {{badge}}">{{tix_sold}}</span></div>
+										
+										<div class="form-group">
+											<div class="radio">
+                        <label>
+                          <input type="radio" name="status" id="optionsRadios2" value="approve" {{check}}>Approve</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="status" id="optionsRadios1" value="unapprove" {{uncheck}}>Unapprove</label>
+                      </div>
+                    </div>
+										
+										<div class="form-group">
+                      <label for="booker">Booker</label>
+                      <input type="text" class="form-control" placeholder="Booker" name="booker" value="{{booker}}">
+                    </div>
+										
+									   <div class="form-group">
+                      <label for="status_1">Status 1</label>
+                      <input type="text" class="form-control" placeholder="status 1" name="status_1" value="{{status_1}}">
+                    </div>
+										
+									   <div class="form-group">
+                      <label for="status_2">Status 2</label>
+                      <input type="text" class="form-control" placeholder="status 2" name="status_2" value="{{status_2}}">
+                    </div>
+										
+										
+										<div class="form-group">
+                      <label>Notes</label>
+                      <textarea class="form-control" rows="3" placeholder="Enter notes ..." name="notes">{{notes}}</textarea>
+                    </div>
+										
+										
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.3.0
+        </div>
+				<strong>Copyright &copy; 2015 Conception Events</strong>.
+      </footer>
+
+      
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+		
+		    <!-- DataTables -->
+    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+		
+    <!-- SlimScroll -->
+    <script src="/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/AdminLTE/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/AdminLTE/dist/js/app.min.js"></script>
+
+		
+		<script>
+      $(function () {
+				$("#example1").DataTable();
+//         $('#example1').DataTable({
+//           "paging": true,
+//           "lengthChange": false,
+//           "searching": false,
+//           "ordering": true,
+//           "info": true,
+//           "autoWidth": false
+//         });
+      });
+    </script>
+  </body>
+</html>

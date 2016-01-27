@@ -8,7 +8,8 @@ var ebClient = Eventbrite({
 module.exports = exports = function(event_id, callback) {
 	ebClient.event_list_attendees({id: event_id}, function(err, data) {
         if (err) {
-            callback(JSON.stringify(err));
+					 console.log(err);
+            callback(null);
         } else {
             callback(JSON.stringify(data));
         }

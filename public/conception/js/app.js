@@ -51,6 +51,7 @@ var CONCEPTION = (function() {
       var quantity = 0;
       var event = (typeof events === 'number') ? events : events.split(',')[0];
       var salesRow = [];
+			console.log(events);
 
       $.getJSON('/artist_orders', {
         event: events
