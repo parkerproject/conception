@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+require('dotenv').load()
 
 var express = require('express'),
   path = require('path'),
@@ -19,11 +20,12 @@ var express = require('express'),
   session = require('express-session'),
   cookieParser = require('cookie-parser'),
   multer = require('multer'),
-  routes = require('./routes');
+  routes = require('./routes')
 
-
-var app = express();
-var qt = require('quickthumb');
+var app = express()
+var qt = require('quickthumb')
+global.appRoot = path.resolve(__dirname)
+require('./routes/watcher')
 
 /**
  * A simple if condtional helper for handlebars
@@ -34,38 +36,36 @@ var qt = require('quickthumb');
  *   {{/ifvalue}}
  * For more information, check out this gist: https://gist.github.com/pheuter/3515945
  */
-hbs.registerHelper('ifvalue', function(conditional, options) {
+hbs.registerHelper('ifvalue', function (conditional, options) {
   if (options.hash.value === conditional) {
-    return options.fn(this);
+    return options.fn(this)
   } else {
-    return options.inverse(this);
+    return options.inverse(this)
   }
-});
+})
 
-hbs.registerHelper("formatDate", function(date) {
+hbs.registerHelper('formatDate', function (date) {
   // This guard is needed to support Blog Posts without date
   // the takeway point is that custom helpers parameters must be present on the context used to render the templates
   // or JS error will be launched
-  if (typeof(date) == "undefined") {
-    return "Unknown";
+  if (typeof (date) == 'undefined') {
+    return 'Unknown'
   }
-	
-	var _date = new Date(date);
-  // These methods need to return a String
-  return _date.getUTCMonth() + "/" + _date.getFullYear();
-});
 
+  var _date = new Date(date)
+    // These methods need to return a String
+  return _date.getUTCMonth() + '/' + _date.getFullYear()
+})
 
 /**
  * Express configuration.
  */
-app.locals.pretty = true;
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
-app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
-app.engine('hbs', hbs.express3());
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
+app.locals.pretty = true
+app.set('port', 8080)
+app.set('ipaddress', '0.0.0.0')
+app.engine('hbs', hbs.express3())
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
 
 app
   .use(favicon(__dirname + '/public/favicon.ico'))
@@ -74,10 +74,10 @@ app
   .use(cookieParser())
   .use(bodyParser())
   .use(methodOverride())
-  .use('/artists_images', qt.static(process.env.OPENSHIFT_DATA_DIR + '/artists_images'))
+  .use('/artists_images', qt.static('https://artistworks.s3-us-west-2.amazonaws.com/artists_images'))
   .use(express.static(path.join(__dirname, 'public')))
   .use(multer({
-    dest: process.env.OPENSHIFT_DATA_DIR + '/artists_images'
+    dest: appRoot + '/public/artists_images/'
   }))
   .use(session({
     secret: 'keyboard cat',
@@ -88,17 +88,16 @@ app
   .use(passport.session())
   .use(flash())
   .use(routes)
-  .use(function(req, res) {
+  .use(function (req, res) {
     res.status(404).render('404', {
       title: 'Not Found :('
-    });
-  });
-
+    })
+  })
 
 if (app.get('env') === 'development') {
-  app.use(errorHandler());
+  app.use(errorHandler())
 }
 
-app.listen(app.get('port'), app.get('ipaddress'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+app.listen(app.get('port'), app.get('ipaddress'), function () {
+  console.log('Express server listening on port ' + app.get('port'))
+})

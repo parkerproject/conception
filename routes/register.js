@@ -1,42 +1,36 @@
 #!/bin/env node
 
-require('dotenv').load();
-var bcrypt = require('bcrypt');
-var randtoken = require('rand-token');
-var email = require('../email');
-var s3 = require('s3');
+'use strict'
 
+require('dotenv').load()
+  // var bcrypt = require('bcrypt')
+const randtoken = require('rand-token')
+const email = require('../email')
+const uploader = require('./amazon')
 
-
-module.exports = function(router, db) {
-
-  router.get('/register', function(req, res) {
+module.exports = function (router, db) {
+  router.get('/register', function (req, res) {
     res.render('register', {
       data: 'parker'
-    });
-  });
+    })
+  })
 
-
-  router.get('/thank_you', function(req, res) {
-    var passedVariable = req.query.data;
+  router.get('/thank_you', function (req, res) {
+    var passedVariable = req.query.data
     res.render('new/thank_you', {
       data: passedVariable
-    });
-  });
+    })
+  })
 
-
-
-  router.post('/register', function(req, res) {
-
+  router.post('/register', function (req, res) {
     var password = randtoken.generate(5),
       artwork_1_name = (req.files.hasOwnProperty('artwork_1')) ? req.files.artwork_1.name : '',
       artwork_2_name = (req.files.hasOwnProperty('artwork_2')) ? req.files.artwork_2.name : '',
       artwork_3_name = (req.files.hasOwnProperty('artwork_3')) ? req.files.artwork_3.name : '',
       photo = (req.files.hasOwnProperty('photo')) ? req.files.photo.name : '',
-      event_id = parseInt(req.body.city);
+      event_id = parseInt(req.body.city)
 
-		
-		var artistEmail = req.body.email; 
+    var artistEmail = req.body.email
 
     var userInfo = {
       full_name: req.body.name,
@@ -57,62 +51,42 @@ module.exports = function(router, db) {
       instagram: '',
       googleplus: '',
       isAdmin: false,
-			events: [event_id],
-			tickets: 15,
-			reserved: 'no',
-			marketing: req.body.marketing
-    };
+      events: [event_id],
+      tickets: 15,
+      reserved: 'no',
+      marketing: req.body.marketing
+    }
 
-    db.artists.findOne({
+    db.artists.find({
       email: artistEmail.toLowerCase()
-    }, function(err, result) {
+    }).limit(1, function (err, result) {
+      if (err) console.log('first error ' + err)
 
-      if (err) console.log('first error ' + err);
-      if (result == null) {
+      if (result.length === 0) {
+        db.artists.save(userInfo, function (err, result) {
+          if (err) console.log('second error ' + err)
 
-        setTimeout(function() {
-          db.artists.save(userInfo, function(err, result) {
-            if (err) console.log('second error ' + err);
-            if (result) console.log('Added!');
+          if (result) {
 
-            var link = 'http://www.conceptionevents.com/verifyemail/user/' + userInfo.user_token;
+            var link = 'http://www.conceptionevents.com/verifyemail/user/' + userInfo.user_token
+            email.sendEmail(userInfo.email, userInfo.full_name, link)
+            email.sendAdminEmail()
 
-            email.sendEmail(userInfo.email, userInfo.full_name, link);
-            email.sendAdminEmail();
+            var string = encodeURIComponent('Thank you for submitting your work to Conception.')
+            res.redirect('/thank_you?data=' + string)
 
-          });
+          }
 
-          db.events.findAndModify({
-            query: {
-              event_id: event_id
-            },
-            update: {
-              $addToSet: {
-                artists: userInfo.email
-              }
-            },
-            new: true
-          }, function(err, doc, lastErrObj) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log('artist added to event: ' + doc);
-            }
-          });
+        })
 
-          var string = encodeURIComponent('Thank you for submitting your work to Conception.');
-          res.redirect('/thank_you?data=' + string);
-        }, 0);
       } else {
-        res.send('User already exist <a href="/">Back to Conception</a>');
+        res.send('User already exist <a href="/">Back to Conception</a>')
       }
-    });
-  });
+    })
+  })
 
-
-  router.get('/verifyemail/user/:token', function(req, res) {
-
-    var token = req.params.token;
+  router.get('/verifyemail/user/:token', function (req, res) {
+    var token = req.params.token
 
     db.artists.findAndModify({
       query: {
@@ -124,17 +98,16 @@ module.exports = function(router, db) {
         }
       },
       new: true
-    }, function(err, doc, lastErrObj) {
+    }, function (err, doc, lastErrObj) {
       if (err) {
-        console.log(err);
+        console.log(err)
       } else {
-
-        email.sendPasswordEmail(doc.email, doc.full_name, doc.password);
+        email.sendPasswordEmail(doc.email, doc.full_name, doc.password)
       }
-    });
+    })
 
-    res.send('You account is now verified. Expect an email shortly <a href="/">Back to Conception</a>');
-  });
+    res.send('You account is now verified. Expect an email shortly <a href="/">Back to Conception</a>')
+  })
 
-  return router;
-};
+  return router
+}

@@ -23,24 +23,24 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
 <!-- 	<script>
 		$(function(){
-    
+
     var m = new Masonry($('.grid').get()[0], {
         itemSelector: ".thumbnail"
     });
 
 });
 	</script> -->
-	
+
 	<style>
 		.fa{
 			color: white;
 		}
-		
+
 		.thumbnail img{
     width: 100%;
 }
 	</style>
-	
+
 </head>
 
 <body>
@@ -97,9 +97,9 @@
 
 					<div class="row">
                 <div class="col-md-3 col-sm-3">
-                                       
+
                     <div class="user-wrapper">
-                        <img src="http://www.conceptionevents.com/artists_images/{{data.photo}}" class="img-responsive"> 
+                        <img src="https://artistworks.s3-us-west-2.amazonaws.com/artists_images/{{data.photo}}" class="img-responsive">
                     <div class="description">
                        <h4> {{data.full_name}}</h4>
                         <h5 style="text-transform: uppercase;"> <strong> {{data.genre}} </strong></h5>
@@ -134,47 +134,47 @@
 													BUY TICKETS
 												</a>
 											</button>
-											{{/if}} 
+											{{/if}}
                     </div>
                      </div>
                 </div>
-                
+
                 <div class="col-md-9 col-sm-9  user-wrapper">
                     <div class="description">
                          <h3> My Story: </h3>
                     <hr>
-                     {{data.story}}   
+                     {{data.story}}
                     <h3> Artwork: </h3>
-                    <hr> 
+                    <hr>
 										{{#if data.artwork_1}}
 										<div class="row grid">
 												<div class="col-xs-7 thumbnail">
-														<img src="http://www.conceptionevents.com/artists_images/{{data.artwork_1}}" />
-												</div>   
+														<img src="https://artistworks.s3-us-west-2.amazonaws.com/artists_images/{{data.artwork_1}}" />
+												</div>
 									   </div>
 											{{/if}}
 										{{#if data.artwork_2}}
 										<div class="row grid">
 												<div class="col-xs-7 thumbnail">
-														<img src="http://www.conceptionevents.com/artists_images/{{data.artwork_2}}" />
-												</div>   
+														<img src="https://artistworks.s3-us-west-2.amazonaws.com/artists_images/{{data.artwork_2}}" />
+												</div>
 									   </div>
 											{{/if}}
-										 
+
 											{{#if data.artwork_3}}
 											<div class="row grid">
 												<div class="col-xs-7 thumbnail">
-														<img src="http://www.conceptionevents.com/artists_images/{{data.artwork_3}}" />
-												</div>   
+														<img src="https://artistworks.s3-us-west-2.amazonaws.com/artists_images/{{data.artwork_3}}" />
+												</div>
 									     </div>
 											{{/if}}
                     </div>
                 </div>
             </div>
-					
-					
-			
-					 
+
+
+
+
 
         </div>
     </section>

@@ -6,6 +6,7 @@ var getEventsOnEventbrite = require('../models/get_events');
 var getEventOnEventbrite = require('../models/get_event');
 var getArtist_ticket = require('../models/get_artist_sold_all');
 var _ = require('underscore');
+var AWS = require('aws-sdk');
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
@@ -14,11 +15,28 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-function deleteFile(file) {
-  fs.unlink(process.env.OPENSHIFT_DATA_DIR + '/artists_images/' + file, function(err) {
-    if (err) console.log(err);
-    console.log('successfully deleted ' + file);
+function deleteFile(file_name) {
+  // fs.unlink(process.env.OPENSHIFT_DATA_DIR + '/artists_images/' + file, function (err) {
+  //   if (err) console.log(err);
+  //   console.log('successfully deleted ' + file);
+  // });
+
+  AWS.config.region = 'us-west-2'
+
+  var s3obj = new AWS.S3({
+    params: {
+      Bucket: 'artistworks',
+      Key: 'artists_images/' + file_name,
+      Prefix: 'artists_images',
+      ACL: 'public-read'
+    }
+  })
+
+  s3obj.deleteObject(function (err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else console.log(data); // successful response
   });
+
 }
 
 function addhttp(url) {
@@ -45,14 +63,14 @@ function profileEventsTpl(date, eventid, status, title) {
   return html;
 }
 
-module.exports = function(router, db) {
+module.exports = function (router, db) {
 
   // view user profile ==============================
-  router.get('/artist/:user_token', function(req, res) {
+  router.get('/artist/:user_token', function (req, res) {
 
     db.artists.findOne({
       "user_token": req.params.user_token
-    }, function(err, user) {
+    }, function (err, user) {
       if (err || !user) {
         console.log(err);
         res.redirect('/');
@@ -60,11 +78,11 @@ module.exports = function(router, db) {
         var eventlist = [],
           turnOnTicketButton = false,
           buyUrl;
-        getEventsOnEventbrite(function(events) {
+        getEventsOnEventbrite(function (events) {
           var eventsObject = JSON.parse(events);
           var liveEvents = eventsObject.events;
 
-          liveEvents.forEach(function(liveEvent) {
+          liveEvents.forEach(function (liveEvent) {
 
             if (user.events.indexOf(liveEvent.event.id) !== -1) {
               buyUrl = liveEvent.event.url;
@@ -90,26 +108,26 @@ module.exports = function(router, db) {
   });
 
   // processes the login for users=====================
-  router.get('/login', function(req, res) {
+  router.get('/login', function (req, res) {
 
     var listArr = "";
 
 
-    getEventsOnEventbrite(function(events) {
+    getEventsOnEventbrite(function (events) {
       var eventsObject = JSON.parse(events);
       var liveEvents = eventsObject.events;
-    
-      liveEvents.forEach(function(liveEvent) {
 
-        listArr +=("<option value='" + liveEvent.event.id + "'>" + liveEvent.event.title + " - " + liveEvent.event.start_date + "</option>");
+      liveEvents.forEach(function (liveEvent) {
+
+        listArr += ("<option value='" + liveEvent.event.id + "'>" + liveEvent.event.title + " - " + liveEvent.event.start_date + "</option>");
       });
-			
+
 
 
       res.render('new/login', {
         title: 'artist',
         message: req.query.error,
-				options: listArr
+        options: listArr
       });
 
     });
@@ -118,19 +136,19 @@ module.exports = function(router, db) {
 
 
 
-  router.get('/artist_orders', function(req, res) {
+  router.get('/artist_orders', function (req, res) {
     var event_id = req.query.event;
 
-    getOrders(event_id, function(orders) {
+    getOrders(event_id, function (orders) {
       res.send(orders);
 
     });
 
   });
 
-  router.get('/oneventbrites', function(req, res) {
+  router.get('/oneventbrites', function (req, res) {
 
-    getEventsOnEventbrite(function(events) {
+    getEventsOnEventbrite(function (events) {
       var eventsObject = JSON.parse(events);
       res.send(eventsObject.events);
 
@@ -139,7 +157,7 @@ module.exports = function(router, db) {
   });
 
 
-  router.post('/artist_attendingevent', function(req, res) {
+  router.post('/artist_attendingevent', function (req, res) {
 
     if (req.session.authenticated) {
       db.artists.update({
@@ -148,13 +166,13 @@ module.exports = function(router, db) {
         $addToSet: {
           events: parseInt(req.body.event_id, 10)
         }
-      }, function(err, updateduser) {
+      }, function (err, updateduser) {
         console.log(updateduser);
       });
     }
   });
 
-  router.post('/artist_not_attendingevent', function(req, res) {
+  router.post('/artist_not_attendingevent', function (req, res) {
 
     if (req.session.authenticated) {
       db.artists.update({
@@ -163,7 +181,7 @@ module.exports = function(router, db) {
         $pull: {
           events: parseInt(req.body.event_id, 10)
         }
-      }, function(err, updateduser) {
+      }, function (err, updateduser) {
         console.log(updateduser);
       });
     }
@@ -172,14 +190,14 @@ module.exports = function(router, db) {
 
 
 
-  router.post('/login', function(req, res) {
+  router.post('/login', function (req, res) {
 
     var email = req.body.username;
 
     db.artists.findOne({
       email: email.toLowerCase(),
       password: req.body.password
-    }, function(err, user) {
+    }, function (err, user) {
       if (err || !user) {
         res.redirect('/login?error=unknown user');
       } else {
@@ -192,13 +210,13 @@ module.exports = function(router, db) {
         req.session.authenticated = true;
 
 
-        getEventsOnEventbrite(function(events) {
+        getEventsOnEventbrite(function (events) {
           var eventsObject = JSON.parse(events);
           var liveEvents = eventsObject.events;
           var status = '';
           var eventsHtml = '';
 
-          liveEvents.forEach(function(liveEvent) {
+          liveEvents.forEach(function (liveEvent) {
 
             status = (user.events.indexOf(liveEvent.event.id) !== -1) ? 'checked' : '';
 
@@ -224,21 +242,21 @@ module.exports = function(router, db) {
   });
 
 
-  router.get('/reset_password', function(req, res) {
+  router.get('/reset_password', function (req, res) {
     res.render('new/reset_password', {
       title: 'reset password'
     });
   });
 
   /******* artist search ********/
-  router.get('/artist_search', function(req, res) {
+  router.get('/artist_search', function (req, res) {
 
     if (req.headers.referer != null) {
 
       db.artists.find({
         reserved: 'yes',
         approved: true
-      }, function(err, users) {
+      }, function (err, users) {
 
         var names = [];
 
@@ -251,7 +269,7 @@ module.exports = function(router, db) {
         }
 
         if (users) {
-          users.forEach(function(user) {
+          users.forEach(function (user) {
             names.push(user.full_name);
           });
           res.send(names);
@@ -265,7 +283,7 @@ module.exports = function(router, db) {
 
   });
 
-  router.post('/artist_search', function(req, res) {
+  router.post('/artist_search', function (req, res) {
 
     if (req.body.query !== '') {
 
@@ -274,7 +292,7 @@ module.exports = function(router, db) {
       };
 
 
-      db.artists.findOne(query, function(err, artist) {
+      db.artists.findOne(query, function (err, artist) {
 
         if (err) {
           console.log('search has no result');
@@ -298,7 +316,7 @@ module.exports = function(router, db) {
 
   });
 
-  router.post('/reset_password', function(req, res) {
+  router.post('/reset_password', function (req, res) {
 
     var password = randtoken.generate(5);
 
@@ -312,7 +330,7 @@ module.exports = function(router, db) {
         }
       },
       new: true
-    }, function(err, doc, lastErrObj) {
+    }, function (err, doc, lastErrObj) {
       if (err) {
         console.log(err);
       } else {
@@ -332,7 +350,7 @@ module.exports = function(router, db) {
 
 
   // handles editing of artist profile =======================
-  router.post('/artist_update', ensureAuthenticated, function(req, res) {
+  router.post('/artist_update', ensureAuthenticated, function (req, res) {
 
     if (req.url == '/artist_update') {
 
@@ -377,7 +395,7 @@ module.exports = function(router, db) {
           $set: objForUpdate
         }
 
-      }, function(err, user) {
+      }, function (err, user) {
         if (err || !user) console.log("No user updated");
         else {
 
@@ -397,11 +415,11 @@ module.exports = function(router, db) {
 
   });
 
-  router.get('/get_artist_ticket', function(req, res) {
+  router.get('/get_artist_ticket', function (req, res) {
 
     console.log(req.query.user_token);
 
-    getArtist_ticket(req.query.user_token, function(user) {
+    getArtist_ticket(req.query.user_token, function (user) {
 
       console.log(user.tickets);
 
