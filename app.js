@@ -22,7 +22,6 @@ var express = require('express'),
   multer = require('multer'),
   routes = require('./routes')
 
-
 var app = express()
 var qt = require('quickthumb')
 global.appRoot = path.resolve(__dirname)
@@ -74,7 +73,7 @@ app
   .use(logger('dev'))
   .use(cookieParser())
   .use(bodyParser({
-    limit: '50mb'
+    limit: '150mb'
   }))
   .use(methodOverride())
   .use('/artists_images', qt.static('https://artistworks.s3-us-west-2.amazonaws.com/artists_images'))
