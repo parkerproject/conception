@@ -21,6 +21,7 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   multer = require('multer'),
   routes = require('./routes')
+  
 
 var app = express()
 var qt = require('quickthumb')
@@ -86,6 +87,8 @@ app
   }))
   .use(passport.initialize())
   .use(passport.session())
+  .use(bodyParser.json({limit: '50mb'}))
+  .use(bodyParser.urlencoded({limit: '50mb', extended: true}))
   .use(flash())
   .use(routes)
   .use(function (req, res) {
