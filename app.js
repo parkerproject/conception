@@ -21,7 +21,7 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   multer = require('multer'),
   routes = require('./routes')
-  
+
 
 var app = express()
 var qt = require('quickthumb')
@@ -73,7 +73,9 @@ app
   .use(compress())
   .use(logger('dev'))
   .use(cookieParser())
-  .use(bodyParser())
+  .use(bodyParser({
+    limit: '50mb'
+  }))
   .use(methodOverride())
   .use('/artists_images', qt.static('https://artistworks.s3-us-west-2.amazonaws.com/artists_images'))
   .use(express.static(path.join(__dirname, 'public')))
@@ -87,8 +89,6 @@ app
   }))
   .use(passport.initialize())
   .use(passport.session())
-  .use(bodyParser.json({limit: '50mb'}))
-  .use(bodyParser.urlencoded({limit: '50mb', extended: true}))
   .use(flash())
   .use(routes)
   .use(function (req, res) {
