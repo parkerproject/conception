@@ -9,11 +9,11 @@ const email = require('../email')
 const uploader = require('./amazon')
 
 module.exports = function (router, db) {
-  router.get('/register', function (req, res) {
-    res.render('register', {
-      data: 'parker'
-    })
-  })
+  // router.get('/register', function (req, res) {
+  //   res.render('register', {
+  //     data: 'parker'
+  //   })
+  // })
 
   router.get('/thank_you', function (req, res) {
     var passedVariable = req.query.data
@@ -67,7 +67,6 @@ module.exports = function (router, db) {
           if (err) console.log('second error ' + err)
 
           if (result) {
-
             var link = 'http://www.conceptionevents.com/verifyemail/user/' + userInfo.user_token
             email.sendEmail(userInfo.email, userInfo.full_name, link)
             email.sendAdminEmail()
