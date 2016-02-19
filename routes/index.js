@@ -16,6 +16,7 @@ require('./press')(router)
 require('./whats_new')(router)
 require('./admin')(router, passport, db)
 require('./new_admin')(router, passport, db)
+var moment = require('moment')
 
 var getEvents = require('../models/get_events')
 var randtoken = require('rand-token')
@@ -53,7 +54,7 @@ function buildHtml(obj) {
     '<div class="col-md-6 text-left post-text">',
     '<h2><a href="/event/' + obj.id + '">' + obj.title + ' <i class="fa fa-long-arrow-right fah"></i></a></h2>',
     '<span class="address-text">' + address + '</span>',
-    '<h3>' + day + ' <span>' + monthNames[month] + '</span></h3></div>',
+    '<h3>' + moment(obj.start_date).format('MMMM Do YYYY') + '</h3></div>',
     '<div class="col-md-6 post-img"><a href="/event/' + obj.id + '"><img src="' + obj.logo + '"></a></div></div>'
   ].join('')
 

@@ -41,7 +41,7 @@
     "kaiseki": "~0.5.4",
     "mailgun": "~0.4.3",
     "method-override": "~1.0.0",
-    "moment": "~2.7.0",
+    "moment": "^2.11.2",
     "mongojs": "~0.13.1",
     "mongoskin": "~1.4.4",
     "morgan": "~1.0.0",
