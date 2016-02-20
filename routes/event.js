@@ -3,6 +3,7 @@ require('dotenv').load()
 var db = require('../config/database')
 var _ = require('underscore')
 var getEventOnEventbrite = require('../models/get_event')
+var moment = require('moment')
 
 function formatAMPM(date) {
   var hours = date.getHours()
@@ -64,7 +65,8 @@ module.exports = function (router) {
             buyUrl: liveEvent.url.split('?')[0],
             start_time: formatAMPM(dateObj),
             end_time: formatAMPM(dateObj_endtime),
-            logo: liveEvent.logo
+            logo: liveEvent.logo,
+            start_time2: moment(liveEvent.start_date).format('MMMM Do YYYY')
           })
         })
 
