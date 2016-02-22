@@ -5,6 +5,7 @@
  * Time: 02:48 AM
  * To change this template use Tools | Templates.
  */
+'use strict'
 var getEvents = require('../models/get_events')
 var getArtist = require('../models/artists_list')
 var getArtistOrders = require('../models/get_orders')
@@ -52,33 +53,47 @@ module.exports = function (router, passport, db) {
     })
 
     router.get('/admin/event/:id', ensureAuthenticated, function (req, res) {
-      var event_id = parseInt(req.params.id)
-
-      var tix_sold = 0,
-        newArtists,
-        thisUser
+      let event_id = parseInt(req.params.id)
+      let artistArr = []
 
       db.artists.find({
         'events': event_id
-      }, function (err, artists) {
-        if (err || !artists) {
-          console.log(err)
-        } else {
-          var sortedArtists = _.sortBy(artists, function (artist) {
-            return artist.full_name.toLowerCase()
+      }).sort({
+        _id: -1
+      }, (err, people) => {
+        if (err || !people) console.log(err)
+
+        db.artists_record.find({
+          'event_id': String(event_id)
+        }, (err, records) => {
+          if (err) console.log(err)
+
+          people.forEach((person) => {
+
+            records.forEach((record) => {
+              if (record.user_token === person.user_token && record.event_id === String(event_id)) {
+                person.record = record
+              }
+              artistArr.push(people)
+                //  if (people.record) console.log(people.record.booker)
+
+            })
+
           })
 
           getEventOnEventbrite(event_id, function (event) {
             res.render('admin/event', {
               title: JSON.parse(event).event.title,
               start_date: JSON.parse(event).event.start_date,
-              sortedArtists: sortedArtists,
+              sortedArtists: people,
               event_id: event_id
             })
           })
 
-        }
+        })
+
       })
+
     })
 
     router.post('/admin/event/artist', ensureAuthenticated, function (req, res) {

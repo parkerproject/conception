@@ -106,10 +106,10 @@
                       <tr>
                         <th>Artist_name</th>
                         <th>Genre</th>
-<!--                         <th>Booker</th> -->
+                        <th>Booker</th>
                         <th>Approved</th>
-<!-- 												<th>Status 2</th>
-												<th>Notes</th> -->
+											  <th>Status 2</th>
+												<th>Notes</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -117,10 +117,10 @@
                       <tr>
                         <td><a href="/admin/{{../event_id}}/artist/{{user_token}}">{{full_name}}</a></td>
                         <td style="text-transform: capitalize;">{{genre}}</td>
-<!--                         <td>{{booker}}</td> -->
+                        <td>{{record.booker}}</td>
                         <td>{{approved}}</td>
-<!--                         <td>{{status_2}}</td>
-												<td>{{notes}}</td> -->
+                        <td>{{record.status_2}}</td>
+												<td>{{record.notes}}</td>
                       </tr>
 										 {{/each}}
                     </tbody>
