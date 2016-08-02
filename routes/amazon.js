@@ -1,14 +1,14 @@
 'use strict'
 require('dotenv').load()
-const fs = require('fs')
-const s3 = require('s3')
-const AWS = require('aws-sdk')
-const zlib = require('zlib')
+var fs = require('fs')
+var s3 = require('s3')
+var AWS = require('aws-sdk')
+var zlib = require('zlib')
 
 AWS.config.region = 'us-west-2'
 
 var uploadToAmazon = function (file, file_name, body) {
-  let s3obj = new AWS.S3({
+  var s3obj = new AWS.S3({
     params: {
       Bucket: 'artistworks',
       Key: 'artists_images/' + file_name,
@@ -28,13 +28,13 @@ var uploadToAmazon = function (file, file_name, body) {
 
 }
 
-module.exports = (photo) => {
+module.exports = function(photo){
   if (photo === '') {
     return
   }
 
-  let imagePath = appRoot + '/public/artists_images/' + photo
-  let body = fs.createReadStream(imagePath)
+  var imagePath = appRoot + '/public/artists_images/' + photo
+  var body = fs.createReadStream(imagePath)
   uploadToAmazon(imagePath, photo, body)
     // var imagePath = appRoot + '/public/artists_images/' + photo
     // var uploader

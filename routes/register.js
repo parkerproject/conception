@@ -4,9 +4,9 @@
 
 require('dotenv').load()
   // var bcrypt = require('bcrypt')
-const randtoken = require('rand-token')
-const email = require('../email')
-const uploader = require('./amazon')
+var randtoken = require('rand-token')
+var email = require('../email')
+var uploader = require('./amazon')
 
 module.exports = function (router, db) {
   // router.get('/register', function (req, res) {
