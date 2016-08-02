@@ -64,11 +64,11 @@ module.exports = function (router, passport, db) {
 
       db.artists_record.find({
         'event_id': String(event_id)
-      }, (err, records) => {
+      }, function (err, records) {
         if (err) console.log(err)
 
         people.forEach(function (person) {
-          records.forEach((record) => {
+          records.forEach(function (record) {
             if (record.user_token === person.user_token && record.event_id === String(event_id)) {
               person.record = record
             }
