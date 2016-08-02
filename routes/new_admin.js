@@ -59,7 +59,7 @@ module.exports = function (router, passport, db) {
       'events': event_id
     }).sort({
       _id: -1
-    }, (err, people) => {
+    }, function (err, people) {
       if (err || !people) console.log(err)
 
       db.artists_record.find({
@@ -67,8 +67,7 @@ module.exports = function (router, passport, db) {
       }, (err, records) => {
         if (err) console.log(err)
 
-        people.forEach((person) => {
-
+        people.forEach(function (person) {
           records.forEach((record) => {
             if (record.user_token === person.user_token && record.event_id === String(event_id)) {
               person.record = record
