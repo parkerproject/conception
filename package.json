@@ -12,6 +12,9 @@
     "email": "parkerproject@gmail.com",
     "url": "http//parkerituk.com"
   },
+  "scripts": {
+  "start": "node app.js"
+},
   "homepage": "http://www.conceptionevents.com/",
   "repository": {
     "type": "git",
