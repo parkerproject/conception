@@ -7,7 +7,7 @@ var router = new express.Router()
 var db = require('../config/database.js')
 var passport = require('passport')
 require('../config/passport')(passport, db)
-require('./uploadManager')(router)
+require('./uploadManager')(router, db)
 require('./register')(router, db)
 require('./events')(router, db)
 require('./event')(router)
@@ -22,14 +22,14 @@ var getEvents = require('../models/get_events')
 var randtoken = require('rand-token')
 var token = randtoken.generate(6)
 
-function ensureAuthenticated(req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next()
   }
   res.redirect('/login')
 }
 
-function buildHtml(obj) {
+function buildHtml (obj) {
   var dateObj = new Date(obj.start_date)
   var month = dateObj.getUTCMonth() + 1; // months from 1-12
   var day = dateObj.getUTCDate()
@@ -76,9 +76,7 @@ router.get('/', function (req, res) {
       title: 'conception events',
       html: listHtml
     })
-
   })
-
 })
 
 router.get('/about', function (req, res) {
@@ -127,7 +125,6 @@ router.get('/payment/:eid/:oid', function (req, res) {
   } else {
     res.send('Sorry no direct access to this page')
   }
-
 })
 
 router.get('/logout', function (req, res) {
