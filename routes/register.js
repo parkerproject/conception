@@ -61,7 +61,7 @@ module.exports = function (router, db) {
           if (err) console.log('second error ' + err)
 
           if (result) {
-            var link = 'http://www.conceptionevents.com/verifyemail/user/' + userInfo.user_token
+            var link = 'http://www.conceptionarts.com/verifyemail/user/' + userInfo.user_token
             email.sendEmail(userInfo.email, userInfo.full_name, link)
             email.sendAdminEmail()
 

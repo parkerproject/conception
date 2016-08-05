@@ -40,7 +40,7 @@ var CONCEPTION = (function() {
 
 
       if (photo !== '') {
-        photoImage = 'http://www.conceptionevents.com/artists_images/' + photo;
+        photoImage = 'http://www.conceptionarts.com/artists_images/' + photo;
       } else {
         photoImage = '/images/no-image.jpg';
       }

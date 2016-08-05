@@ -104,7 +104,7 @@ function sendNewPasswordEmail(toEmail, name, password) {
 function sendAdminEmail() {
 
   var body = 'Hey buddy!<br /><br /> A new artist has just joined Conception Events.' +
-    '<a href="http://www.conceptionevents.com/admin"> Login to approve</a>' +
+    '<a href="http://www.conceptionarts.com/admin"> Login to approve</a>' +
     '<br /><br />Have a great day' +
     '<br />Conception Robot';
 
