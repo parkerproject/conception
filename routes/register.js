@@ -3,18 +3,12 @@
 'use strict'
 
 require('dotenv').load()
-  // var bcrypt = require('bcrypt')
+// var bcrypt = require('bcrypt')
 var randtoken = require('rand-token')
 var email = require('../email')
 var uploader = require('./amazon')
 
 module.exports = function (router, db) {
-  // router.get('/register', function (req, res) {
-  //   res.render('register', {
-  //     data: 'parker'
-  //   })
-  // })
-
   router.get('/thank_you', function (req, res) {
     var passedVariable = req.query.data
     res.render('new/thank_you', {
@@ -73,11 +67,8 @@ module.exports = function (router, db) {
 
             var string = encodeURIComponent('Thank you for submitting your work to Conception.')
             res.redirect('/thank_you?data=' + string)
-
           }
-
         })
-
       } else {
         res.send('User already exist <a href="/">Back to Conception</a>')
       }

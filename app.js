@@ -5,23 +5,21 @@
  */
 require('dotenv').load()
 
-var express = require('express'),
-  path = require('path'),
-  hbs = require('express-hbs'),
-  logger = require('morgan'),
-  bodyParser = require('body-parser'),
-  compress = require('compression'),
-  favicon = require('static-favicon'),
-  methodOverride = require('method-override'),
-  errorHandler = require('errorhandler'),
-  config = require('./config'),
-  passport = require('passport'),
-  flash = require('connect-flash'),
-  session = require('express-session'),
-  cookieParser = require('cookie-parser'),
-  multer = require('multer'),
-  routes = require('./routes')
-
+var express = require('express')
+var path = require('path')
+var hbs = require('express-hbs')
+var logger = require('morgan')
+var bodyParser = require('body-parser')
+var compress = require('compression')
+var favicon = require('static-favicon')
+var methodOverride = require('method-override')
+var errorHandler = require('errorhandler')
+var passport = require('passport')
+var flash = require('connect-flash')
+var session = require('express-session')
+var cookieParser = require('cookie-parser')
+var multer = require('multer')
+var routes = require('./routes')
 var app = express()
 var qt = require('quickthumb')
 global.appRoot = path.resolve(__dirname)
@@ -53,7 +51,7 @@ hbs.registerHelper('formatDate', function (date) {
   }
 
   var _date = new Date(date)
-    // These methods need to return a String
+  // These methods need to return a String
   return _date.getUTCMonth() + '/' + _date.getFullYear()
 })
 
@@ -67,34 +65,33 @@ app.engine('hbs', hbs.express3())
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
-app
-  .use(favicon(__dirname + '/public/favicon.ico'))
-  .use(compress())
-  .use(logger('dev'))
-  .use(cookieParser())
-  .use(bodyParser({
-    limit: '150mb'
-  }))
-  .use(methodOverride())
-  .use('/artists_images', qt.static('https://artistworks.s3-us-west-2.amazonaws.com/artists_images'))
-  .use(express.static(path.join(__dirname, 'public')))
-  .use(multer({
-    dest: appRoot + '/public/artists_images/'
-  }))
-  .use(session({
-    secret: 'keyboard cat',
-    saveUninitialized: true,
-    resave: true
-  }))
-  .use(passport.initialize())
-  .use(passport.session())
-  .use(flash())
-  .use(routes)
-  .use(function (req, res) {
-    res.status(404).render('404', {
-      title: 'Not Found :('
-    })
+app.use(favicon(__dirname + '/public/favicon.ico'))
+app.use(compress())
+app.use(logger('dev'))
+app.use(cookieParser())
+app.use(bodyParser({
+  limit: '150mb'
+}))
+app.use(methodOverride())
+app.use('/artists_images', qt.static('https://artistworks.s3-us-west-2.amazonaws.com/artists_images'))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(multer({
+  dest: appRoot + '/public/artists_images/'
+}))
+app.use(session({
+  secret: 'keyboard cat',
+  saveUninitialized: true,
+  resave: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(flash())
+app.use(routes)
+app.use(function (req, res) {
+  res.status(404).render('404', {
+    title: 'Not Found :('
   })
+})
 
 if (app.get('env') === 'development') {
   app.use(errorHandler())

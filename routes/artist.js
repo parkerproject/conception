@@ -1,26 +1,18 @@
-var randtoken = require('rand-token');
-var email = require('../email');
-var fs = require('fs');
-var getOrders = require('../models/get_orders');
-var getEventsOnEventbrite = require('../models/get_events');
-var getEventOnEventbrite = require('../models/get_event');
-var getArtist_ticket = require('../models/get_artist_sold_all');
-var _ = require('underscore');
-var AWS = require('aws-sdk');
+var randtoken = require('rand-token')
+var email = require('../email')
+var getOrders = require('../models/get_orders')
+var getEventsOnEventbrite = require('../models/get_events')
+var getArtist_ticket = require('../models/get_artist_sold_all')
+var AWS = require('aws-sdk')
 
-function ensureAuthenticated(req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.session && req.session.authenticated) {
-    return next();
+    return next()
   }
-  res.redirect('/login');
+  res.redirect('/login')
 }
 
-function deleteFile(file_name) {
-  // fs.unlink(process.env.OPENSHIFT_DATA_DIR + '/artists_images/' + file, function (err) {
-  //   if (err) console.log(err);
-  //   console.log('successfully deleted ' + file);
-  // });
-
+function deleteFile (file_name) {
   AWS.config.region = 'us-west-2'
 
   var s3obj = new AWS.S3({
@@ -33,65 +25,54 @@ function deleteFile(file_name) {
   })
 
   s3obj.deleteObject(function (err, data) {
-    if (err) console.log(err, err.stack); // an error occurred
-    else console.log(data); // successful response
-  });
-
+    if (err) console.log(err, err.stack)
+    else console.log(data)
+  })
 }
 
-function addhttp(url) {
+function addhttp (url) {
   if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-    url = "http://" + url;
+    url = 'http://' + url
   }
-  return url;
+  return url
 }
 
-
-function button(url) {
-  var btn = [
-    '<button><a style="color:white;" href="">',
-    '<i class="icon-ticket"></i>BUY TICKETS<span>To see this artist!</span></a></button>'
-  ].join('');
-}
-
-function profileEventsTpl(date, eventid, status, title) {
+function profileEventsTpl (date, eventid, status, title) {
 
   var html = ['<span class="switch-title"><i>' + date + '</i>' + title + '</span>',
     '<input id="' + eventid + 'CheckboxSwitch" type="checkbox" value=' + eventid + ' class="checkboxSwitch" ' + status + '>',
     '<label for="' + eventid + 'CheckboxSwitch"></label>'
-  ].join('');
-  return html;
+  ].join('')
+  return html
 }
 
 module.exports = function (router, db) {
 
   // view user profile ==============================
   router.get('/artist/:user_token', function (req, res) {
-
     db.artists.findOne({
       "user_token": req.params.user_token
     }, function (err, user) {
       if (err || !user) {
-        console.log(err);
-        res.redirect('/');
+        console.log(err)
+        res.redirect('/')
       } else {
-        var eventlist = [],
-          turnOnTicketButton = false,
-          buyUrl;
+        var eventlist = []
+        var turnOnTicketButton = false
+        var buyUrl
         getEventsOnEventbrite(function (events) {
-          var eventsObject = JSON.parse(events);
-          var liveEvents = eventsObject.events;
+          var eventsObject = JSON.parse(events)
+          var liveEvents = eventsObject.events
 
           liveEvents.forEach(function (liveEvent) {
 
             if (user.events.indexOf(liveEvent.event.id) !== -1) {
-              buyUrl = liveEvent.event.url;
-              buyUrl = buyUrl.split('?')[0];
-              buyUrl = buyUrl + '?aff=' + req.params.user_token;
-              turnOnTicketButton = true;
+              buyUrl = liveEvent.event.url
+              buyUrl = buyUrl.split('?')[0]
+              buyUrl = buyUrl + '?aff=' + req.params.user_token
+              turnOnTicketButton = true
             }
-
-          });
+          })
 
           res.render('new/artist', {
             title: 'conception events',
@@ -120,17 +101,14 @@ module.exports = function (router, db) {
       liveEvents.forEach(function (liveEvent) {
 
         listArr += ("<option value='" + liveEvent.event.id + "'>" + liveEvent.event.title + " - " + liveEvent.event.start_date + "</option>");
-      });
-
-
+      })
 
       res.render('new/login', {
         title: 'artist',
         message: req.query.error,
         options: listArr
-      });
-
-    });
+      })
+    })
 
   });
 
@@ -205,8 +183,6 @@ module.exports = function (router, db) {
 
         var totalTickets = (user.tickets !== 0 && user.approved === true) ? true : false;
         var soldAll = (user.tickets === 0) ? true : false;
-
-
         req.session.authenticated = true;
 
 
@@ -412,7 +388,6 @@ module.exports = function (router, db) {
       res.redirect('/login');
     }
 
-
   });
 
   router.get('/get_artist_ticket', function (req, res) {
@@ -428,6 +403,6 @@ module.exports = function (router, db) {
   });
 
 
-  return router;
+  return router
 
 };
