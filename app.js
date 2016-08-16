@@ -72,6 +72,8 @@ app.use(cookieParser())
 app.use(bodyParser({
   limit: '150mb'
 }))
+
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride())
 app.use('/artists_images', qt.static('https://artistworks.s3-us-west-2.amazonaws.com/artists_images'))
 app.use(express.static(path.join(__dirname, 'public')))

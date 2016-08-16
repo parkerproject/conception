@@ -40,6 +40,14 @@
 				font-size: 20px;
 				border-radius: 50%;
 			}
+      .upcoming-events{
+        margin: 10px 0;
+      }
+      .switch-title{
+        font-size: 18px;
+        font-style: normal;
+        padding-right: 10px;
+      }
 		</style>
 
 <script>
@@ -113,7 +121,11 @@ function goBack() {
                   <h3 class="box-title">Manage Artist</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="/admin/event/artist" method="post">
+                {{#if eventsHtml}}
+                  <form role="form" action="/admin//artist" method="post">
+                {{else}}
+                   <form role="form" action="/admin/event/artist" method="post">
+                {{/if}}
 									<input type="hidden" value="{{user_token}}" name="user_token" />
                 {{#if event}}
 									<input type="hidden" value="{{event}}" name="event_id" />
@@ -126,11 +138,11 @@ function goBack() {
 										<div class="form-group">
 											<div class="radio">
                         <label>
-                          <input type="radio" name="status" id="optionsRadios2" value="approve" {{check}}>Approve</label>
+                          <input type="radio" name="status" id="optionsRadios2" value="approve" {{check}}>Approved</label>
                       </div>
                       <div class="radio">
                         <label>
-                          <input type="radio" name="status" id="optionsRadios1" value="unapprove" {{uncheck}}>Unapprove</label>
+                          <input type="radio" name="status" id="optionsRadios1" value="unapprove" {{uncheck}}>Rejected</label>
                       </div>
                     </div>
 
@@ -158,6 +170,13 @@ function goBack() {
                       <textarea class="form-control" rows="3" placeholder="Enter notes ..." name="notes">{{notes}}</textarea>
                     </div>
 
+                   {{/if}}
+
+                   {{#if eventsHtml}}
+                   <h3>Upcoming events</h3>
+                   <span class="text-danger">You can add or remove an artist from an event below</span>
+                   <hr />
+                   {{{eventsHtml}}}
                    {{/if}}
 
                   </div><!-- /.box-body -->
@@ -202,9 +221,9 @@ function goBack() {
     <script src="/AdminLTE/dist/js/app.min.js"></script>
 
 
-		<script>
+    <script>
       $(function () {
-				$("#example1").DataTable();
+        $("#example1").DataTable();
 //         $('#example1').DataTable({
 //           "paging": true,
 //           "lengthChange": false,
@@ -213,6 +232,34 @@ function goBack() {
 //           "info": true,
 //           "autoWidth": false
 //         });
+
+
+    $(document).on('click', '.checkboxSwitch', function() {
+
+      var event_id = $(this).val();
+      var user = $('input[name=user_token]').val();
+
+      var checked = $(this).is(':checked');
+      if (checked) {
+        $.post("/artist_attendingevent", {
+          user: user,
+          event_id: event_id
+        }, function(result) {
+          console.log(result);
+        });
+
+      } else {
+        $.post("/artist_not_attendingevent", {
+          user: user,
+          event_id: event_id
+        }, function(result) {
+          console.log(result);
+        });
+
+      }
+
+    });
+
       });
     </script>
   </body>

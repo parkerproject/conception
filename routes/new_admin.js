@@ -12,10 +12,10 @@ var getArtistOrders = require('../models/get_orders')
 var db = require('../config/database.js')
 var _ = require('underscore')
 var getEventOnEventbrite = require('../models/get_event')
+var getEventsOnEventbrite = require('../models/get_events')
 var rp = require('request-promise')
 
 function ensureAuthenticated (req, res, next) {
-  console.log(req.session.admin_authenticated)
   if (req.session && req.session.admin_authenticated) {
     return next()
   }
@@ -33,6 +33,15 @@ function updateStatus (token, status) {
     if (err) console.log(err)
     console.log('updated')
   })
+}
+
+function profileEventsTpl (date, eventid, status, title) {
+
+  var html = ['<div class="upcoming-events"><span class="switch-title">' + date + ' ' + '<strong>'+title + '</strong></span>',
+    '<input id="' + eventid + '" type="checkbox" value=' + parseInt(eventid,10) + ' class="checkboxSwitch" ' + status + '>',
+    '<label for="' + eventid + 'CheckboxSwitch"></label></div>'
+  ].join('')
+  return html
 }
 
 module.exports = function (router, passport, db) {
@@ -96,7 +105,7 @@ module.exports = function (router, passport, db) {
     var artistArr = []
 
     db.artists.find({
-      'approved': true
+      'approved': false
   }).sort({
       _id: -1
     }, function (err, people) {
@@ -105,35 +114,24 @@ module.exports = function (router, passport, db) {
       res.render('admin/event', {
         sortedArtists: people
       })
-
-      // db.artists_record.find({
-      //   'event_id': String(event_id)
-      // }, function (err, records) {
-      //   if (err) console.log(err)
-
-        // people.forEach(function (person) {
-        //   records.forEach(function (record) {
-        //     if (record.user_token === person.user_token && record.event_id === String(event_id)) {
-        //       person.record = record
-        //     }
-        //     artistArr.push(people)
-        //
-        //
-        //   })
-        // })
-
-        // getEventOnEventbrite(event_id, function (event) {
-        //   res.render('admin/event', {
-        //     title: JSON.parse(event).event.title,
-        //     start_date: JSON.parse(event).event.start_date,
-        //     sortedArtists: people,
-        //     event_id: event_id
-        //   })
-        // })
-    //  })
     })
   })
 
+  router.post('/admin//artist', ensureAuthenticated, function (req, res) {
+    var status = (req.body.status == 'approve') ? true : false
+    var token = req.body.user_token
+
+    db.artists.update({
+      user_token: token
+    }, {
+      $set: { approved: status }
+      //$addToSet: { events: { $each: req.body.checkboxSwitch } }
+    }, function (err, result) {
+      if (err) console.log(err)
+      res.redirect('/admin/conception_new');
+    })
+
+  })
 
 
   router.post('/admin/event/artist', ensureAuthenticated, function (req, res) {
@@ -243,6 +241,19 @@ module.exports = function (router, passport, db) {
       }).limit(1, function (err, data) {
         if (err) console.log(err)
 
+        getEventsOnEventbrite(function (events) {
+          var eventsObject = JSON.parse(events);
+          var liveEvents = eventsObject.events;
+          var status = '';
+          var eventsHtml = '';
+
+          liveEvents.forEach(function (liveEvent) {
+            status = (data[0].events.indexOf(liveEvent.event.id) > -1) ? 'checked' : '';
+
+            eventsHtml += profileEventsTpl(liveEvent.event.start_date, liveEvent.event.id, status, liveEvent.event.title);
+
+          });
+
           res.render('admin/artist', {
             full_name: data[0].full_name,
             url: data[0].url,
@@ -252,9 +263,12 @@ module.exports = function (router, passport, db) {
             check: (data[0].approved) ? 'checked' : '',
             uncheck: (!data[0].approved) ? 'checked' : '',
             email: data[0].email,
-            pass: data[0].password
+            pass: data[0].password,
+            eventsHtml: eventsHtml,
 
           })
+
+      })
 
       })
 

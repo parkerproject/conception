@@ -136,8 +136,8 @@ module.exports = function (router, db) {
 
 
   router.post('/artist_attendingevent', function (req, res) {
-
-    if (req.session.authenticated) {
+    console.log(req.body.user, req.body.event_id)
+    if (req.session.authenticated || req.session.admin_authenticated) {
       db.artists.update({
         user_token: req.body.user
       }, {
@@ -146,13 +146,14 @@ module.exports = function (router, db) {
         }
       }, function (err, updateduser) {
         console.log(updateduser);
+        res.send(updateduser)
       });
     }
   });
 
   router.post('/artist_not_attendingevent', function (req, res) {
-
-    if (req.session.authenticated) {
+    console.log(req.body.user, req.body.event_id)
+    if (req.session.authenticated || req.session.admin_authenticated) {
       db.artists.update({
         user_token: req.body.user
       }, {
@@ -161,6 +162,7 @@ module.exports = function (router, db) {
         }
       }, function (err, updateduser) {
         console.log(updateduser);
+        res.send(updateduser)
       });
     }
 
