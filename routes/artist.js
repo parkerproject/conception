@@ -39,9 +39,9 @@ function addhttp (url) {
 
 function profileEventsTpl (date, eventid, status, title) {
 
-  var html = ['<span class="switch-title"><i>' + date + '</i>' + title + '</span>',
+  var html = ['<div class="switchWrapper"><span class="switch-title"><i>' + date + '</i>' + title + '</span>',
     '<input id="' + eventid + 'CheckboxSwitch" type="checkbox" value=' + eventid + ' class="checkboxSwitch" ' + status + '>',
-    '<label for="' + eventid + 'CheckboxSwitch"></label>'
+    '<label for="' + eventid + 'CheckboxSwitch"></label></div>'
   ].join('')
   return html
 }
