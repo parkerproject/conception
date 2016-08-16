@@ -147,7 +147,7 @@ function goBack() {
                     </div>
 
 
-                {{#if booker}}
+                {{#unless eventsHtml}}
 
 										<div class="form-group">
                       <label for="booker">Booker</label>
@@ -170,7 +170,7 @@ function goBack() {
                       <textarea class="form-control" rows="3" placeholder="Enter notes ..." name="notes">{{notes}}</textarea>
                     </div>
 
-                   {{/if}}
+                   {{/unless}}
 
                    {{#if eventsHtml}}
                    <h3>Upcoming events</h3>
