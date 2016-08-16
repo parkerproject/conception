@@ -105,7 +105,7 @@ module.exports = function (router, passport, db) {
     var artistArr = []
 
     db.artists.find({
-      'approved': false
+      'approved': true
   }).sort({
       _id: -1
     }, function (err, people) {
