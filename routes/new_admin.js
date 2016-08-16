@@ -90,6 +90,52 @@ module.exports = function (router, passport, db) {
     })
   })
 
+
+
+  router.get('/admin/artists', ensureAuthenticated, function (req, res) {
+    var artistArr = []
+
+    db.artists.find({
+      'approved': true
+  }).sort({
+      _id: -1
+    }, function (err, people) {
+      if (err || !people) console.log(err)
+
+      res.render('admin/event', {
+        sortedArtists: people
+      })
+
+      // db.artists_record.find({
+      //   'event_id': String(event_id)
+      // }, function (err, records) {
+      //   if (err) console.log(err)
+
+        // people.forEach(function (person) {
+        //   records.forEach(function (record) {
+        //     if (record.user_token === person.user_token && record.event_id === String(event_id)) {
+        //       person.record = record
+        //     }
+        //     artistArr.push(people)
+        //
+        //
+        //   })
+        // })
+
+        // getEventOnEventbrite(event_id, function (event) {
+        //   res.render('admin/event', {
+        //     title: JSON.parse(event).event.title,
+        //     start_date: JSON.parse(event).event.start_date,
+        //     sortedArtists: people,
+        //     event_id: event_id
+        //   })
+        // })
+    //  })
+    })
+  })
+
+
+
   router.post('/admin/event/artist', ensureAuthenticated, function (req, res) {
     var status = (req.body.status == 'approve') ? true : false
     var token = req.body.user_token
@@ -186,6 +232,32 @@ module.exports = function (router, passport, db) {
         })
       })
     })
+  })
+
+
+  router.get('/admin//artist/:id', ensureAuthenticated, function (req, res) {
+    var artist_id = req.params.id
+
+      db.artists.find({
+        'user_token': artist_id
+      }).limit(1, function (err, data) {
+        if (err) console.log(err)
+
+          res.render('admin/artist', {
+            full_name: data[0].full_name,
+            url: data[0].url,
+            user_token: data[0].user_token,
+            photo: data[0].photo,
+            genre: data[0].genre,
+            check: (data[0].approved) ? 'checked' : '',
+            uncheck: (!data[0].approved) ? 'checked' : '',
+            email: data[0].email,
+            pass: data[0].password
+
+          })
+
+      })
+
   })
 }
 // **************************** new admin ends ******************************************
