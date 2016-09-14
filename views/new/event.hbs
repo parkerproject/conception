@@ -273,6 +273,19 @@
 	display: block;
 	height: 34px;
 }
+
+.form1{
+  width: 500px;
+  margin: 0 auto 10px auto;
+}
+
+.buy{
+  margin-left: -10px;
+}
+
+.select-wrapper{
+  padding: 0;
+}
 	</style>
 </head>
 
@@ -336,12 +349,29 @@
 					<div class="row">
 					<div class="col-md-12 text-center underline">
                <h1 class="event-title">{{liveEvent.title}}</h1>
-							<p><strong>{{start_time2}}</strong> - 
+							<p><strong>{{start_time2}}</strong> -
 								<span>{{liveEvent.venue.address}} // {{start_time}} - {{end_time}}</span>
 								<span class="event-location">{{liveEvent.venue.name}}</span>
 							</p>
 							 <p>{{{liveEvent.description}}}</p>
-							<a href="{{buyUrl}}" class="btn btn-success btn-lg alert general">Buy Tickets</a>
+               <form class="form-group form1" id="buyTicket">
+                 <input type="hidden" value={{buyUrl}} class="buyUrl" />
+                 <div class="row">
+                <div class="col-md-9 select-wrapper">
+                 <select class="form-control" class="user_token">
+                   <option value=''>Select an artist...</option>
+                   	{{#each sortedArtists}}
+                   <option value={{user_token}}>{{full_name}}</option>
+                   {{/each}}
+                 </select>
+               </div>
+               <div class="col-md-3">
+                 <button type="submit" class="btn btn-success buy">Buy Tickets</button>
+               </div>
+                </div>
+               </form>
+               <!-- https://www.eventbrite.com/e/phoenix-tickets-26491561975?aff=s8GgyF96kb -->
+							<!-- <a href="{{buyUrl}}" class="btn btn-success btn-lg alert general">Buy Tickets</a> -->
             </div>
 					</div>
 
@@ -420,7 +450,22 @@
 	 <script src="/js/typeahead.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
-  <script src="/js/main.js"></script>
+<script src="/js/main.js"></script>
+
+<script>
+  $(document).on('click', '.buy', function(e){
+    e.preventDefault();
+    var buyUrl = $('.buyUrl').val();
+    var userToken = $('#buyTicket').find('select').val();
+
+    if(userToken === ''){
+      alert('Oops! Select an artist');
+    }else{
+      location.href = buyUrl + '?aff=' + userToken;
+    }
+  });
+
+</script>
 </body>
 
 </html>
