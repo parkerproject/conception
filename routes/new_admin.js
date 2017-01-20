@@ -104,9 +104,7 @@ module.exports = function (router, passport, db) {
   router.get('/admin/artists', ensureAuthenticated, function (req, res) {
     var artistArr = []
 
-    db.artists.find({
-      'approved': true
-  }).sort({
+    db.artists.find({}).sort({
       _id: -1
     }, function (err, people) {
       if (err || !people) console.log(err)
