@@ -37,7 +37,7 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/admin/conception_new" class="logo">
+        <a href="/conception_new" class="logo">
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>Conception</b>Events</span>
         </a>
@@ -59,8 +59,8 @@
             <li class="header">MAIN NAVIGATION</li>
 <!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li> -->
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
-            <li><a href="/admin/artists"><i class="fa fa-circle-o"></i> Artists</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
+            <li><a href="/artists"><i class="fa fa-circle-o"></i> Artists</a></li>
 						<!--<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li> -->
           </ul>
         </section>
@@ -94,7 +94,7 @@
             <div class="box-body">
                {{#each html}}
 
-							<h2><a href="/admin/event/{{event.id}}">{{event.title}}</a> - <small>{{event.start_date}}</small></h2>
+							<h2><a href="/event/{{event.id}}">{{event.title}}</a> - <small>{{event.start_date}}</small></h2>
 
 							 {{/each}}
             </div><!-- /.box-body -->

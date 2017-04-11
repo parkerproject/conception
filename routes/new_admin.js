@@ -5,271 +5,262 @@
  * Time: 02:48 AM
  * To change this template use Tools | Templates.
  */
-'use strict'
-var getEvents = require('../models/get_events')
-var getArtist = require('../models/artists_list')
-var getArtistOrders = require('../models/get_orders')
-var db = require('../config/database.js')
-var _ = require('underscore')
-var getEventOnEventbrite = require('../models/get_event')
-var getEventsOnEventbrite = require('../models/get_events')
-var rp = require('request-promise')
 
-function ensureAuthenticated (req, res, next) {
+
+const getEvents = require('../models/get_events');
+const getArtist = require('../models/artists_list');
+const getArtistOrders = require('../models/get_orders');
+const db = require('../config/database.js');
+const _ = require('underscore');
+const getEventOnEventbrite = require('../models/get_event');
+const getEventsOnEventbrite = require('../models/get_events');
+const rp = require('request-promise');
+
+function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.admin_authenticated) {
-    return next()
+    return next();
   }
-  res.redirect('/admin')
+  res.redirect('/admin');
 }
 
-function updateStatus (token, status) {
+function updateStatus(token, status) {
   db.artists.update({
-    user_token: token
+    user_token: token,
   }, {
     $set: {
-      approved: status
-    }
-  }, function (err, result) {
-    if (err) console.log(err)
-    console.log('updated')
-  })
+      approved: status,
+    },
+  }, (err, result) => {
+    if (err) console.log(err);
+    console.log('updated');
+  });
 }
 
-function profileEventsTpl (date, eventid, status, title) {
-
-  var html = ['<div class="upcoming-events"><span class="switch-title">' + date + ' ' + '<strong>'+title + '</strong></span>',
-    '<input id="' + eventid + '" type="checkbox" value=' + parseInt(eventid,10) + ' class="checkboxSwitch" ' + status + '>',
-    '<label for="' + eventid + 'CheckboxSwitch"></label></div>'
-  ].join('')
-  return html
+function profileEventsTpl(date, eventid, status, title) {
+  const html = [`<div class="upcoming-events"><span class="switch-title">${date} ` + `<strong>${title}</strong></span>`,
+    `<input id="${eventid}" type="checkbox" value=${parseInt(eventid, 10)} class="checkboxSwitch" ${status}>`,
+    `<label for="${eventid}CheckboxSwitch"></label></div>`,
+  ].join('');
+  return html;
 }
 
 module.exports = function (router, passport, db) {
   // ********************** new admin begins *************************
-  router.get('/admin/conception_new', ensureAuthenticated, function (req, res) {
-    var listHtml = ''
+  router.get('/conception_new', ensureAuthenticated, (req, res) => {
+    const listHtml = '';
 
-    getEvents(function (events) {
-      var liveEvents = JSON.parse(events)
-      liveEvents = liveEvents.events
+    getEvents((events) => {
+      let liveEvents = JSON.parse(events);
+      liveEvents = liveEvents.events;
 
       res.render('admin/new_home', {
         title: 'conception events',
-        html: liveEvents
-      })
-    })
-  })
+        html: liveEvents,
+      });
+    });
+  });
 
-  router.get('/admin/event/:id', ensureAuthenticated, function (req, res) {
-    var event_id = parseInt(req.params.id)
-    var artistArr = []
+  router.get('/event/:id', ensureAuthenticated, (req, res) => {
+    const event_id = parseInt(req.params.id);
+    const artistArr = [];
 
     db.artists.find({
-      'events': event_id
+      events: event_id,
     }).sort({
-      _id: -1
-    }, function (err, people) {
-      if (err || !people) console.log(err)
+      _id: -1,
+    }, (err, people) => {
+      if (err || !people) console.log(err);
 
       db.artists_record.find({
-        'event_id': String(event_id)
-      }, function (err, records) {
-        if (err) console.log(err)
+        event_id: String(event_id),
+      }, (err, records) => {
+        if (err) console.log(err);
 
-        people.forEach(function (person) {
-          records.forEach(function (record) {
+        people.forEach((person) => {
+          records.forEach((record) => {
             if (record.user_token === person.user_token && record.event_id === String(event_id)) {
-              person.record = record
+              person.record = record;
             }
-            artistArr.push(people)
+            artistArr.push(people);
             //  if (people.record) console.log(people.record.booker)
+          });
+        });
 
-          })
-        })
-
-        getEventOnEventbrite(event_id, function (event) {
+        getEventOnEventbrite(event_id, (event) => {
           res.render('admin/event', {
             title: JSON.parse(event).event.title,
             start_date: JSON.parse(event).event.start_date,
             sortedArtists: people,
-            event_id: event_id
-          })
-        })
-      })
-    })
-  })
+            event_id,
+          });
+        });
+      });
+    });
+  });
 
 
-
-  router.get('/admin/artists', ensureAuthenticated, function (req, res) {
-    var artistArr = []
+  router.get('/artists', ensureAuthenticated, (req, res) => {
+    const artistArr = [];
 
     db.artists.find({}).sort({
-      _id: -1
-    }, function (err, people) {
-      if (err || !people) console.log(err)
+      _id: -1,
+    }, (err, people) => {
+      if (err || !people) console.log(err);
 
       res.render('admin/event', {
-        sortedArtists: people
-      })
-    })
-  })
+        sortedArtists: people,
+      });
+    });
+  });
 
-  router.post('/admin//artist', ensureAuthenticated, function (req, res) {
-    var status = (req.body.status == 'approve') ? true : false
-    var token = req.body.user_token
+  router.post('/artist', ensureAuthenticated, (req, res) => {
+    const status = (req.body.status === 'approve');
+    const token = req.body.user_token;
 
     db.artists.update({
-      user_token: token
+      user_token: token,
     }, {
-      $set: { approved: status }
-      //$addToSet: { events: { $each: req.body.checkboxSwitch } }
-    }, function (err, result) {
-      if (err) console.log(err)
-      res.redirect('/admin/conception_new');
-    })
+      $set: { approved: status },
+      // $addToSet: { events: { $each: req.body.checkboxSwitch } }
+    }, (err, result) => {
+      if (err) console.log(err);
+      res.redirect('/conception_new');
+    });
+  });
 
-  })
 
-
-  router.post('/admin/event/artist', ensureAuthenticated, function (req, res) {
-    var status = (req.body.status == 'approve') ? true : false
-    var token = req.body.user_token
+  router.post('/event/artist', ensureAuthenticated, (req, res) => {
+    const status = (req.body.status === 'approve');
+    const token = req.body.user_token;
 
     db.artists_record.find({
       user_token: token,
-      event_id: req.body.event_id
-    }).limit(1, function (err, result) {
-      if (err) console.log(err)
+      event_id: req.body.event_id,
+    }).limit(1, (err, result) => {
+      if (err) console.log(err);
 
       if (result.length === 1) {
         db.artists_record.update({
           user_token: token,
-          event_id: req.body.event_id
+          event_id: req.body.event_id,
         }, {
           $set: {
             booker: req.body.booker,
             status_1: req.body.status_1,
             status_2: req.body.status_2,
-            notes: req.body.notes
-          }
-        }, function (error, data) {
-          if (error) console.log(error)
-          updateStatus(token, status)
-          res.redirect('/admin/conception_new')
-        })
+            notes: req.body.notes,
+          },
+        }, (error, data) => {
+          if (error) console.log(error);
+          updateStatus(token, status);
+          res.redirect('/conception_new');
+        });
       } else {
-        delete req.body.status
-        db.artists_record.save(req.body)
-        updateStatus(token, status)
-        res.redirect('/admin/conception_new')
+        delete req.body.status;
+        db.artists_record.save(req.body);
+        updateStatus(token, status);
+        res.redirect('/conception_new');
       }
-    })
-  })
+    });
+  });
 
-  router.get('/admin/:event/artist/:id', ensureAuthenticated, function (req, res) {
-    var artist_id = req.params.id
-    var event = req.params.event
-    var tix_sold = 0
+  router.get('/:event/artist/:id', ensureAuthenticated, (req, res) => {
+    const artist_id = req.params.id;
+    const event = req.params.event;
+    let tix_sold = 0;
 
-    getArtistOrders(event, function (orders) {
+    getArtistOrders(event, (orders) => {
       if (orders != null) {
-        var attendees = JSON.parse(orders).attendees
+        const attendees = JSON.parse(orders).attendees;
 
-        var thisUser = _.filter(attendees, function (user) {
-          return user.attendee.affiliate == artist_id
-        })
+        const thisUser = _.filter(attendees, user => user.attendee.affiliate == artist_id);
 
-        thisUser.forEach(function (e) {
-          tix_sold += e.attendee.quantity
-        })
+        thisUser.forEach((e) => {
+          tix_sold += e.attendee.quantity;
+        });
       }
 
       db.artists.find({
-        'user_token': artist_id
-      }).limit(1, function (err, data) {
-        if (err) console.log(err)
+        user_token: artist_id,
+      }).limit(1, (err, data) => {
+        if (err) console.log(err);
 
         db.artists_record.find({
-          'user_token': artist_id,
-          'event_id': event
-        }).limit(1, function (err, result) {
-          var booker = '',
+          user_token: artist_id,
+          event_id: event,
+        }).limit(1, (err, result) => {
+          let booker = '',
             status_1 = '',
             status_2 = '',
-            notes = ''
+            notes = '';
 
           if (result.length !== 0) {
-            booker = result[0].booker
-            status_1 = result[0].status_1
-            status_2 = result[0].status_2
-            notes = result[0].notes
+            booker = result[0].booker;
+            status_1 = result[0].status_1;
+            status_2 = result[0].status_2;
+            notes = result[0].notes;
           }
 
           res.render('admin/artist', {
             full_name: data[0].full_name,
             url: data[0].url,
             badge: (tix_sold < 15) ? 'bg-red' : 'bg-green',
-            tix_sold: tix_sold,
+            tix_sold,
             user_token: data[0].user_token,
             photo: data[0].photo,
             genre: data[0].genre,
             check: (data[0].approved) ? 'checked' : '',
             uncheck: (!data[0].approved) ? 'checked' : '',
-            event: event,
-            booker: booker,
-            status_1: status_1,
-            status_2: status_2,
-            notes: notes,
-            email: data[0].email,
-            pass: data[0].password
-
-          })
-        })
-      })
-    })
-  })
-
-
-  router.get('/admin//artist/:id', ensureAuthenticated, function (req, res) {
-    var artist_id = req.params.id
-
-      db.artists.find({
-        'user_token': artist_id
-      }).limit(1, function (err, data) {
-        if (err) console.log(err)
-
-        getEventsOnEventbrite(function (events) {
-          var eventsObject = JSON.parse(events);
-          var liveEvents = eventsObject.events;
-          var status = '';
-          var eventsHtml = '';
-
-          liveEvents.forEach(function (liveEvent) {
-            status = (data[0].events.indexOf(liveEvent.event.id) > -1) ? 'checked' : '';
-
-            eventsHtml += profileEventsTpl(liveEvent.event.start_date, liveEvent.event.id, status, liveEvent.event.title);
-
-          });
-
-          res.render('admin/artist', {
-            full_name: data[0].full_name,
-            url: data[0].url,
-            user_token: data[0].user_token,
-            photo: data[0].photo,
-            genre: data[0].genre,
-            check: (data[0].approved) ? 'checked' : '',
-            uncheck: (!data[0].approved) ? 'checked' : '',
+            event,
+            booker,
+            status_1,
+            status_2,
+            notes,
             email: data[0].email,
             pass: data[0].password,
-            eventsHtml: eventsHtml,
 
-          })
+          });
+        });
+      });
+    });
+  });
 
-      })
 
-      })
+  router.get('/artist/:id', ensureAuthenticated, (req, res) => {
+    const artist_id = req.params.id;
 
-  })
-}
+    db.artists.find({
+      user_token: artist_id,
+    }).limit(1, (err, data) => {
+      if (err) console.log(err);
+
+      getEventsOnEventbrite((events) => {
+        const eventsObject = JSON.parse(events);
+        const liveEvents = eventsObject.events;
+        let status = '';
+        let eventsHtml = '';
+
+        liveEvents.forEach((liveEvent) => {
+          status = (data[0].events.indexOf(liveEvent.event.id) > -1) ? 'checked' : '';
+
+          eventsHtml += profileEventsTpl(liveEvent.event.start_date, liveEvent.event.id, status, liveEvent.event.title);
+        });
+
+        res.render('admin/artist', {
+          full_name: data[0].full_name,
+          url: data[0].url,
+          user_token: data[0].user_token,
+          photo: data[0].photo,
+          genre: data[0].genre,
+          check: (data[0].approved) ? 'checked' : '',
+          uncheck: (!data[0].approved) ? 'checked' : '',
+          email: data[0].email,
+          pass: data[0].password,
+          eventsHtml,
+
+        });
+      });
+    });
+  });
+};
 // **************************** new admin ends ******************************************

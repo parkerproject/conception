@@ -47,7 +47,7 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/admin/conception_new" class="logo">
+        <a href="/conception_new" class="logo">
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>Conception</b>Events</span>
         </a>
@@ -69,8 +69,8 @@
             <li class="header">MAIN NAVIGATION</li>
 <!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li> -->
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
-            <li><a href="/admin/artists"><i class="fa fa-circle-o"></i> Artists</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
+            <li><a href="/artists"><i class="fa fa-circle-o"></i> Artists</a></li>
 <!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li> -->
           </ul>
@@ -122,7 +122,7 @@
                     <tbody>
                      {{#each sortedArtists}}
                       <tr>
-                        <td><a href="/admin/{{../event_id}}/artist/{{user_token}}">{{full_name}}</a></td>
+                        <td><a href="/{{../event_id}}/artist/{{user_token}}">{{full_name}}</a></td>
                         <td style="text-transform: capitalize;">{{genre}}</td>
                         <td>{{record.booker}}</td>
                         <td>{{approved}}</td>

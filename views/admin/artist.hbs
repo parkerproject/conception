@@ -62,7 +62,7 @@ function goBack() {
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/admin/conception_new" class="logo">
+        <a href="/conception_new" class="logo">
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>Conception</b>Events</span>
         </a>
@@ -84,8 +84,8 @@ function goBack() {
             <li class="header">MAIN NAVIGATION</li>
 <!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li> -->
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
-            <li><a href="/admin/artists"><i class="fa fa-circle-o"></i> Artists</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
+            <li><a href="/artists"><i class="fa fa-circle-o"></i> Artists</a></li>
 <!-- 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
 						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li> -->
           </ul>
@@ -109,9 +109,7 @@ function goBack() {
 
 					<p>Genre: {{genre}}</p>
 
-					<p>Artist login info: <i style="background-color: yellow">{{email}}</i> // <i style="background-color: yellow">{{pass}}</i></p>
-
-        </section>
+				</section>
 
         <!-- Main content -->
         <section class="content">
@@ -122,9 +120,9 @@ function goBack() {
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 {{#if eventsHtml}}
-                  <form role="form" action="/admin//artist" method="post">
+                  <form role="form" action="/artist" method="post">
                 {{else}}
-                   <form role="form" action="/admin/event/artist" method="post">
+                   <form role="form" action="/event/artist" method="post">
                 {{/if}}
 									<input type="hidden" value="{{user_token}}" name="user_token" />
                 {{#if event}}

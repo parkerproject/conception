@@ -12,7 +12,7 @@
         <link href="/conception/css/ionicons.min.css" rel="stylesheet" type="text/css" />
 
        <link href="/conception/css/iCheck/all.css" rel="stylesheet" type="text/css" />
-			
+
 				 <script src="/js/pace.min.js"></script>
 
         <!-- Theme style -->
@@ -30,7 +30,7 @@
 			}
 			</style>
 
-		
+
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
@@ -58,23 +58,23 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="/conception//img/avatar3.png" class="img-circle" alt="User Image" />
+                            <img src="/conception/img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hello, Admin</p>
 
-                            <a href="/admin/logout">logout</a>
+                            <a href="/logout">logout</a>
                         </div>
                     </div>
 
                     <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li>
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
-						<li><a href="/admin/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Inbox</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Events</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Artists</a></li>
+						<li><a href="/conception_new"><i class="fa fa-circle-o"></i> Book an Artist</a></li>
           </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -89,7 +89,7 @@
                         <small>manage artists from this page</small>
                     </h1>
                 </section>
-							
+
 							<div class="col-md-12">
 							<div class="col-md-6">
 									<form role="form">
@@ -105,16 +105,16 @@
                 <section class="content">
 
                     <div class="col-md-12 event_json">
-											
+
 											<div class="col-xs-12">
                             <div class="box">
-															
+
 														<ul class="nav nav-tabs" role="tablist">
 															<li class="active"><a href="#approved" role="tab" data-toggle="tab">Approved <span class="badge badge-success">{{approvedArtistsNum}}</span></a></li>
 															<li><a href="#pending" role="tab" data-toggle="tab">Pending <span class="badge badge-warning">{{pendingArtistsNum}}</span></a></li>
 														</ul>
-															
-															
+
+
 														<!-- Tab panes -->
 														<div class="tab-content">
 															<div class="tab-pane active" id="approved">
@@ -126,24 +126,24 @@
 																					  <th>Event</th>
                                             <th>Email</th>
                                             <th>Status</th>
-                                            
+
                                         </tr>
 																				{{#each approvedArtists}}
                                         <tr>
 																					<td>{{user_token}}</td>
-                                            <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}" 
-																									 data-artwork_1="{{artwork_1}}" 
-																									 data-artwork_2="{{artwork_2}}" 
-																									 data-artwork_3="{{artwork_3}}" 
-																									 data-photo="{{photo}}" 
+                                            <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}"
+																									 data-artwork_1="{{artwork_1}}"
+																									 data-artwork_2="{{artwork_2}}"
+																									 data-artwork_3="{{artwork_3}}"
+																									 data-photo="{{photo}}"
 																									 data-genre="{{genre}}"
-																									 data-age="{{age}}" 
-																									 data-email="{{email}}" 
-																									 data-tickets={{tickets}} 
+																									 data-age="{{age}}"
+																									 data-email="{{email}}"
+																									 data-tickets={{tickets}}
 																									 data-events="{{events}}"
-																									 data-url="{{url}}" 
-																									 data-full_name="{{full_name}}" 
-																									 data-user_token="{{user_token}}" 
+																									 data-url="{{url}}"
+																									 data-full_name="{{full_name}}"
+																									 data-user_token="{{user_token}}"
 																									 data-user_password="{{password}}"
 																									 data-approved="{{approved}}">{{full_name}}</a></td>
 																					  <td>{{event_name}}</td>
@@ -151,14 +151,14 @@
                                             <td>{{{label}}}</td>
                                             </tr>
 																				{{/each}}
-                                           
+
                                     </tbody></table>
                                 </div><!-- /.box-body -->
-															
+
 															</div>
-															
-															
-															
+
+
+
 															<div class="tab-pane" id="pending">
 																	<div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
@@ -168,24 +168,24 @@
 																					  <th>Event</th>
                                             <th>Email</th>
                                             <th>Status</th>
-                                            
+
                                         </tr>
 																				{{#each pendingArtists}}
                                         <tr>
 																					<td>{{user_token}}</td>
-                                            <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}" 
-																									 data-artwork_1="{{artwork_1}}" 
-																									 data-artwork_2="{{artwork_2}}" 
-																									 data-artwork_3="{{artwork_3}}" 
-																									 data-photo="{{photo}}" 
+                                            <td><a class="artist_profile {{user_token}}" href="#" data-artwork_1="{{artwork_1}}"
+																									 data-artwork_1="{{artwork_1}}"
+																									 data-artwork_2="{{artwork_2}}"
+																									 data-artwork_3="{{artwork_3}}"
+																									 data-photo="{{photo}}"
 																									 data-genre="{{genre}}"
-																									 data-age="{{age}}" 
-																									 data-email="{{email}}" 
-																									 data-tickets={{tickets}} 
+																									 data-age="{{age}}"
+																									 data-email="{{email}}"
+																									 data-tickets={{tickets}}
 																									 data-events="{{events}}"
-																									 data-url="{{url}}" 
-																									 data-full_name="{{full_name}}" 
-																									 data-user_token="{{user_token}}" 
+																									 data-url="{{url}}"
+																									 data-full_name="{{full_name}}"
+																									 data-user_token="{{user_token}}"
 																									 data-user_password="{{password}}"
 																									 data-approved="{{approved}}">{{full_name}}</a></td>
 																					 <td>{{event_name}}</td>
@@ -193,16 +193,16 @@
                                             <td>{{{label}}}</td>
                                             </tr>
 																				{{/each}}
-                                           
+
                                     </tbody></table>
                                 </div><!-- /.box-body -->
 															</div>
 														</div>
-															
-															
-															
-															
-															
+
+
+
+
+
 
 
                             </div><!-- /.box -->
@@ -213,10 +213,10 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-			
-			
+
+
 			<div id="artistModal" class="modal fade">
-				
+
 				<div class="row user-menu-container square">
         <div class="col-md-12 user-details">
             <div class="row coralbg">
@@ -225,7 +225,7 @@
                         <h3 class="name"></h3>
                         <h4 class="event"><i class="fa fa-check-circle-o" style="color: green;"></i> attending <em><strong></strong></em> </h4>
 											<h4 class="email">Email: <strong></strong></h4>
-											<h4 class="">Password: <span class="password"></span></h4>
+											<!-- <h4 class="">Password: <span class="password"></span></h4> -->
 											 <h4 class="genre">Genre: <strong></strong></h4>
 											<h4 class="artwork">Artwork: <strong></strong></h4>
 											 <h4 class="url">Website: <strong></strong></h4>
@@ -263,9 +263,9 @@
         </div>
 
         </div></div>
-    
 
-			
+
+
 
         <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -277,7 +277,7 @@
         <!-- AdminLTE App -->
         <script src="/conception/js/jquery.quicksearch.js" type="text/javascript"></script>
         <script src="/conception/js/app.js" type="text/javascript"></script>
-			
+
 
 
     </body>
