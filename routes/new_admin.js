@@ -107,7 +107,7 @@ module.exports = function (router, passport, db) {
     }, (err, people) => {
       if (err || !people) console.log(err);
 
-      res.render('admin/event', {
+      res.render('admin/artists', {
         sortedArtists: people,
       });
     });
