@@ -20,7 +20,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.admin_authenticated) {
     return next();
   }
-  res.redirect('/admin');
+  res.redirect('/');
 }
 
 function updateStatus(token, status) {
