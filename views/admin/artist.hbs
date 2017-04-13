@@ -234,7 +234,7 @@ function goBack() {
 //         });
 
 
-    $(document).on('click', '.checkboxSwitch', function() {
+    $(document).on('click', '.checkboxSwitch', function(e) {
 
       var event_id = $(this).val();
       var user = $('input[name=user_token]').val();

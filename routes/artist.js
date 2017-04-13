@@ -2,23 +2,23 @@ const randtoken = require('rand-token');
 const email = require('../email');
 const getOrders = require('../models/get_orders');
 const getEventsOnEventbrite = require('../models/get_events');
-const getArtist_ticket = require('../models/get_artist_sold_all');
+const getArtistTicket = require('../models/get_artist_sold_all');
 const AWS = require('aws-sdk');
 
 function ensureAuthenticated(req, res, next) {
   if (req.session && req.session.authenticated) {
     return next();
   }
-  res.redirect('/login');
+  return res.redirect('/login');
 }
 
-function deleteFile(file_name) {
+function deleteFile(fileName) {
   AWS.config.region = 'us-west-2';
 
   const s3obj = new AWS.S3({
     params: {
       Bucket: 'artistworks',
-      Key: `artists_images/${file_name}`,
+      Key: `artists_images/${fileName}`,
       Prefix: 'artists_images',
       ACL: 'public-read',
     },
@@ -31,10 +31,11 @@ function deleteFile(file_name) {
 }
 
 function addhttp(url) {
-  if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-    url = `http://${url}`;
+  let urlStruct = url;
+  if (!/^(?:f|ht)tps?:\/\//.test(urlStruct)) {
+    urlStruct = `http://${urlStruct}`;
   }
-  return url;
+  return urlStruct;
 }
 
 function profileEventsTpl(date, eventid, status, title) {
@@ -45,7 +46,7 @@ function profileEventsTpl(date, eventid, status, title) {
   return html;
 }
 
-module.exports = function (router, db) {
+module.exports = (router, passport, db) => {
   // view user profile ==============================
   router.get('/artist/:user_token', (req, res) => {
     db.artists.findOne({
@@ -55,7 +56,6 @@ module.exports = function (router, db) {
         console.log(err);
         res.redirect('/');
       } else {
-        const eventlist = [];
         let turnOnTicketButton = false;
         let buyUrl;
         getEventsOnEventbrite((events) => {
@@ -106,9 +106,9 @@ module.exports = function (router, db) {
 
 
   router.get('/artist_orders', (req, res) => {
-    const event_id = req.query.event;
+    const eventId = req.query.event;
 
-    getOrders(event_id, (orders) => {
+    getOrders(eventId, (orders) => {
       res.send(orders);
     });
   });
@@ -122,7 +122,6 @@ module.exports = function (router, db) {
 
 
   router.post('/artist_attendingevent', (req, res) => {
-    console.log(req.body.user, req.body.event_id);
     if (req.session.authenticated || req.session.admin_authenticated) {
       db.artists.update({
         user_token: req.body.user,
@@ -131,14 +130,12 @@ module.exports = function (router, db) {
           events: parseInt(req.body.event_id, 10),
         },
       }, (err, updateduser) => {
-        console.log(updateduser);
         res.send(updateduser);
       });
     }
   });
 
   router.post('/artist_not_attendingevent', (req, res) => {
-    console.log(req.body.user, req.body.event_id);
     if (req.session.authenticated || req.session.admin_authenticated) {
       db.artists.update({
         user_token: req.body.user,
@@ -147,7 +144,6 @@ module.exports = function (router, db) {
           events: parseInt(req.body.event_id, 10),
         },
       }, (err, updateduser) => {
-        console.log(updateduser);
         res.send(updateduser);
       });
     }
@@ -268,7 +264,7 @@ module.exports = function (router, db) {
         },
       },
       new: true,
-    }, (err, doc, lastErrObj) => {
+    }, (err, doc) => {
       if (err) {
         console.log(err);
       } else {
@@ -285,7 +281,7 @@ module.exports = function (router, db) {
 
   // handles editing of artist profile =======================
   router.post('/artist_update', ensureAuthenticated, (req, res) => {
-    if (req.url == '/artist_update') {
+    if (req.url === '/artist_update') {
       const objForUpdate = {};
 
       if (req.files.artwork_1) {
@@ -343,11 +339,7 @@ module.exports = function (router, db) {
   });
 
   router.get('/get_artist_ticket', (req, res) => {
-    console.log(req.query.user_token);
-
-    getArtist_ticket(req.query.user_token, (user) => {
-      console.log(user.tickets);
-
+    getArtistTicket(req.query.user_token, (user) => {
       res.json(user.tickets);
     });
   });
