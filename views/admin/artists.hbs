@@ -23,6 +23,10 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/AdminLTE/dist/css/skins/_all-skins.min.css">
 
+    <link rel="stylesheet" href="/dist/fixed-data-table-base.min.css">
+    <link rel="stylesheet" href="/dist/fixed-data-table-style.min.css">
+    <link rel="stylesheet" href="/dist/fixed-data-table.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,6 +42,10 @@
   <style>
   #example1_filter input{
     width: 400px;
+  }
+  .griddle-filter{
+    float: none!important;
+    margin: 5px auto;
   }
   </style>
   </head>
@@ -106,9 +114,9 @@
 						  <div class="box">
                 <div class="box-header">
                 </div><!-- /.box-header -->
-
-                <div class="box-body">
-                  <table id="example1" class="table table-bordered table-hover" style="font-size:15px;">
+                 <h2 class="text-center">Search For Artist</h2>
+                <div class="box-body" id="artist-table">
+                  <!-- <table id="example1" class="table table-bordered table-hover" style="font-size:15px;">
                     <thead>
                       <tr>
                         <th>Artist_name</th>
@@ -118,6 +126,7 @@
                         <th>Approved</th>
 											  <th>Status 2</th>
 												<th>Notes</th>
+                        <th>Events</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -130,10 +139,11 @@
                         <td>{{approved}}</td>
                         <td>{{record.status_2}}</td>
 												<td>{{record.notes}}</td>
+                        <td>event</td>
                       </tr>
 										 {{/each}}
                     </tbody>
-                  </table>
+                  </table> -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
           </div><!-- /.box -->
@@ -160,28 +170,36 @@
     <script src="/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
 
 		    <!-- DataTables -->
-    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script> -->
 
     <!-- SlimScroll -->
-    <script src="/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- <script src="/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script> -->
     <!-- FastClick -->
     <script src="/AdminLTE/plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/AdminLTE/dist/js/app.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/griddle-react/0.8.1/Griddle.min.js"></script>
 
-
-		<script>
-      $(function () {
-				$("#example1").DataTable({
-        //  "paging": true,
-        //  "lengthChange": false,
-          //"searching": false,
-          //"ordering": true,
-          //"info": true,
-          //"autoWidth": true,
-        });
-      });
+<script>
+    var decodedJson = decodeURIComponent("{{{sortedArtists}}}");
+    var artists = JSON.parse(decodedJson);
+    //  var artists = "{{sortedArtists}}"
+      // $(function () {
+			// 	$("#example1").DataTable({
+      //   //  "paging": true,
+      //   //  "lengthChange": false,
+      //     //"searching": false,
+      //     //"ordering": true,
+      //     //"info": true,
+      //     //"autoWidth": true,
+      //   });
+      // });
     </script>
+
+    <script src="/js/artists_table.js"></script>
   </body>
 </html>

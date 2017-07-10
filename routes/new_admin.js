@@ -100,15 +100,17 @@ module.exports = function (router, passport, db) {
 
 
   router.get('/artists', ensureAuthenticated, (req, res) => {
-    const artistArr = [];
-
-    db.artists.find({}).sort({
-      _id: -1,
+    db.artists.find({}, {
+      full_name: 1,
+      email: 1,
+      approved: 1,
+      genre: 1,
+      user_token: 1,
     }, (err, people) => {
       if (err || !people) console.log(err);
 
       res.render('admin/artists', {
-        sortedArtists: people,
+        sortedArtists: encodeURIComponent(JSON.stringify(people)),
       });
     });
   });
