@@ -111,7 +111,6 @@ class FilterArtist extends React.Component {
   componentWillMount() {
     axios.get(`${BASE_URL}/all_artists/${showId}`)
   .then((res) => {
-    console.log(res.data);
     this.setState({ artists: res.data });
   })
   .catch(err => console.log(err));

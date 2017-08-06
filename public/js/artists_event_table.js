@@ -172,7 +172,6 @@ var FilterArtist = function (_React$Component3) {
       var _this6 = this;
 
       axios.get(BASE_URL + '/all_artists/' + showId).then(function (res) {
-        console.log(res.data);
         _this6.setState({ artists: res.data });
       }).catch(function (err) {
         return console.log(err);
