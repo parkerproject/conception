@@ -13,7 +13,8 @@
     "url": ""
   },
   "scripts": {
-    "build": "babel --presets es2015,react --watch ./artists_table.js --out-dir ./public/js"
+    "build": "babel --presets es2015,react --watch ./artists_table.js --out-dir ./public/js",
+    "build2": "babel --presets es2015,react --watch ./artists_event_table.js --out-dir ./public/js"
   },
   "homepage": "http://www.conceptionevents.com/",
   "repository": {

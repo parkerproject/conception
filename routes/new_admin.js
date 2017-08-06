@@ -61,39 +61,11 @@ module.exports = function (router, passport, db) {
   });
 
   router.get('/event/:id', ensureAuthenticated, (req, res) => {
-    const event_id = parseInt(req.params.id);
-    const artistArr = [];
-
-    db.artists.find({
-      events: event_id,
-    }).sort({
-      _id: -1,
-    }, (err, people) => {
-      if (err || !people) console.log(err);
-
-      db.artists_record.find({
-        event_id: String(event_id),
-      }, (err, records) => {
-        if (err) console.log(err);
-
-        people.forEach((person) => {
-          records.forEach((record) => {
-            if (record.user_token === person.user_token && record.event_id === String(event_id)) {
-              person.record = record;
-            }
-            artistArr.push(people);
-            //  if (people.record) console.log(people.record.booker)
-          });
-        });
-
-        getEventOnEventbrite(event_id, (event) => {
-          res.render('admin/event', {
-            title: JSON.parse(event).event.title,
-            start_date: JSON.parse(event).event.start_date,
-            sortedArtists: people,
-            event_id,
-          });
-        });
+    const eventId = parseInt(req.params.id);
+    getEventOnEventbrite(eventId, (event) => {
+      res.render('admin/event', {
+        title: JSON.parse(event).event.title,
+        start_date: JSON.parse(event).event.start_date,
       });
     });
   });

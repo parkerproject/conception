@@ -36,9 +36,18 @@
 <!-- End of conceptionevents Zendesk Widget script -->
 
   <style>
-  #example1_filter input{
-    width: 400px;
-  }
+   .griddle-container table{
+     table-layout: auto!important;
+   }
+
+   .griddle-container table td{
+     border-bottom: 1px solid #ccc;
+   }
+
+   .griddle-filter{
+     float: none!important;
+     margin: 10px auto;
+   }
   </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -103,39 +112,12 @@
               </div>
             </div>
 
-						  <div class="box">
-                <div class="box-header">
-                </div><!-- /.box-header -->
-
-                <div class="box-body">
-                  <table id="example1" class="table table-bordered table-hover" style="font-size:15px;">
-                    <thead>
-                      <tr>
-                        <th>Artist_name</th>
-                        <th>Email</th>
-                        <th>Genre</th>
-                        <th>Booker</th>
-                        <th>Approved</th>
-											  <th>Status 2</th>
-												<th>Notes</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                     {{#each sortedArtists}}
-                      <tr>
-                        <td><a href="/{{../event_id}}/artist/{{user_token}}">{{full_name}}</a></td>
-                        <td>{{email}}</td>
-                        <td style="text-transform: capitalize;">{{genre}}</td>
-                        <td>{{record.booker}}</td>
-                        <td>{{approved}}</td>
-                        <td>{{record.status_2}}</td>
-												<td>{{record.notes}}</td>
-                      </tr>
-										 {{/each}}
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+            <div class="box">
+              <div class="box-header">
+              </div><!-- /.box-header -->
+               <!-- <h2 class="text-center">Search For Artist</h2> -->
+              <div class="box-body" id="artist-event-table"></div>
+            </div><!-- /.box -->
           </div><!-- /.box -->
 
         </section><!-- /.content -->
@@ -159,9 +141,6 @@
     <!-- Bootstrap 3.3.5 -->
     <script src="/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
 
-		    <!-- DataTables -->
-    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
     <!-- SlimScroll -->
     <script src="/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
@@ -169,19 +148,11 @@
     <script src="/AdminLTE/plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/AdminLTE/dist/js/app.min.js"></script>
-
-
-		<script>
-      $(function () {
-				$("#example1").DataTable({
-        //  "paging": true,
-        //  "lengthChange": false,
-          //"searching": false,
-          //"ordering": true,
-          //"info": true,
-          //"autoWidth": true,
-        });
-      });
-    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/griddle-react/0.8.1/Griddle.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script src="/js/artists_event_table.js"></script>
   </body>
 </html>
