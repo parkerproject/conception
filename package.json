@@ -13,8 +13,8 @@
     "url": ""
   },
   "scripts": {
-    "build": "babel --presets es2015,react --watch ./artists_table.js --out-dir ./public/js",
-    "build2": "babel --presets es2015,react --watch ./artists_event_table.js --out-dir ./public/js"
+    "build": "babel --presets es2015,es2017,react --watch ./artists_table.js --out-dir ./public/js",
+    "build2": "babel --presets es2015,es2017,react --watch ./artists_event_table.js --out-dir ./public/js"
   },
   "homepage": "http://www.conceptionevents.com/",
   "repository": {
@@ -71,9 +71,16 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

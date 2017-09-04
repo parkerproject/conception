@@ -78,6 +78,7 @@ module.exports = function (router, passport, db) {
       approved: 1,
       genre: 1,
       user_token: 1,
+      events: 1,
     }, (err, people) => {
       if (err || !people) console.log(err);
 
